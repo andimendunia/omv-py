@@ -11,7 +11,9 @@ import wx
 import wx.xrc
 import wx.adv
 import wx.grid
-import sqlite3
+import sqlite3g
+
+#test
 
 ###########################################################################
 ## Class dgColSelector
