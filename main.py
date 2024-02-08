@@ -26,8 +26,11 @@ class frameMain(frMain):
         #Format tanggal dan waktu bergerak
         currentTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
-        # Update waktu bergerak ke stTime
-        self.stTime.SetLabel(currentTime)
+        # Update waktu bergerak ke status bar
+        self.sbMain.SetStatusText("Ready", 0)
+        self.sbMain.SetStatusText("COM3", 1)
+        self.sbMain.SetStatusText("BAUD 9600", 2)
+        self.sbMain.SetStatusText(currentTime, 3)
         
     def btnHomeColOnClick(self, event):
         # Buka dialog pilih warna
@@ -40,17 +43,21 @@ class frameMain(frMain):
 
     def btnOpSaveOnClick(self, event):
         name = self.tcOpName.GetValue().strip()
-        # Check if the name already exists in the database
-        c.execute("SELECT * FROM operators WHERE LOWER(name) = LOWER(?)", (name,))
-        if c.fetchone():
-            # If the name exists, show a message box and do not insert
-            wx.MessageBox(f"Name '{name}' already exists.", "Error", wx.OK | wx.ICON_ERROR)
+        if not len(name) > 0:
+            wx.MessageBox(f"Name cannot be empty.", "Error", wx.OK | wx.ICON_ERROR)
         else:
-            # If the name does not exist, insert it into the database
-            c.execute("INSERT INTO operators (name) VALUES (?)", (name,))
-            conn.commit()
-            # Show a success message
-            wx.MessageBox(f"Name '{name}' successfully saved", "Saved", wx.OK | wx.ICON_INFORMATION)
+            # Check if the name already exists in the database
+            c.execute("SELECT * FROM operators WHERE LOWER(name) = LOWER(?)", (name,))
+            if c.fetchone():
+                # If the name exists, show a message box and do not insert
+                wx.MessageBox(f"Name '{name}' already exists.", "Error", wx.OK | wx.ICON_ERROR)
+            else:
+                # If the name does not exist, insert it into the database
+                c.execute("INSERT INTO operators (name) VALUES (?)", (name,))
+                conn.commit()
+                # Show a success message
+                wx.MessageBox(f"Name '{name}' successfully saved", "Saved", wx.OK | wx.ICON_INFORMATION)
+            
 
 class MainApp(wx.App):
     def OnInit(self):

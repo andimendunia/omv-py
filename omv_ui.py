@@ -25,9 +25,8 @@ class dgColors ( wx.Dialog ):
 
 		bSizer2 = wx.BoxSizer( wx.VERTICAL )
 
-		tabColSelectorChoices = [ u"WHITE", u"COLOR", u"CLEAR", u"BLACK & COLOR", u"LOGO", u"REGRIND", u"WHITE REGRIND", u"WHITE", u"COLOR", u"CLEAR", u"BLACK & COLOR", u"LOGO", u"REGRIND", u"WHITE REGRIND" ]
+		tabColSelectorChoices = [ u"WHITE", u"COLOR", u"CLEAR", u"BLACK & COLOR", u"LOGO", u"REGRIND", u"WHITE REGRIND" ]
 		self.tabColSelector = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, tabColSelectorChoices, 0 )
-		self.tabColSelector.SetFont( wx.Font( 20, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Unicode MS" ) )
 		self.tabColSelector.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
 		bSizer2.Add( self.tabColSelector, 1, wx.ALL|wx.EXPAND, 5 )
@@ -60,10 +59,9 @@ class dgColors ( wx.Dialog ):
 class frMain ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Open Mill Process Validator", pos = wx.DefaultPosition, size = wx.Size( 1169,721 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Open Mill Process Validator", pos = wx.DefaultPosition, size = wx.Size( 1169,748 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
-		self.SetFont( wx.Font( 10, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_LIGHT, False, "Bahnschrift Light Condensed" ) )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 
 		bSizer29 = wx.BoxSizer( wx.VERTICAL )
@@ -72,61 +70,31 @@ class frMain ( wx.Frame ):
 
 		bSizer36 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_notebook9 = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_notebook9.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-		self.m_notebook9.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
+		self.nbMain = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.nbMain.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 
-		self.panHome = wx.Panel( self.m_notebook9, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.panHome.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
+		self.panHome = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panHome.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
 		bSizer162 = wx.BoxSizer( wx.VERTICAL )
 
 		bSizer531 = wx.BoxSizer( wx.VERTICAL )
 
-		self.pageStep = wx.Panel( self.panHome, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.pageStep.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
+		self.panForm = wx.Panel( self.panHome, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.panForm.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
 		bSizer30 = wx.BoxSizer( wx.HORIZONTAL )
 
-		bSizer73 = wx.BoxSizer( wx.VERTICAL )
-
-
-		bSizer73.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		bSizer60 = wx.BoxSizer( wx.VERTICAL )
-
-		self.stTime = wx.StaticText( self.pageStep, wx.ID_ANY, u"2024-01-01 13:00:00", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.stTime.Wrap( -1 )
-
-		self.stTime.SetFont( wx.Font( 14, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Consolas" ) )
-		self.stTime.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
-
-		bSizer60.Add( self.stTime, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
-
-
-		bSizer73.Add( bSizer60, 0, wx.EXPAND, 5 )
-
-
-		bSizer73.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-
-		bSizer30.Add( bSizer73, 1, wx.EXPAND, 5 )
-
 		page_group1 = wx.BoxSizer( wx.VERTICAL )
 
-		self.groupMain = wx.StaticText( self.pageStep, wx.ID_ANY, u"Group", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.groupMain = wx.StaticText( self.panForm, wx.ID_ANY, u"Group", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.groupMain.Wrap( -1 )
-
-		self.groupMain.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		page_group1.Add( self.groupMain, 0, wx.ALL, 5 )
 
 		choiceGroupMainChoices = [ u"A", u"B", u"C" ]
-		self.choiceGroupMain = wx.Choice( self.pageStep, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, choiceGroupMainChoices, 0 )
+		self.choiceGroupMain = wx.Choice( self.panForm, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, choiceGroupMainChoices, 0 )
 		self.choiceGroupMain.SetSelection( 0 )
-		self.choiceGroupMain.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		page_group1.Add( self.choiceGroupMain, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -134,18 +102,14 @@ class frMain ( wx.Frame ):
 
 		page_op1 = wx.BoxSizer( wx.VERTICAL )
 
-		self.op1Main = wx.StaticText( self.pageStep, wx.ID_ANY, u"Operator 1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.op1Main = wx.StaticText( self.panForm, wx.ID_ANY, u"Operator 1", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.op1Main.Wrap( -1 )
-
-		self.op1Main.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		page_op1.Add( self.op1Main, 0, wx.ALL, 5 )
 
 		cbOp1MainChoices = [ u"riski", u"lia", u"dianah", u"jelsi", u"bella", u"dio", u"edwin", u"mustofa" ]
-		self.cbOp1Main = wx.ComboBox( self.pageStep, wx.ID_ANY, u"lia", wx.DefaultPosition, wx.DefaultSize, cbOp1MainChoices, 0 )
+		self.cbOp1Main = wx.ComboBox( self.panForm, wx.ID_ANY, u"lia", wx.DefaultPosition, wx.DefaultSize, cbOp1MainChoices, 0 )
 		self.cbOp1Main.SetSelection( 1 )
-		self.cbOp1Main.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		page_op1.Add( self.cbOp1Main, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -153,17 +117,13 @@ class frMain ( wx.Frame ):
 
 		page_op2 = wx.BoxSizer( wx.VERTICAL )
 
-		self.op2Main = wx.StaticText( self.pageStep, wx.ID_ANY, u"Operator 2", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.op2Main = wx.StaticText( self.panForm, wx.ID_ANY, u"Operator 2", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.op2Main.Wrap( -1 )
-
-		self.op2Main.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		page_op2.Add( self.op2Main, 0, wx.ALL, 5 )
 
 		cbOp2MainChoices = []
-		self.cbOp2Main = wx.ComboBox( self.pageStep, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cbOp2MainChoices, 0 )
-		self.cbOp2Main.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
+		self.cbOp2Main = wx.ComboBox( self.panForm, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cbOp2MainChoices, 0 )
 		page_op2.Add( self.cbOp2Main, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -171,18 +131,14 @@ class frMain ( wx.Frame ):
 
 		bSizer3 = wx.BoxSizer( wx.VERTICAL )
 
-		self.lineMain = wx.StaticText( self.pageStep, wx.ID_ANY, u"Line", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.lineMain = wx.StaticText( self.panForm, wx.ID_ANY, u"Line", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.lineMain.Wrap( -1 )
-
-		self.lineMain.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		bSizer3.Add( self.lineMain, 0, wx.ALL, 5 )
 
 		choiceLineMainChoices = [ u"1", u"2", u"3", u"4", u"5", u"6", u"7", u"8", u"9" ]
-		self.choiceLineMain = wx.ComboBox( self.pageStep, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, choiceLineMainChoices, 0 )
+		self.choiceLineMain = wx.ComboBox( self.panForm, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, choiceLineMainChoices, 0 )
 		self.choiceLineMain.SetSelection( 0 )
-		self.choiceLineMain.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer3.Add( self.choiceLineMain, 0, wx.ALL, 5 )
 
 
@@ -190,16 +146,12 @@ class frMain ( wx.Frame ):
 
 		bSizer40 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText36 = wx.StaticText( self.pageStep, wx.ID_ANY, u"No Batch", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText36 = wx.StaticText( self.panForm, wx.ID_ANY, u"No Batch", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText36.Wrap( -1 )
-
-		self.m_staticText36.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		bSizer40.Add( self.m_staticText36, 0, wx.ALL, 5 )
 
-		self.m_textCtrl2 = wx.TextCtrl( self.pageStep, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_textCtrl2.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
+		self.m_textCtrl2 = wx.TextCtrl( self.panForm, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer40.Add( self.m_textCtrl2, 0, wx.ALL, 5 )
 
 
@@ -207,15 +159,13 @@ class frMain ( wx.Frame ):
 
 		bSizer41 = wx.BoxSizer( wx.VERTICAL )
 
-		self.latestBatch1 = wx.Panel( self.pageStep, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.latestBatch1 = wx.Panel( self.panForm, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.latestBatch1.SetBackgroundColour( wx.Colour( 237, 231, 217 ) )
 
 		bSizer65 = wx.BoxSizer( wx.VERTICAL )
 
 		self.latestBatch = wx.StaticText( self.latestBatch1, wx.ID_ANY, u"Latest batch", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.latestBatch.Wrap( -1 )
-
-		self.latestBatch.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		bSizer65.Add( self.latestBatch, 0, wx.ALL, 5 )
 
@@ -224,8 +174,6 @@ class frMain ( wx.Frame ):
 
 		self.resultLatestBatch = wx.StaticText( self.latestBatch1, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.resultLatestBatch.Wrap( -1 )
-
-		self.resultLatestBatch.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 
 		bSizer65.Add( self.resultLatestBatch, 0, wx.EXPAND, 5 )
 
@@ -242,10 +190,10 @@ class frMain ( wx.Frame ):
 		bSizer30.Add( bSizer41, 0, wx.ALL|wx.EXPAND, 5 )
 
 
-		self.pageStep.SetSizer( bSizer30 )
-		self.pageStep.Layout()
-		bSizer30.Fit( self.pageStep )
-		bSizer531.Add( self.pageStep, 0, wx.ALL|wx.EXPAND, 0 )
+		self.panForm.SetSizer( bSizer30 )
+		self.panForm.Layout()
+		bSizer30.Fit( self.panForm )
+		bSizer531.Add( self.panForm, 0, wx.ALL|wx.EXPAND, 0 )
 
 
 		bSizer162.Add( bSizer531, 0, wx.EXPAND, 5 )
@@ -255,7 +203,6 @@ class frMain ( wx.Frame ):
 		bSizer472 = wx.BoxSizer( wx.VERTICAL )
 
 		self.panColMain = wx.Panel( self.panHome, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.panColMain.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.panColMain.SetBackgroundColour( wx.Colour( 237, 231, 217 ) )
 
 		bSizer123 = wx.BoxSizer( wx.VERTICAL )
@@ -263,7 +210,6 @@ class frMain ( wx.Frame ):
 		self.ColMain = wx.StaticText( self.panColMain, wx.ID_ANY, u"COLOR", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL|wx.BORDER_DEFAULT )
 		self.ColMain.Wrap( -1 )
 
-		self.ColMain.SetFont( wx.Font( 24, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Rounded MT Bold" ) )
 		self.ColMain.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
 		self.ColMain.SetBackgroundColour( wx.Colour( 75, 66, 55 ) )
 
@@ -273,7 +219,6 @@ class frMain ( wx.Frame ):
 		bSizer123.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 		self.btnHomeCol = wx.Button( self.panColMain, wx.ID_ANY, u"WHITE", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.btnHomeCol.SetFont( wx.Font( 20, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Rounded MT Bold" ) )
 		self.btnHomeCol.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
 		bSizer123.Add( self.btnHomeCol, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
@@ -319,8 +264,6 @@ class frMain ( wx.Frame ):
 		self.BaudRate = wx.StaticText( self.panHome, wx.ID_ANY, u"Baud Rate", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.BaudRate.Wrap( -1 )
 
-		self.BaudRate.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		gSizer7.Add( self.BaudRate, 0, wx.ALL, 5 )
 
 		choiceBaudRateChoices = []
@@ -330,8 +273,6 @@ class frMain ( wx.Frame ):
 
 		self.Port = wx.StaticText( self.panHome, wx.ID_ANY, u"Port", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.Port.Wrap( -1 )
-
-		self.Port.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		gSizer7.Add( self.Port, 1, wx.ALL, 5 )
 
@@ -353,8 +294,6 @@ class frMain ( wx.Frame ):
 		self.StatusLoad = wx.StaticText( self.panHome, wx.ID_ANY, u"Status Load", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.StatusLoad.Wrap( -1 )
 
-		self.StatusLoad.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer58.Add( self.StatusLoad, 1, wx.ALL|wx.EXPAND, 5 )
 
 		self.btnStatusLoad = wx.Button( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -375,14 +314,10 @@ class frMain ( wx.Frame ):
 		self.TotalTimeAct = wx.StaticText( self.panHome, wx.ID_ANY, u"Total Time Act", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.TotalTimeAct.Wrap( -1 )
 
-		self.TotalTimeAct.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer581.Add( self.TotalTimeAct, 1, wx.ALL|wx.EXPAND, 5 )
 
 		self.inpTotalTimeAct = wx.StaticText( self.panHome, wx.ID_ANY, u"00.00", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.inpTotalTimeAct.Wrap( -1 )
-
-		self.inpTotalTimeAct.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 
 		bSizer581.Add( self.inpTotalTimeAct, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -399,14 +334,10 @@ class frMain ( wx.Frame ):
 		self.TimeTolerance = wx.StaticText( self.panHome, wx.ID_ANY, u"Time Tolerance", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.TimeTolerance.Wrap( -1 )
 
-		self.TimeTolerance.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer551.Add( self.TimeTolerance, 1, wx.ALL|wx.EXPAND, 5 )
 
 		self.inpTimeTolerance = wx.StaticText( self.panHome, wx.ID_ANY, u"00.00", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.inpTimeTolerance.Wrap( -1 )
-
-		self.inpTimeTolerance.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 
 		bSizer551.Add( self.inpTimeTolerance, 0, wx.ALL, 5 )
 
@@ -435,7 +366,6 @@ class frMain ( wx.Frame ):
 		self.Step1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"STEP 1", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.Step1.Wrap( -1 )
 
-		self.Step1.SetFont( wx.Font( 24, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Rounded MT Bold" ) )
 		self.Step1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
 		self.Step1.SetBackgroundColour( wx.Colour( 75, 66, 55 ) )
 
@@ -448,8 +378,6 @@ class frMain ( wx.Frame ):
 
 		self.processStep1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"Masukkan material sebanyak 15 kg. Kemudian prsoes roll selama 120 detik (2 menit).\n\n\n", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
 		self.processStep1.Wrap( 150 )
-
-		self.processStep1.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Rounded MT Bold" ) )
 
 		bSizer75.Add( self.processStep1, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
@@ -476,7 +404,6 @@ class frMain ( wx.Frame ):
 		self.Next1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"NEXT", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.Next1.Wrap( -1 )
 
-		self.Next1.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 		self.Next1.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
 		self.Next1.SetBackgroundColour( wx.Colour( 66, 62, 55 ) )
 
@@ -488,7 +415,6 @@ class frMain ( wx.Frame ):
 		self.actTime1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"00.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.actTime1.Wrap( -1 )
 
-		self.actTime1.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 		self.actTime1.SetForegroundColour( wx.Colour( 115, 107, 96 ) )
 
 		bSizer61112.Add( self.actTime1, 0, wx.ALL|wx.EXPAND, 5 )
@@ -498,8 +424,6 @@ class frMain ( wx.Frame ):
 
 		self.stdTime1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"04.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.stdTime1.Wrap( -1 )
-
-		self.stdTime1.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 
 		bSizer61112.Add( self.stdTime1, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -525,7 +449,6 @@ class frMain ( wx.Frame ):
 		self.Step2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"STEP 2", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.Step2.Wrap( -1 )
 
-		self.Step2.SetFont( wx.Font( 24, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Rounded MT Bold" ) )
 		self.Step2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
 		self.Step2.SetBackgroundColour( wx.Colour( 75, 66, 55 ) )
 
@@ -538,8 +461,6 @@ class frMain ( wx.Frame ):
 
 		self.processStep2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"Masukkan material sebanyak 15 kg, tambahkan pigment Regrind, Akselerator dan Sulfur. Kemudian proses roll selama 240 detik (4 menit)", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
 		self.processStep2.Wrap( 150 )
-
-		self.processStep2.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Rounded MT Bold" ) )
 
 		bSizer751.Add( self.processStep2, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
@@ -565,7 +486,6 @@ class frMain ( wx.Frame ):
 		self.Next2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"NEXT", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.Next2.Wrap( -1 )
 
-		self.Next2.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 		self.Next2.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
 		self.Next2.SetBackgroundColour( wx.Colour( 66, 62, 55 ) )
 
@@ -577,7 +497,6 @@ class frMain ( wx.Frame ):
 		self.actTime2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"00.00", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.actTime2.Wrap( -1 )
 
-		self.actTime2.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 		self.actTime2.SetForegroundColour( wx.Colour( 255, 0, 0 ) )
 
 		bSizer61111.Add( self.actTime2, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -587,8 +506,6 @@ class frMain ( wx.Frame ):
 
 		self.stdTime2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"04.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.stdTime2.Wrap( -1 )
-
-		self.stdTime2.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 
 		bSizer61111.Add( self.stdTime2, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -614,7 +531,6 @@ class frMain ( wx.Frame ):
 		self.Step3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"STEP 3", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.Step3.Wrap( -1 )
 
-		self.Step3.SetFont( wx.Font( 24, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Rounded MT Bold" ) )
 		self.Step3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
 		self.Step3.SetBackgroundColour( wx.Colour( 75, 66, 55 ) )
 
@@ -630,8 +546,6 @@ class frMain ( wx.Frame ):
 
 		self.processStep3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"Masukkan campuran material sebanyak 45 kg. Tambahkan rework sebanyak 30%, lalu proses roll selama 660 detik. Jumlah total waktu yang dipakai 1020 detik (17 menit).\n", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
 		self.processStep3.Wrap( 170 )
-
-		self.processStep3.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Rounded MT Bold" ) )
 
 		bSizer52.Add( self.processStep3, 1, wx.ALL|wx.EXPAND, 5 )
 
@@ -649,7 +563,6 @@ class frMain ( wx.Frame ):
 		self.Next3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"FINISH", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.Next3.Wrap( -1 )
 
-		self.Next3.SetFont( wx.Font( 14, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 		self.Next3.SetForegroundColour( wx.Colour( 255, 255, 255 ) )
 		self.Next3.SetBackgroundColour( wx.Colour( 66, 62, 55 ) )
 
@@ -661,7 +574,6 @@ class frMain ( wx.Frame ):
 		self.actNext3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"00.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.actNext3.Wrap( -1 )
 
-		self.actNext3.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 		self.actNext3.SetForegroundColour( wx.Colour( 115, 107, 96 ) )
 
 		bSizer6111.Add( self.actNext3, 0, wx.ALL|wx.EXPAND, 5 )
@@ -671,8 +583,6 @@ class frMain ( wx.Frame ):
 
 		self.stdTime3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"04.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.stdTime3.Wrap( -1 )
-
-		self.stdTime3.SetFont( wx.Font( 12, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_BOLD, False, "Arial" ) )
 
 		bSizer6111.Add( self.stdTime3, 0, wx.ALL|wx.EXPAND, 5 )
 
@@ -695,8 +605,8 @@ class frMain ( wx.Frame ):
 		self.panHome.SetSizer( bSizer162 )
 		self.panHome.Layout()
 		bSizer162.Fit( self.panHome )
-		self.m_notebook9.AddPage( self.panHome, u"Home", False )
-		self.panHistory = wx.Panel( self.m_notebook9, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.nbMain.AddPage( self.panHome, u"Home", True )
+		self.panHistory = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panHistory.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
 		bSizer69 = wx.BoxSizer( wx.HORIZONTAL )
@@ -705,8 +615,6 @@ class frMain ( wx.Frame ):
 
 		self.groupHistory = wx.StaticText( self.panHistory, wx.ID_ANY, u"Group", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.groupHistory.Wrap( -1 )
-
-		self.groupHistory.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
 		bSizer70.Add( self.groupHistory, 0, wx.ALL, 5 )
 
@@ -728,33 +636,23 @@ class frMain ( wx.Frame ):
 		self.startDt1 = wx.StaticText( self.panHistory, wx.ID_ANY, u"Start Date", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.startDt1.Wrap( -1 )
 
-		self.startDt1.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer70.Add( self.startDt1, 0, wx.ALL, 5 )
 
 		self.calStartDt1 = wx.adv.DatePickerCtrl( self.panHistory, wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.DP_DEFAULT )
-		self.calStartDt1.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer70.Add( self.calStartDt1, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.finishDt1 = wx.StaticText( self.panHistory, wx.ID_ANY, u"Finish Date", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.finishDt1.Wrap( -1 )
 
-		self.finishDt1.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer70.Add( self.finishDt1, 0, wx.ALL, 5 )
 
 		self.calFinishDt1 = wx.adv.DatePickerCtrl( self.panHistory, wx.ID_ANY, wx.DefaultDateTime, wx.DefaultPosition, wx.DefaultSize, wx.adv.DP_DEFAULT )
-		self.calFinishDt1.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer70.Add( self.calFinishDt1, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_staticline1 = wx.StaticLine( self.panHistory, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL|wx.LI_VERTICAL )
 		bSizer70.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
 
 		self.btnSave1 = wx.Button( self.panHistory, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.btnSave1.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
 		bSizer70.Add( self.btnSave1, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -762,56 +660,8 @@ class frMain ( wx.Frame ):
 
 		bSizer71 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.tabHistory = wx.grid.Grid( self.panHistory, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-
-		# Grid
-		self.tabHistory.CreateGrid( 1000, 11 )
-		self.tabHistory.EnableEditing( True )
-		self.tabHistory.EnableGridLines( True )
-		self.tabHistory.EnableDragGridSize( False )
-		self.tabHistory.SetMargins( 0, 0 )
-
-		# Columns
-		self.tabHistory.SetColSize( 0, 160 )
-		self.tabHistory.SetColSize( 1, 160 )
-		self.tabHistory.SetColSize( 2, 160 )
-		self.tabHistory.SetColSize( 3, 160 )
-		self.tabHistory.SetColSize( 4, 160 )
-		self.tabHistory.SetColSize( 5, 160 )
-		self.tabHistory.SetColSize( 6, 160 )
-		self.tabHistory.SetColSize( 7, 160 )
-		self.tabHistory.SetColSize( 8, 160 )
-		self.tabHistory.SetColSize( 9, 160 )
-		self.tabHistory.SetColSize( 10, 160 )
-		self.tabHistory.EnableDragColMove( False )
-		self.tabHistory.EnableDragColSize( True )
-		self.tabHistory.SetColLabelValue( 0, u"Group" )
-		self.tabHistory.SetColLabelValue( 1, u"Operator 1" )
-		self.tabHistory.SetColLabelValue( 2, u"Operator 2" )
-		self.tabHistory.SetColLabelValue( 3, u"Color" )
-		self.tabHistory.SetColLabelValue( 4, u"Start Date" )
-		self.tabHistory.SetColLabelValue( 5, u"Finish Date" )
-		self.tabHistory.SetColLabelValue( 6, u"Total Duration Batch" )
-		self.tabHistory.SetColLabelValue( 7, u"Status" )
-		self.tabHistory.SetColLabelValue( 8, u"Validation Step 1" )
-		self.tabHistory.SetColLabelValue( 9, u"Validation Step 2" )
-		self.tabHistory.SetColLabelValue( 10, u"Validation Step 3" )
-		self.tabHistory.SetColLabelSize( wx.grid.GRID_AUTOSIZE )
-		self.tabHistory.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
-
-		# Rows
-		self.tabHistory.AutoSizeRows()
-		self.tabHistory.EnableDragRowSize( False )
-		self.tabHistory.SetRowLabelSize( 1 )
-		self.tabHistory.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
-
-		# Label Appearance
-
-		# Cell Defaults
-		self.tabHistory.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-		self.tabHistory.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
-
-		bSizer71.Add( self.tabHistory, 1, wx.ALIGN_CENTER|wx.ALL|wx.EXPAND, 5 )
+		self.m_listCtrl1 = wx.ListCtrl( self.panHistory, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_LIST )
+		bSizer71.Add( self.m_listCtrl1, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer69.Add( bSizer71, 1, wx.EXPAND, 5 )
@@ -820,8 +670,8 @@ class frMain ( wx.Frame ):
 		self.panHistory.SetSizer( bSizer69 )
 		self.panHistory.Layout()
 		bSizer69.Fit( self.panHistory )
-		self.m_notebook9.AddPage( self.panHistory, u"History", False )
-		self.panSummary = wx.Panel( self.m_notebook9, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.nbMain.AddPage( self.panHistory, u"History", False )
+		self.panSummary = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panSummary.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
 		bSizer45 = wx.BoxSizer( wx.HORIZONTAL )
@@ -912,7 +762,6 @@ class frMain ( wx.Frame ):
 		# Cell Defaults
 		self.tabSummary.SetDefaultCellFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, wx.EmptyString ) )
 		self.tabSummary.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-		self.tabSummary.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 		self.tabSummary.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
 		bSizer47.Add( self.tabSummary, 0, wx.ALL|wx.EXPAND, 5 )
@@ -924,8 +773,8 @@ class frMain ( wx.Frame ):
 		self.panSummary.SetSizer( bSizer45 )
 		self.panSummary.Layout()
 		bSizer45.Fit( self.panSummary )
-		self.m_notebook9.AddPage( self.panSummary, u"Summary", False )
-		self.panRecipes = wx.Panel( self.m_notebook9, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.nbMain.AddPage( self.panSummary, u"Summary", False )
+		self.panRecipes = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panRecipes.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
 		bSizer119 = wx.BoxSizer( wx.VERTICAL )
@@ -970,35 +819,79 @@ class frMain ( wx.Frame ):
 		self.panRecipes.SetSizer( bSizer119 )
 		self.panRecipes.Layout()
 		bSizer119.Fit( self.panRecipes )
-		self.m_notebook9.AddPage( self.panRecipes, u"Recipes", False )
-		self.panOperator = wx.Panel( self.m_notebook9, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.nbMain.AddPage( self.panRecipes, u"Recipes", False )
+		self.panOperator = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panOperator.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
-		bSizer582 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer582 = wx.BoxSizer( wx.VERTICAL )
 
-		bSizer601 = wx.BoxSizer( wx.VERTICAL )
+		bSizer66 = wx.BoxSizer( wx.HORIZONTAL )
+
+		gSizer6 = wx.GridSizer( 0, 2, 0, 0 )
+
+		bSizer68 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_grid5 = wx.grid.Grid( self.panOperator, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+
+		# Grid
+		self.m_grid5.CreateGrid( 18, 1 )
+		self.m_grid5.EnableEditing( True )
+		self.m_grid5.EnableGridLines( True )
+		self.m_grid5.EnableDragGridSize( False )
+		self.m_grid5.SetMargins( 0, 0 )
+
+		# Columns
+		self.m_grid5.SetColSize( 0, 203 )
+		self.m_grid5.EnableDragColMove( False )
+		self.m_grid5.EnableDragColSize( True )
+		self.m_grid5.SetColLabelValue( 0, u"Name Operators" )
+		self.m_grid5.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+		# Rows
+		self.m_grid5.EnableDragRowSize( True )
+		self.m_grid5.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+		# Label Appearance
+
+		# Cell Defaults
+		self.m_grid5.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
+		bSizer68.Add( self.m_grid5, 1, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer6.Add( bSizer68, 1, wx.EXPAND, 5 )
+
+		bSizer691 = wx.BoxSizer( wx.VERTICAL )
 
 		self.tcOpName = wx.TextCtrl( self.panOperator, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer601.Add( self.tcOpName, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer691.Add( self.tcOpName, 0, wx.ALL|wx.EXPAND, 5 )
+
+		bSizer711 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.m_button26 = wx.Button( self.panOperator, wx.ID_ANY, u"Delete", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer711.Add( self.m_button26, 1, wx.ALL, 5 )
 
 		self.btnOpSave = wx.Button( self.panOperator, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer601.Add( self.btnOpSave, 0, wx.ALL, 5 )
+		bSizer711.Add( self.btnOpSave, 1, wx.ALL, 5 )
 
 
-		bSizer582.Add( bSizer601, 1, wx.EXPAND, 5 )
-
-		bSizer61 = wx.BoxSizer( wx.VERTICAL )
+		bSizer691.Add( bSizer711, 1, wx.EXPAND, 5 )
 
 
-		bSizer582.Add( bSizer61, 1, wx.EXPAND, 5 )
+		gSizer6.Add( bSizer691, 1, wx.EXPAND, 5 )
+
+
+		bSizer66.Add( gSizer6, 1, wx.EXPAND, 5 )
+
+
+		bSizer582.Add( bSizer66, 1, wx.EXPAND, 5 )
 
 
 		self.panOperator.SetSizer( bSizer582 )
 		self.panOperator.Layout()
 		bSizer582.Fit( self.panOperator )
-		self.m_notebook9.AddPage( self.panOperator, u"Operators", True )
+		self.nbMain.AddPage( self.panOperator, u"Operators", False )
 
-		bSizer36.Add( self.m_notebook9, 1, wx.ALL|wx.EXPAND, 10 )
+		bSizer36.Add( self.nbMain, 1, wx.ALL|wx.EXPAND, 10 )
 
 
 		bSizer35.Add( bSizer36, 1, wx.EXPAND, 5 )
@@ -1009,7 +902,7 @@ class frMain ( wx.Frame ):
 
 		self.SetSizer( bSizer29 )
 		self.Layout()
-		self.m_statusBar2 = self.CreateStatusBar( 1, wx.STB_SIZEGRIP, wx.ID_ANY )
+		self.sbMain = self.CreateStatusBar( 4, wx.STB_SIZEGRIP, wx.ID_ANY )
 
 		self.Centre( wx.BOTH )
 
