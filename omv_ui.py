@@ -11,30 +11,60 @@ import wx
 import wx.xrc
 import wx.adv
 import wx.grid
-import sqlite3g
-
-#test
 
 ###########################################################################
 ## Class dgColSelector
 ###########################################################################
 
-conn = sqlite3.connect('omv.db')
-cursor = conn.cursor()
-cursor.execute('''CREATE TABLE IF NOT EXISTS names (name TEXT)''')
-conn.commit()
+class dgColSelector ( wx.Dialog ):
+
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Select color", pos = wx.DefaultPosition, size = wx.Size( 671,400 ), style = wx.DEFAULT_DIALOG_STYLE )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+
+		bSizer2 = wx.BoxSizer( wx.VERTICAL )
+
+		tabColSelectorChoices = [ u"WHITE", u"COLOR", u"CLEAR", u"BLACK & COLOR", u"LOGO", u"REGRIND", u"WHITE REGRIND" ]
+		self.tabColSelector = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, tabColSelectorChoices, 0 )
+		self.tabColSelector.SetFont( wx.Font( 20, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial Unicode MS" ) )
+		self.tabColSelector.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
+
+		bSizer2.Add( self.tabColSelector, 1, wx.ALL|wx.EXPAND, 5 )
+
+		self.btnColSelector = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer2.Add( self.btnColSelector, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		self.SetSizer( bSizer2 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+
+		# Connect Events
+		self.btnColSelector.Bind( wx.EVT_BUTTON, self.btn_colorOnButtonClick )
+
+	def __del__( self ):
+		pass
+
+
+	# Virtual event handlers, override them in your derived class
+	def btn_colorOnButtonClick( self, event ):
+		event.Skip()
+
+
+###########################################################################
+## Class frMain
+###########################################################################
 
 class frMain ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Open Mill Process Validator", pos = wx.DefaultPosition, size = wx.Size( 692,474 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Open Mill Process Validator", pos = wx.DefaultPosition, size = wx.Size( 1169,525 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetFont( wx.Font( 10, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_LIGHT, False, "Bahnschrift Light Condensed" ) )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
-
-		self.conn = sqlite3.connect('omv.db')
-		self.cursor = self.conn.cursor()
 
 		bSizer29 = wx.BoxSizer( wx.VERTICAL )
 
@@ -61,26 +91,24 @@ class frMain ( wx.Frame ):
 
 		bSizer73 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText40 = wx.StaticText( self.pageStep, wx.ID_ANY, u"01/02/2024", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
-		self.m_staticText40.Wrap( -1 )
 
-		self.m_staticText40.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Britannic Bold" ) )
-		self.m_staticText40.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+		bSizer73.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		bSizer73.Add( self.m_staticText40, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer60 = wx.BoxSizer( wx.VERTICAL )
 
-		bSizer74 = wx.BoxSizer( wx.VERTICAL )
+		self.stTime = wx.StaticText( self.pageStep, wx.ID_ANY, u"2024-01-01 13:00:00", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stTime.Wrap( -1 )
 
-		self.m_staticText42 = wx.StaticText( self.pageStep, wx.ID_ANY, u"11:12:43", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
-		self.m_staticText42.Wrap( -1 )
+		self.stTime.SetFont( wx.Font( 14, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Consolas" ) )
+		self.stTime.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
-		self.m_staticText42.SetFont( wx.Font( 16, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Britannic Bold" ) )
-		self.m_staticText42.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-
-		bSizer74.Add( self.m_staticText42, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer60.Add( self.stTime, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
 
-		bSizer73.Add( bSizer74, 1, wx.EXPAND, 5 )
+		bSizer73.Add( bSizer60, 0, wx.EXPAND, 5 )
+
+
+		bSizer73.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 
 		bSizer30.Add( bSizer73, 1, wx.EXPAND, 5 )
@@ -440,8 +468,8 @@ class frMain ( wx.Frame ):
 
 		self.btnCam1 = wx.BitmapButton( self.panStep1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
 
-		self.btnCam1.SetBitmap( wx.Bitmap( u"C:\\Users\\DELL\\Downloads\\omv\\icon camera.png", wx.BITMAP_TYPE_ANY ) )
-		self.btnCam1.SetBitmapDisabled( wx.Bitmap( u"C:\\Users\\DELL\\Downloads\\omv\\icon camera.png", wx.BITMAP_TYPE_ANY ) )
+		self.btnCam1.SetBitmap( wx.Bitmap( u"resources/cam_32x32.png", wx.BITMAP_TYPE_ANY ) )
+		self.btnCam1.SetBitmapDisabled( wx.NullBitmap )
 		self.btnCam1.SetBitmapCurrent( wx.NullBitmap )
 		bSizer61112.Add( self.btnCam1, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
@@ -530,7 +558,7 @@ class frMain ( wx.Frame ):
 
 		self.btnCam2 = wx.BitmapButton( self.panStep2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
 
-		self.btnCam2.SetBitmap( wx.Bitmap( u"C:\\Users\\DELL\\Downloads\\omv\\icon camera.png", wx.BITMAP_TYPE_ANY ) )
+		self.btnCam2.SetBitmap( wx.Bitmap( u"resources/cam_32x32.png", wx.BITMAP_TYPE_ANY ) )
 		self.btnCam2.SetBitmapDisabled( wx.NullBitmap )
 		bSizer61111.Add( self.btnCam2, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
@@ -614,7 +642,7 @@ class frMain ( wx.Frame ):
 
 		self.btnCam3 = wx.BitmapButton( self.panStep3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
 
-		self.btnCam3.SetBitmap( wx.Bitmap( u"C:\\Users\\DELL\\Downloads\\omv\\icon camera.png", wx.BITMAP_TYPE_ANY ) )
+		self.btnCam3.SetBitmap( wx.Bitmap( u"resources/cam_32x32.png", wx.BITMAP_TYPE_ANY ) )
 		self.btnCam3.SetBitmapDisabled( wx.NullBitmap )
 		bSizer6111.Add( self.btnCam3, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
@@ -667,7 +695,7 @@ class frMain ( wx.Frame ):
 		self.pageMain.SetSizer( bSizer162 )
 		self.pageMain.Layout()
 		bSizer162.Fit( self.pageMain )
-		self.m_notebook9.AddPage( self.pageMain, u"Main", False )
+		self.m_notebook9.AddPage( self.pageMain, u"Main", True )
 		self.pageHistory = wx.Panel( self.m_notebook9, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.pageHistory.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
 
@@ -783,7 +811,7 @@ class frMain ( wx.Frame ):
 		self.tabHistory.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
 		self.tabHistory.SetFont( wx.Font( 11, wx.FONTFAMILY_SWISS, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL, False, "Arial" ) )
 
-		bSizer71.Add( self.tabHistory, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer71.Add( self.tabHistory, 1, wx.ALIGN_CENTER|wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer69.Add( bSizer71, 1, wx.EXPAND, 5 )
@@ -927,45 +955,6 @@ class frMain ( wx.Frame ):
 
 		bSizer1231 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_grid6 = wx.grid.Grid( self.panRecipes, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.BORDER_SUNKEN )
-
-		# Grid
-		self.m_grid6.CreateGrid( 3, 3 )
-		self.m_grid6.EnableEditing( True )
-		self.m_grid6.EnableGridLines( True )
-		self.m_grid6.SetGridLineColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BACKGROUND ) )
-		self.m_grid6.EnableDragGridSize( False )
-		self.m_grid6.SetMargins( 0, 0 )
-
-		# Columns
-		self.m_grid6.SetColSize( 0, 235 )
-		self.m_grid6.SetColSize( 1, 235 )
-		self.m_grid6.SetColSize( 2, 235 )
-		self.m_grid6.EnableDragColMove( False )
-		self.m_grid6.EnableDragColSize( True )
-		self.m_grid6.SetColLabelValue( 0, u"Step 1" )
-		self.m_grid6.SetColLabelValue( 1, u"Step 2" )
-		self.m_grid6.SetColLabelValue( 2, u"Step 3" )
-		self.m_grid6.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
-
-		# Rows
-		self.m_grid6.SetRowSize( 0, 150 )
-		self.m_grid6.SetRowSize( 1, 60 )
-		self.m_grid6.SetRowSize( 2, 60 )
-		self.m_grid6.EnableDragRowSize( True )
-		self.m_grid6.SetRowLabelValue( 0, u"Description" )
-		self.m_grid6.SetRowLabelValue( 1, u"Time" )
-		self.m_grid6.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
-
-		# Label Appearance
-
-		# Cell Defaults
-		self.m_grid6.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
-		self.m_grid6.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-		self.m_grid6.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-
-		bSizer1231.Add( self.m_grid6, 0, wx.ALL, 15 )
-
 
 		bSizer119.Add( bSizer1231, 1, wx.EXPAND, 5 )
 
@@ -1006,7 +995,7 @@ class frMain ( wx.Frame ):
 		self.m_grid5.SetColSize( 0, 203 )
 		self.m_grid5.EnableDragColMove( False )
 		self.m_grid5.EnableDragColSize( True )
-		self.m_grid5.SetColLabelValue( 0, u"Operator Name" )
+		self.m_grid5.SetColLabelValue( 0, u"Name Operators" )
 		self.m_grid5.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
 
 		# Rows
@@ -1026,8 +1015,6 @@ class frMain ( wx.Frame ):
 
 		self.m_textCtrl5 = wx.TextCtrl( self.panOperator, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer691.Add( self.m_textCtrl5, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.load_data()
 
 		bSizer711 = wx.BoxSizer( wx.HORIZONTAL )
 
@@ -1053,7 +1040,7 @@ class frMain ( wx.Frame ):
 		self.panOperator.SetSizer( bSizer582 )
 		self.panOperator.Layout()
 		bSizer582.Fit( self.panOperator )
-		self.m_notebook9.AddPage( self.panOperator, u"Operators", True )
+		self.m_notebook9.AddPage( self.panOperator, u"Operators", False )
 
 		bSizer36.Add( self.m_notebook9, 1, wx.ALL|wx.EXPAND, 10 )
 
@@ -1073,36 +1060,12 @@ class frMain ( wx.Frame ):
 		# Connect Events
 		self.op2Main.Bind( wx.EVT_CHAR, self.op2MainOnChar )
 		self.choiceLineMain.Bind( wx.EVT_COMBOBOX, self.choiceLineMainOnCombobox )
-		self.btnColMain.Bind( wx.EVT_BUTTON, self.btn_colorOnButtonClick )
+		self.btnColMain.Bind( wx.EVT_BUTTON, self.btnColMainOnClick )
 		self.btnConnect.Bind( wx.EVT_BUTTON, self.btn_connectOnButtonClick )
 		self.btnReset.Bind( wx.EVT_BUTTON, self.btn_resetOnButtonClick )
 		self.btnStatusLoad.Bind( wx.EVT_BUTTON, self.btn_indicatorOnButtonClick )
 		self.btnSave1.Bind( wx.EVT_BUTTON, self.btn_save1OnButtonClick )
-		self.m_button27.Bind(wx.EVT_BUTTON, self.create_operator)
-
-	def load_data(self):
-		# self.m_grid5.CreateGrid(0,0)
-		self.cursor.execute("SELECT * FROM names")
-		rows = self.cursor.fetchall()
-
-		self.m_grid5.ClearGrid()
-
-		self.m_grid5.AppendCols(len(rows[0]))
-		self.m_grid5.AppendRows(len(rows))
-
-		for i, row in enumerate(rows):
-			for j, value in enumerate(row):
-				self.m_grid5.SetCellValue(i, j, str(value))
-
-	def create_operator(self, event):
-		cursor.execute("INSERT INTO names (name) VALUES (?)", (self.m_textCtrl5.GetValue(),))
-		conn.commit()
-
-		cursor.close()
-		conn.close()
-
-		self.load_data()
-        
+		self.m_button27.Bind( wx.EVT_BUTTON, self.m_button27OnButtonClick )
 
 	def __del__( self ):
 		pass
@@ -1115,7 +1078,7 @@ class frMain ( wx.Frame ):
 	def choiceLineMainOnCombobox( self, event ):
 		event.Skip()
 
-	def btn_colorOnButtonClick( self, event ):
+	def btnColMainOnClick( self, event ):
 		event.Skip()
 
 	def btn_connectOnButtonClick( self, event ):
@@ -1130,11 +1093,56 @@ class frMain ( wx.Frame ):
 	def btn_save1OnButtonClick( self, event ):
 		event.Skip()
 
+	def m_button27OnButtonClick( self, event ):
+		event.Skip()
 
 
-	
-if __name__ == '__main__':
-	app = wx.App()
-	frame = frMain(None)
-	frame.Show()
-	app.MainLoop()
+###########################################################################
+## Class frLogin
+###########################################################################
+
+class frLogin ( wx.Frame ):
+
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Login", pos = wx.DefaultPosition, size = wx.Size( 500,350 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
+
+		bSizer1 = wx.BoxSizer( wx.VERTICAL )
+
+
+		bSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		self.password = wx.StaticText( self, wx.ID_ANY, u"Password", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.password.Wrap( -1 )
+
+		bSizer1.Add( self.password, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
+		self.inpPassword = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer1.Add( self.inpPassword, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
+		self.btnLogin = wx.Button( self, wx.ID_ANY, u"Login", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer1.Add( self.btnLogin, 0, wx.ALIGN_CENTER|wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+
+		bSizer1.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+		self.SetSizer( bSizer1 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+
+		# Connect Events
+		self.btnLogin.Bind( wx.EVT_BUTTON, self.btn_loginOnButtonClick )
+
+	def __del__( self ):
+		pass
+
+
+	# Virtual event handlers, override them in your derived class
+	def btn_loginOnButtonClick( self, event ):
+		event.Skip()
+
+
