@@ -19,20 +19,20 @@ import wx.grid
 class dgColors ( wx.Dialog ):
 
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Select color", pos = wx.DefaultPosition, size = wx.Size( 671,400 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Colors Selector", pos = wx.DefaultPosition, size = wx.Size( 671,400 ), style = wx.DEFAULT_DIALOG_STYLE )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
 		bSizer2 = wx.BoxSizer( wx.VERTICAL )
 
-		tabColSelectorChoices = [ u"WHITE", u"COLOR", u"CLEAR", u"BLACK & COLOR", u"LOGO", u"REGRIND", u"WHITE REGRIND" ]
-		self.tabColSelector = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, tabColSelectorChoices, 0 )
-		self.tabColSelector.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
+		lbDgColSelectChoices = [ u"WHITE", u"COLOR", u"CLEAR", u"BLACK & COLOR", u"LOGO", u"REGRIND", u"WHITE REGRIND" ]
+		self.lbDgColSelect = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, lbDgColSelectChoices, 0 )
+		self.lbDgColSelect.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_BTNFACE ) )
 
-		bSizer2.Add( self.tabColSelector, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer2.Add( self.lbDgColSelect, 1, wx.ALL|wx.EXPAND, 5 )
 
-		self.btnColSelector = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer2.Add( self.btnColSelector, 0, wx.ALL|wx.EXPAND, 5 )
+		self.btnDgColSelect = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer2.Add( self.btnDgColSelect, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		self.SetSizer( bSizer2 )
@@ -41,7 +41,7 @@ class dgColors ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
-		self.btnColSelector.Bind( wx.EVT_BUTTON, self.btn_colorOnButtonClick )
+		self.btnDgColSelect.Bind( wx.EVT_BUTTON, self.btn_colorOnButtonClick )
 
 	def __del__( self ):
 		pass
@@ -50,6 +50,184 @@ class dgColors ( wx.Dialog ):
 	# Virtual event handlers, override them in your derived class
 	def btn_colorOnButtonClick( self, event ):
 		event.Skip()
+
+
+###########################################################################
+## Class dgRecipe
+###########################################################################
+
+class dgRecipe ( wx.Dialog ):
+
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Recipe", pos = wx.DefaultPosition, size = wx.Size( 659,439 ), style = wx.DEFAULT_DIALOG_STYLE )
+
+		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+
+		bSizer60 = wx.BoxSizer( wx.VERTICAL )
+
+		gSizer17 = wx.GridSizer( 0, 2, 0, 0 )
+
+		bSizer77 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText62 = wx.StaticText( self, wx.ID_ANY, u"Color", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText62.Wrap( -1 )
+
+		bSizer77.Add( self.m_staticText62, 0, wx.ALL, 5 )
+
+		self.m_textCtrl19 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer77.Add( self.m_textCtrl19, 0, wx.ALL, 5 )
+
+
+		gSizer17.Add( bSizer77, 1, wx.EXPAND, 5 )
+
+		bSizer78 = wx.BoxSizer( wx.VERTICAL )
+
+
+		bSizer78.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		self.btnDgRecApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer78.Add( self.btnDgRecApply, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+
+
+		gSizer17.Add( bSizer78, 1, wx.EXPAND, 5 )
+
+
+		bSizer60.Add( gSizer17, 0, wx.EXPAND, 5 )
+
+		self.m_staticline3 = wx.StaticLine( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
+		bSizer60.Add( self.m_staticline3, 0, wx.EXPAND |wx.ALL, 5 )
+
+		bSizer64 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText49 = wx.StaticText( self, wx.ID_ANY, u"STEP 1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText49.Wrap( -1 )
+
+		bSizer64.Add( self.m_staticText49, 0, wx.ALL|wx.EXPAND, 5 )
+
+		gSizer8 = wx.GridSizer( 0, 2, 0, 0 )
+
+		bSizer62 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText46 = wx.StaticText( self, wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText46.Wrap( -1 )
+
+		bSizer62.Add( self.m_staticText46, 0, wx.ALL, 5 )
+
+		self.m_textCtrl7 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer62.Add( self.m_textCtrl7, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer8.Add( bSizer62, 0, wx.EXPAND, 5 )
+
+		bSizer63 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText47 = wx.StaticText( self, wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText47.Wrap( -1 )
+
+		bSizer63.Add( self.m_staticText47, 0, wx.ALL, 5 )
+
+		self.m_textCtrl8 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer63.Add( self.m_textCtrl8, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer8.Add( bSizer63, 0, wx.EXPAND, 5 )
+
+
+		bSizer64.Add( gSizer8, 1, wx.EXPAND, 5 )
+
+
+		bSizer60.Add( bSizer64, 0, wx.EXPAND, 5 )
+
+		bSizer65 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText50 = wx.StaticText( self, wx.ID_ANY, u"STEP 2", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText50.Wrap( -1 )
+
+		bSizer65.Add( self.m_staticText50, 0, wx.ALL|wx.EXPAND, 5 )
+
+		gSizer81 = wx.GridSizer( 0, 2, 0, 0 )
+
+		bSizer621 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText461 = wx.StaticText( self, wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText461.Wrap( -1 )
+
+		bSizer621.Add( self.m_staticText461, 0, wx.ALL, 5 )
+
+		self.m_textCtrl71 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer621.Add( self.m_textCtrl71, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer81.Add( bSizer621, 0, wx.EXPAND, 5 )
+
+		bSizer631 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText471 = wx.StaticText( self, wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText471.Wrap( -1 )
+
+		bSizer631.Add( self.m_staticText471, 0, wx.ALL, 5 )
+
+		self.m_textCtrl81 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer631.Add( self.m_textCtrl81, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer81.Add( bSizer631, 0, wx.EXPAND, 5 )
+
+
+		bSizer65.Add( gSizer81, 0, wx.EXPAND, 5 )
+
+
+		bSizer60.Add( bSizer65, 1, wx.EXPAND, 5 )
+
+		bSizer74 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText59 = wx.StaticText( self, wx.ID_ANY, u"STEP 3", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText59.Wrap( -1 )
+
+		bSizer74.Add( self.m_staticText59, 0, wx.ALL, 5 )
+
+		gSizer82 = wx.GridSizer( 0, 2, 0, 0 )
+
+		bSizer622 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText462 = wx.StaticText( self, wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText462.Wrap( -1 )
+
+		bSizer622.Add( self.m_staticText462, 0, wx.ALL, 5 )
+
+		self.m_textCtrl72 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer622.Add( self.m_textCtrl72, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer82.Add( bSizer622, 0, wx.EXPAND, 5 )
+
+		bSizer632 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText472 = wx.StaticText( self, wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText472.Wrap( -1 )
+
+		bSizer632.Add( self.m_staticText472, 0, wx.ALL, 5 )
+
+		self.m_textCtrl82 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer632.Add( self.m_textCtrl82, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		gSizer82.Add( bSizer632, 0, wx.EXPAND, 5 )
+
+
+		bSizer74.Add( gSizer82, 1, wx.EXPAND, 5 )
+
+
+		bSizer60.Add( bSizer74, 1, wx.EXPAND, 5 )
+
+
+		self.SetSizer( bSizer60 )
+		self.Layout()
+
+		self.Centre( wx.BOTH )
+
+	def __del__( self ):
+		pass
 
 
 ###########################################################################
@@ -108,8 +286,8 @@ class frMain ( wx.Frame ):
 		page_op1.Add( self.op1Main, 0, wx.ALL, 5 )
 
 		cbHomeOp1Choices = [ u"riski", u"lia", u"dianah", u"jelsi", u"bella", u"dio", u"edwin", u"mustofa" ]
-		self.cbHomeOp1 = wx.ComboBox( self.panForm, wx.ID_ANY, u"g", wx.DefaultPosition, wx.DefaultSize, cbHomeOp1Choices, 0 )
-		self.cbHomeOp1.SetSelection( 3 )
+		self.cbHomeOp1 = wx.ComboBox( self.panForm, wx.ID_ANY, u"dianah", wx.DefaultPosition, wx.DefaultSize, cbHomeOp1Choices, 0 )
+		self.cbHomeOp1.SetSelection( 2 )
 		page_op1.Add( self.cbHomeOp1, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -605,7 +783,7 @@ class frMain ( wx.Frame ):
 		self.panHome.SetSizer( bSizer162 )
 		self.panHome.Layout()
 		bSizer162.Fit( self.panHome )
-		self.nbMain.AddPage( self.panHome, u"Home", True )
+		self.nbMain.AddPage( self.panHome, u"Home", False )
 		self.panRecords = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panRecords.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -793,8 +971,8 @@ class frMain ( wx.Frame ):
 
 		bSizer122 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_button29 = wx.Button( self.panRecipes, wx.ID_ANY, u"+ Create New", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer122.Add( self.m_button29, 0, wx.ALIGN_RIGHT|wx.ALL, 15 )
+		self.btnRecNewCreate = wx.Button( self.panRecipes, wx.ID_ANY, u"+ Create New", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer122.Add( self.btnRecNewCreate, 0, wx.ALIGN_RIGHT|wx.ALL, 15 )
 
 
 		bSizer120.Add( bSizer122, 1, wx.EXPAND, 5 )
@@ -804,13 +982,16 @@ class frMain ( wx.Frame ):
 
 		bSizer1231 = wx.BoxSizer( wx.VERTICAL )
 
+		self.lcRecStep = wx.ListCtrl( self.panRecipes, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT )
+		bSizer1231.Add( self.lcRecStep, 1, wx.ALL|wx.EXPAND, 5 )
+
 
 		bSizer119.Add( bSizer1231, 1, wx.EXPAND, 5 )
 
 		bSizer124 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_button30 = wx.Button( self.panRecipes, wx.ID_ANY, u"Save Changes", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer124.Add( self.m_button30, 0, wx.ALIGN_RIGHT|wx.ALL, 15 )
+		self.btnRecSave = wx.Button( self.panRecipes, wx.ID_ANY, u"Save Changes", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer124.Add( self.btnRecSave, 0, wx.ALIGN_RIGHT|wx.ALL, 15 )
 
 
 		bSizer119.Add( bSizer124, 0, wx.EXPAND, 5 )
@@ -819,7 +1000,7 @@ class frMain ( wx.Frame ):
 		self.panRecipes.SetSizer( bSizer119 )
 		self.panRecipes.Layout()
 		bSizer119.Fit( self.panRecipes )
-		self.nbMain.AddPage( self.panRecipes, u"Recipes", False )
+		self.nbMain.AddPage( self.panRecipes, u"Recipes", True )
 		self.panOperator = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panOperator.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
