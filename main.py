@@ -10,7 +10,7 @@ os.environ['WXSUPPRESS_SIZER_FLAGS_CHECK'] = '1'
 conn = sqlite3.connect('omv.db')
 c = conn.cursor()
 c.execute('''CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY, name TEXT)''')
-# c.execute('''CREATE TABLE IF NOT EXISTS records (id INTEGER PRIMARY KEY, name TEXT)''')
+
 conn.commit()
 
 class frameMain(frMain):
