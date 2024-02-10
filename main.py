@@ -2,7 +2,7 @@ import wx
 import os
 import sqlite3
 from datetime import datetime
-from omv_ui import frMain, dgColors 
+from omv_ui import frMain, dgColors, dgRecipe
 
 os.environ['WXSUPPRESS_SIZER_FLAGS_CHECK'] = '1'
 
@@ -23,14 +23,23 @@ class frameMain(frMain):
         self.Bind(wx.EVT_TIMER, self.updateTime, self.timer)
         self.timer.Start(1000)
 
-        # wxListCtrl untuk nama-nama operator
-        self.lcOpNames.InsertColumn(0, "Name")
+        # Inisasi Recipes
+        self.lcRecRecipes.InsertColumn(0, "Color")
+        self.lcRecRecipes.InsertColumn(1, "Description 1")
+        self.lcRecRecipes.InsertColumn(2, "Time 1")
+        self.lcRecRecipes.InsertColumn(3, "Description 2")
+        self.lcRecRecipes.InsertColumn(4, "Time 2")
+        self.lcRecRecipes.InsertColumn(5, "Description 3")
+        self.lcRecRecipes.InsertColumn(6, "Time 3")
+
+        # Inisiasi Operators
+        self.lcOpOperators.InsertColumn(0, "Name")
         self.btnOpRefreshOnClick(self)
 
-        # Inisiasi Op
         self.OpIndexSelected = -1
         self.OpNameSelected = ""
         self.cbHomeOpUpdate()
+
 
     def updateTime(self, event):
         # Format tanggal dan waktu bergerak
@@ -42,7 +51,7 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("BAUD 9600", 2)
         self.sbMain.SetStatusText(currentTime, 3)
 
-#### KODE UNTUK TAB HOME ####
+#### KODE UNTUK TAB HOME
         
     def btnHomeColOnClick(self, event):
         # Buka dialog pilih warna
@@ -58,21 +67,34 @@ class frameMain(frMain):
         names = [item[0] for item in results]
         self.cbHomeOp1.Set(names)
         self.cbHomeOp2.Set(names)
+        self.cbHomeOp1.AutoComplete(names)
+        self.cbHomeOp2.AutoComplete(names)
 
 
-#### KODE UNTUK TAB HISTORY ####
+#### KODE UNTUK TAB RECORDS 
+        
+#### KODE UNTUK TAB SUMMARY
 
-#### KODE UNTUK TAB OPERATOR ####
+#### KODE UNTUK TAB RECIPES
+    def btnRecCreateOnButtonClick(self, event):
+        # Buka dialog editor resep
+        dialog = dgRecipe(self)
+        if dialog.ShowModal() == wx.ID_OK:
+            # jika OK
+            pass
+        dialog.Destroy()
+
+#### KODE UNTUK TAB OPERATORS
 
     def btnOpRefreshOnClick(self, event):
         results = self.getOpNames()
 
         # Clear the list control first
-        self.lcOpNames.DeleteAllItems()
+        self.lcOpOperators.DeleteAllItems()
 
         for i, row in enumerate(results):
             name = row[0]
-            index = self.lcOpNames.InsertItem(i, name)
+            index = self.lcOpOperators.InsertItem(i, name)
 
     def getOpNames(self):
         try:
@@ -82,11 +104,11 @@ class frameMain(frMain):
             wx.MessageBox(f"Error fetching data: {e}.", "Error", wx.OK | wx.ICON_ERROR)
             return []
    
-    def lcOpNamesOnListItemSelected(self, event):
+    def lcOpOperatorsOnListItemSelected(self, event):
         self.OpIndexSelected = event.GetIndex()
         if self.OpIndexSelected != -1:
             # Get selected item data (assuming "name" in column 0)
-            self.OpNameSelected = self.lcOpNames.GetItemText(self.OpIndexSelected, 0)
+            self.OpNameSelected = self.lcOpOperators.GetItemText(self.OpIndexSelected, 0)
 
     def btnOpDeleteOnClick(self, event):
         # Jika ada yang di pilih
@@ -111,7 +133,7 @@ class frameMain(frMain):
             conn.commit()
 
             # Remove item from list control after successful deletion
-            self.lcOpNames.DeleteItem(self.OpIndexSelected)
+            self.lcOpOperators.DeleteItem(self.OpIndexSelected)
             self.OpIndexSelected = -1  # Reset selected index
             self.cbHomeOpUpdate()
 
