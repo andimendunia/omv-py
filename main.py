@@ -1,4 +1,5 @@
 import wx
+import wx.svg
 import os
 import sqlite3
 from datetime import datetime
@@ -24,7 +25,7 @@ class frameMain(frMain):
         self.Bind(wx.EVT_TIMER, self.updateTime, self.timer)
         self.timer.Start(1000)
 
-        # Inisasi Kolom Recipes
+        # Inisasi kolom Recipes
         self.lcRecRecipes.InsertColumn(0, "Color")
         self.lcRecRecipes.InsertColumn(1, "Description 1", width=200)
         self.lcRecRecipes.InsertColumn(2, "Time 1")
@@ -149,6 +150,10 @@ class dialogColor(dgColor):
         self.lcColors.Append(["WHITE"])
         self.lcColors.Append(["BLACK"])
         self.lcColors.Append(["WHITE REGRIND"])
+
+        font = self.lcColors.GetFont()
+        font.SetPointSize(font.GetPointSize() + 6)  # Increase font size
+        self.lcColors.SetFont(font)
     
     def btnApplyOnButtonClick(self, event):
         
