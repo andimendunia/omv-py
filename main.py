@@ -2,7 +2,7 @@ import wx
 import os
 import sqlite3
 from datetime import datetime
-from omv_ui import frMain, dgColors, dgRecipe
+from omv_ui import frMain, dgColor, dgRecipe
 
 os.environ['WXSUPPRESS_SIZER_FLAGS_CHECK'] = '1'
 
@@ -15,6 +15,7 @@ conn.commit()
 
 class frameMain(frMain):
     def __init__(self, parent):
+
         # Insiasi parent class
         frMain.__init__(self, parent)
 
@@ -23,23 +24,19 @@ class frameMain(frMain):
         self.Bind(wx.EVT_TIMER, self.updateTime, self.timer)
         self.timer.Start(1000)
 
-        # Inisasi Recipes
+        # Inisasi Kolom Recipes
         self.lcRecRecipes.InsertColumn(0, "Color")
-        self.lcRecRecipes.InsertColumn(1, "Description 1")
+        self.lcRecRecipes.InsertColumn(1, "Description 1", width=200)
         self.lcRecRecipes.InsertColumn(2, "Time 1")
-        self.lcRecRecipes.InsertColumn(3, "Description 2")
+        self.lcRecRecipes.InsertColumn(3, "Description 2", width=200)
         self.lcRecRecipes.InsertColumn(4, "Time 2")
-        self.lcRecRecipes.InsertColumn(5, "Description 3")
+        self.lcRecRecipes.InsertColumn(5, "Description 3", width=200)
         self.lcRecRecipes.InsertColumn(6, "Time 3")
 
         # Inisiasi Operators
         self.lcOpOperators.InsertColumn(0, "Name")
         self.btnOpRefreshOnClick(self)
-
-        self.OpIndexSelected = -1
-        self.OpNameSelected = ""
         self.cbHomeOpUpdate()
-
 
     def updateTime(self, event):
         # Format tanggal dan waktu bergerak
@@ -55,7 +52,7 @@ class frameMain(frMain):
         
     def btnHomeColOnClick(self, event):
         # Buka dialog pilih warna
-        dialog = dgColors(self)
+        dialog = dialogColor(self)
         if dialog.ShowModal() == wx.ID_OK:
             # Eksekusi pilih warna ketika OK
             pass
@@ -65,10 +62,6 @@ class frameMain(frMain):
     def cbHomeOpUpdate(self):
         results = self.getOpNames()
         names = [item[0] for item in results]
-        self.cbHomeOp1.Set(names)
-        self.cbHomeOp2.Set(names)
-        self.cbHomeOp1.AutoComplete(names)
-        self.cbHomeOp2.AutoComplete(names)
 
 
 #### KODE UNTUK TAB RECORDS 
@@ -78,13 +71,23 @@ class frameMain(frMain):
 #### KODE UNTUK TAB RECIPES
     def btnRecCreateOnButtonClick(self, event):
         # Buka dialog editor resep
-        dialog = dgRecipe(self)
+        dialog = dialogRecipe(self)
         if dialog.ShowModal() == wx.ID_OK:
             # jika OK
             pass
         dialog.Destroy()
 
 #### KODE UNTUK TAB OPERATORS
+        
+    def btnOpCreateOnButtonClick(self, event):
+        message = """Create a new operator name
+
+1. Go to the Home tab.
+2. Type it in the "Operator 1" or "Operator 2" field.
+
+The app will remember the name if it doesn't already exist."""
+
+        wx.MessageBox(message, "Create a new name", wx.OK | wx.ICON_INFORMATION)
 
     def btnOpRefreshOnClick(self, event):
         results = self.getOpNames()
@@ -103,43 +106,70 @@ class frameMain(frMain):
         except sqlite3.Error as e:
             wx.MessageBox(f"Error fetching data: {e}.", "Error", wx.OK | wx.ICON_ERROR)
             return []
-   
-    def lcOpOperatorsOnListItemSelected(self, event):
-        self.OpIndexSelected = event.GetIndex()
-        if self.OpIndexSelected != -1:
-            # Get selected item data (assuming "name" in column 0)
-            self.OpNameSelected = self.lcOpOperators.GetItemText(self.OpIndexSelected, 0)
 
     def btnOpDeleteOnClick(self, event):
         # Jika ada yang di pilih
-        if self.OpIndexSelected != -1:
-            self.cfmOpDelete()
-            # Jika tidak ada yang di pilih
-        else:    
-            wx.MessageBox(f"No name selected.", "Error", wx.OK | wx.ICON_ERROR)
+        index = self.lcOpOperators.GetFirstSelected()
+        if index != -1:  # Ensure there is at least one selection
+            # Retrieve the text of the selected item(s)
+            name = self.lcOpOperators.GetItemText(index)
+            self.cfmOpDelete(name)
+        else:
+            wx.MessageBox(f"Please choose an operator name to delete.", "No name selected", wx.OK)
 
 
-    def cfmOpDelete(self):
+    def cfmOpDelete(self, name):
         dialog = wx.MessageDialog(self,
-                                f"Are you sure you want to delete '{self.OpNameSelected}'?",
-                                "Delete Confirmation",
+                                f"Are you sure you want to delete '{name}'?",
+                                "Delete confirmation",
                                 style=wx.YES_NO | wx.NO_DEFAULT)
         if dialog.ShowModal() == wx.ID_YES:
-            self.delOpName()
+            self.delOpName(name)
 
-    def delOpName(self):
+    def delOpName(self, name):
         try:
-            c.execute("DELETE FROM operators WHERE LOWER(name) = LOWER(?)", (self.OpNameSelected,))
+            c.execute("DELETE FROM operators WHERE LOWER(name) = LOWER(?)", (name,))
             conn.commit()
 
-            # Remove item from list control after successful deletion
-            self.lcOpOperators.DeleteItem(self.OpIndexSelected)
-            self.OpIndexSelected = -1  # Reset selected index
+            self.btnOpRefreshOnClick(self)
             self.cbHomeOpUpdate()
 
         except sqlite3.Error as e:
             wx.MessageBox(f"Error deleting item: {e}", "Error", wx.OK | wx.ICON_ERROR)
 
+class dialogColor(dgColor):
+    def __init__(self, parent):
+        
+        # Insiasi parent class
+        dgColor.__init__(self, parent)
+
+        self.lcColors.InsertColumn(0, "Colors")
+        width = self.GetSize().width - 40
+        self.lcColors.SetColumnWidth(0, width)
+        self.lcColors.Append(["WHITE"])
+        self.lcColors.Append(["BLACK"])
+        self.lcColors.Append(["WHITE REGRIND"])
+    
+    def btnApplyOnButtonClick(self, event):
+        
+        index = self.lcColors.GetFirstSelected()
+        if index != -1:  # Ensure there is at least one selection
+            # Retrieve the text of the selected item(s)
+            color = self.lcColors.GetItemText(index)
+            wx.MessageBox(f"Selected color: {color}", "Information")
+            self.EndModal(wx.ID_OK)
+        else:
+            wx.MessageBox(f"Please choose a color.", "No color selected", wx.OK)
+   
+
+class dialogRecipe(dgRecipe):
+    def __init__(self, parent):
+        
+        # Insiasi parent class
+        dgRecipe.__init__(self, parent)
+    
+    def btnSaveOnButtonClick(self, event):
+        self.EndModal(wx.ID_OK)
 
 #### MENYALAKAN APLIKASI ####            
 
