@@ -325,7 +325,7 @@ class frMain ( wx.Frame ):
 
 		bSizer401 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText361 = wx.StaticText( self.panHome, wx.ID_ANY, u"Latest batch", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText361 = wx.StaticText( self.panHome, wx.ID_ANY, u"Last batch", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText361.Wrap( -1 )
 
 		bSizer401.Add( self.m_staticText361, 0, wx.ALL, 5 )
@@ -392,9 +392,13 @@ class frMain ( wx.Frame ):
 		bSizer822 = wx.BoxSizer( wx.VERTICAL )
 
 		self.btnHomeCol = wx.Button( self.panColMain, wx.ID_ANY, u"WHITE", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
-		self.btnHomeCol.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
-
 		bSizer822.Add( self.btnHomeCol, 0, wx.ALIGN_CENTER|wx.ALL|wx.EXPAND, 5 )
+
+		self.btnStart = wx.Button( self.panColMain, wx.ID_ANY, u"Start", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer822.Add( self.btnStart, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+
+		self.btnEnd = wx.Button( self.panColMain, wx.ID_ANY, u"End", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer822.Add( self.btnEnd, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
 
 
 		bSizer822.Add( ( 0, 0), 1, wx.EXPAND, 5 )
@@ -590,9 +594,9 @@ class frMain ( wx.Frame ):
 
 		bSizer61112.Add( bSizer87, 1, wx.EXPAND, 5 )
 
-		self.m_gauge1 = wx.Gauge( self.panStep1, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
-		self.m_gauge1.SetValue( 100 )
-		bSizer61112.Add( self.m_gauge1, 0, wx.ALL|wx.EXPAND, 5 )
+		self.gHome1 = wx.Gauge( self.panStep1, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
+		self.gHome1.SetValue( 0 )
+		bSizer61112.Add( self.gHome1, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_button16 = wx.Button( self.panStep1, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
 		bSizer61112.Add( self.m_button16, 0, wx.ALL|wx.EXPAND, 5 )
@@ -664,7 +668,7 @@ class frMain ( wx.Frame ):
 
 		bSizer871.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		self.stHomeStdTime2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"02:00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
+		self.stHomeStdTime2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"00:00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.stHomeStdTime2.Wrap( -1 )
 
 		bSizer871.Add( self.stHomeStdTime2, 0, wx.ALIGN_BOTTOM|wx.ALIGN_RIGHT|wx.ALL, 5 )
@@ -672,9 +676,9 @@ class frMain ( wx.Frame ):
 
 		bSizer611121.Add( bSizer871, 1, wx.EXPAND, 5 )
 
-		self.m_gauge11 = wx.Gauge( self.panStep2, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
-		self.m_gauge11.SetValue( 50 )
-		bSizer611121.Add( self.m_gauge11, 0, wx.ALL|wx.EXPAND, 5 )
+		self.gHome2 = wx.Gauge( self.panStep2, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
+		self.gHome2.SetValue( 0 )
+		bSizer611121.Add( self.gHome2, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_button161 = wx.Button( self.panStep2, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
 		bSizer611121.Add( self.m_button161, 0, wx.ALL|wx.EXPAND, 5 )
@@ -746,7 +750,7 @@ class frMain ( wx.Frame ):
 
 		bSizer8711.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		self.stHomeStdTime3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"04:00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
+		self.stHomeStdTime3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"00:00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
 		self.stHomeStdTime3.Wrap( -1 )
 
 		bSizer8711.Add( self.stHomeStdTime3, 0, wx.ALIGN_BOTTOM|wx.ALIGN_RIGHT|wx.ALL, 5 )
@@ -754,9 +758,9 @@ class frMain ( wx.Frame ):
 
 		bSizer611122.Add( bSizer8711, 1, wx.EXPAND, 5 )
 
-		self.m_gauge12 = wx.Gauge( self.panStep3, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
-		self.m_gauge12.SetValue( 0 )
-		bSizer611122.Add( self.m_gauge12, 0, wx.ALL|wx.EXPAND, 5 )
+		self.gHome3 = wx.Gauge( self.panStep3, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
+		self.gHome3.SetValue( 0 )
+		bSizer611122.Add( self.gHome3, 0, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_button162 = wx.Button( self.panStep3, wx.ID_ANY, u"Finish", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
 		bSizer611122.Add( self.m_button162, 0, wx.ALL|wx.EXPAND, 5 )
@@ -1039,8 +1043,6 @@ class frMain ( wx.Frame ):
 
 		self.SetSizer( bSizer29 )
 		self.Layout()
-		self.m_timer1 = wx.Timer()
-		self.m_timer1.SetOwner( self, self.m_timer1.GetId() )
 		icoCamPath = "resources/camera.svg"
 		svgCam = wx.svg.SVGimage.CreateFromFile(icoCamPath)
 		bmCam = svgCam.ConvertToBitmap(width=24, height=24, scale=0.047)
@@ -1076,6 +1078,8 @@ class frMain ( wx.Frame ):
 
 		# Connect Events
 		self.btnHomeCol.Bind( wx.EVT_BUTTON, self.btnHomeColOnClick )
+		self.btnStart.Bind( wx.EVT_BUTTON, self.btnStartOnButtonClick )
+		self.btnEnd.Bind( wx.EVT_BUTTON, self.btnEndOnButtonClick )
 		self.btnConnect.Bind( wx.EVT_BUTTON, self.btn_connectOnButtonClick )
 		self.btnReset.Bind( wx.EVT_BUTTON, self.btn_resetOnButtonClick )
 		self.btnStatusLoad.Bind( wx.EVT_BUTTON, self.btn_indicatorOnButtonClick )
@@ -1092,6 +1096,12 @@ class frMain ( wx.Frame ):
 
 	# Virtual event handlers, override them in your derived class
 	def btnHomeColOnClick( self, event ):
+		event.Skip()
+
+	def btnStartOnButtonClick( self, event ):
+		event.Skip()
+
+	def btnEndOnButtonClick( self, event ):
 		event.Skip()
 
 	def btn_connectOnButtonClick( self, event ):

@@ -2,6 +2,7 @@ import wx
 import wx.svg
 import os
 import sqlite3
+import math
 from datetime import datetime
 from omv_ui import frMain, dgColor, dgRecipe
 
@@ -25,8 +26,11 @@ class frameMain(frMain):
         self.Bind(wx.EVT_TIMER, self.updateTime, self.timer)
         self.timer.Start(1000)
 
-        # Inisiasi font size
+        self.tBatchTsEnd1 = 0
+        self.tBatchTsEnd2 = 0
+        self.tBatchTsEnd3 = 0
 
+        # Inisiasi font size
         fontTime = self.stHomeTime1.GetFont()
         fontDesc = self.stHomeDesc1.GetFont()
         fontTime.SetPointSize(fontTime.GetPointSize() + 2)  
@@ -34,9 +38,9 @@ class frameMain(frMain):
         self.stHomeTime1.SetFont(fontTime)
         self.stHomeTime2.SetFont(fontTime)
         self.stHomeTime3.SetFont(fontTime)
-        self.stHomeStdTime1.SetFont(fontTime)
-        self.stHomeStdTime2.SetFont(fontTime)
-        self.stHomeStdTime3.SetFont(fontTime)
+        # self.stHomeStdTime1.SetFont(fontTime)
+        # self.stHomeStdTime2.SetFont(fontTime)
+        # self.stHomeStdTime3.SetFont(fontTime)
         self.stHomeDesc1.SetFont(fontDesc)
         self.stHomeDesc2.SetFont(fontDesc)
         self.stHomeDesc3.SetFont(fontDesc)
@@ -54,16 +58,50 @@ class frameMain(frMain):
         self.lcOpOperators.InsertColumn(0, "Name")
         self.btnOpRefreshOnClick(self)
         self.cbHomeOpUpdate()
+    
+    def formatTime(self, secs):
+        minutes = secs // 60
+        seconds = secs % 60
+        return f"{minutes:02d}:{seconds:02d}"
 
     def updateTime(self, event):
         # Format tanggal dan waktu bergerak
-        currentTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        now     = datetime.now()
+        nowStr  = now.strftime('%Y-%m-%d %H:%M:%S')
+        nowTs   = now.timestamp()
         
         # Update status bar yang di bawah
         self.sbMain.SetStatusText("Ready", 0)
         self.sbMain.SetStatusText("COM3", 1)
         self.sbMain.SetStatusText("BAUD 9600", 2)
-        self.sbMain.SetStatusText(currentTime, 3)
+        self.sbMain.SetStatusText(nowStr, 3)
+
+        # Update hitung mundur
+        if not self.tBatchTsEnd3 == 0:
+           
+            if nowTs < self.tBatchTsEnd1:
+                print('Step 1')
+                remaining = math.floor(self.tBatchTsEnd1 - nowTs)
+                elapsed = self.gHome1.GetRange() - remaining
+                self.stHomeStdTime1.SetLabel(self.formatTime(remaining))
+                self.gHome1.SetValue(elapsed)
+
+            elif nowTs < self.tBatchTsEnd2:
+                print('Step 2')
+                remaining = math.floor(self.tBatchTsEnd2 - nowTs)
+                elapsed = self.gHome2.GetRange() - remaining
+                self.stHomeStdTime2.SetLabel(self.formatTime(remaining))
+                self.gHome2.SetValue(elapsed)
+            
+            elif nowTs < self.tBatchTsEnd3:
+                print('Step 3')
+                remaining = math.floor(self.tBatchTsEnd3 - nowTs)
+                elapsed = self.gHome3.GetRange() - remaining
+                self.stHomeStdTime3.SetLabel(self.formatTime(remaining))
+                self.gHome3.SetValue(elapsed)
+            else:
+                self.tBatchTsEnd3 = 0
+
 
 #### KODE UNTUK TAB HOME
         
@@ -79,6 +117,32 @@ class frameMain(frMain):
     def cbHomeOpUpdate(self):
         results = self.getOpNames()
         names = [item[0] for item in results]
+
+    def btnStartOnButtonClick(self, event):
+        stdTime1 = 70
+        stdTime2 = 5
+        stdTime3 = 5
+
+        self.gHome1.SetRange(stdTime1)
+        self.gHome2.SetRange(stdTime2)
+        self.gHome3.SetRange(stdTime3)
+
+        self.gHome1.SetValue(0)
+        self.gHome2.SetValue(0)
+        self.gHome3.SetValue(0)
+
+        self.stHomeStdTime1.SetLabel(self.formatTime(stdTime1))
+        self.stHomeStdTime2.SetLabel(self.formatTime(stdTime2))
+        self.stHomeStdTime3.SetLabel(self.formatTime(stdTime3))
+
+        nowTs = datetime.now().timestamp()
+        self.tBatchTsEnd1 = nowTs + stdTime1
+        self.tBatchTsEnd2 = self.tBatchTsEnd1 + stdTime2
+        self.tBatchTsEnd3 = self.tBatchTsEnd2 + stdTime3
+
+    def btnEndOnButtonClick(self, event):
+        self.tBatchTsEnd3 = 0
+        print('Triggered')
 
 
 #### KODE UNTUK TAB RECORDS 
@@ -154,6 +218,7 @@ The app will remember the name if it doesn't already exist."""
         except sqlite3.Error as e:
             wx.MessageBox(f"Error deleting item: {e}", "Error", wx.OK | wx.ICON_ERROR)
 
+
 class dialogColor(dgColor):
     def __init__(self, parent):
         
@@ -181,6 +246,8 @@ class dialogColor(dgColor):
             self.EndModal(wx.ID_OK)
         else:
             wx.MessageBox(f"Please choose a color.", "No color selected", wx.OK)
+
+
    
 
 class dialogRecipe(dgRecipe):
