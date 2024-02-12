@@ -25,14 +25,30 @@ class frameMain(frMain):
         self.Bind(wx.EVT_TIMER, self.updateTime, self.timer)
         self.timer.Start(1000)
 
+        # Inisiasi font size
+
+        fontTime = self.stHomeTime1.GetFont()
+        fontDesc = self.stHomeDesc1.GetFont()
+        fontTime.SetPointSize(fontTime.GetPointSize() + 2)  
+        fontDesc.SetPointSize(fontDesc.GetPointSize() + 4)
+        self.stHomeTime1.SetFont(fontTime)
+        self.stHomeTime2.SetFont(fontTime)
+        self.stHomeTime3.SetFont(fontTime)
+        self.stHomeStdTime1.SetFont(fontTime)
+        self.stHomeStdTime2.SetFont(fontTime)
+        self.stHomeStdTime3.SetFont(fontTime)
+        self.stHomeDesc1.SetFont(fontDesc)
+        self.stHomeDesc2.SetFont(fontDesc)
+        self.stHomeDesc3.SetFont(fontDesc)
+
         # Inisasi kolom Recipes
         self.lcRecRecipes.InsertColumn(0, "Color")
-        self.lcRecRecipes.InsertColumn(1, "Description 1", width=200)
-        self.lcRecRecipes.InsertColumn(2, "Time 1")
-        self.lcRecRecipes.InsertColumn(3, "Description 2", width=200)
-        self.lcRecRecipes.InsertColumn(4, "Time 2")
-        self.lcRecRecipes.InsertColumn(5, "Description 3", width=200)
-        self.lcRecRecipes.InsertColumn(6, "Time 3")
+        self.lcRecRecipes.InsertColumn(1, "Time 1")
+        self.lcRecRecipes.InsertColumn(2, "Description 1", width=200)
+        self.lcRecRecipes.InsertColumn(3, "Time 2")
+        self.lcRecRecipes.InsertColumn(4, "Description 2", width=200)
+        self.lcRecRecipes.InsertColumn(5, "Time 3")
+        self.lcRecRecipes.InsertColumn(6, "Description 3", width=200)
 
         # Inisiasi Operators
         self.lcOpOperators.InsertColumn(0, "Name")
@@ -84,7 +100,7 @@ class frameMain(frMain):
         message = """Create a new operator name
 
 1. Go to the Home tab.
-2. Type it in the "Operator 1" or "Operator 2" field.
+2. Type it in the Operator field.
 
 The app will remember the name if it doesn't already exist."""
 

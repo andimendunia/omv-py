@@ -83,14 +83,6 @@ class dgRecipe ( wx.Dialog ):
 
 		sbSizer11 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Step 1" ), wx.VERTICAL )
 
-		self.m_staticText461 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText461.Wrap( -1 )
-
-		sbSizer11.Add( self.m_staticText461, 0, wx.ALL, 5 )
-
-		self.m_textCtrl71 = wx.TextCtrl( sbSizer11.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-		sbSizer11.Add( self.m_textCtrl71, 1, wx.ALL|wx.EXPAND, 5 )
-
 		self.m_staticText471 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText471.Wrap( -1 )
 
@@ -109,18 +101,18 @@ class dgRecipe ( wx.Dialog ):
 
 		sbSizer11.Add( bSizer57, 0, wx.EXPAND, 5 )
 
+		self.m_staticText461 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText461.Wrap( -1 )
+
+		sbSizer11.Add( self.m_staticText461, 0, wx.ALL, 5 )
+
+		self.m_textCtrl71 = wx.TextCtrl( sbSizer11.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
+		sbSizer11.Add( self.m_textCtrl71, 1, wx.ALL|wx.EXPAND, 5 )
+
 
 		bSizer66.Add( sbSizer11, 1, wx.ALL|wx.EXPAND, 5 )
 
 		sbSizer111 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Step 2" ), wx.VERTICAL )
-
-		self.m_staticText4611 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText4611.Wrap( -1 )
-
-		sbSizer111.Add( self.m_staticText4611, 0, wx.ALL, 5 )
-
-		self.m_textCtrl711 = wx.TextCtrl( sbSizer111.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-		sbSizer111.Add( self.m_textCtrl711, 1, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_staticText4711 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText4711.Wrap( -1 )
@@ -140,18 +132,18 @@ class dgRecipe ( wx.Dialog ):
 
 		sbSizer111.Add( bSizer571, 0, wx.EXPAND, 5 )
 
+		self.m_staticText4611 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText4611.Wrap( -1 )
+
+		sbSizer111.Add( self.m_staticText4611, 0, wx.ALL, 5 )
+
+		self.m_textCtrl711 = wx.TextCtrl( sbSizer111.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
+		sbSizer111.Add( self.m_textCtrl711, 1, wx.ALL|wx.EXPAND, 5 )
+
 
 		bSizer66.Add( sbSizer111, 1, wx.ALL|wx.EXPAND, 5 )
 
 		sbSizer1111 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Step 3" ), wx.VERTICAL )
-
-		self.m_staticText46111 = wx.StaticText( sbSizer1111.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText46111.Wrap( -1 )
-
-		sbSizer1111.Add( self.m_staticText46111, 0, wx.ALL, 5 )
-
-		self.m_textCtrl7111 = wx.TextCtrl( sbSizer1111.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-		sbSizer1111.Add( self.m_textCtrl7111, 1, wx.ALL|wx.EXPAND, 5 )
 
 		self.m_staticText47111 = wx.StaticText( sbSizer1111.GetStaticBox(), wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText47111.Wrap( -1 )
@@ -170,6 +162,14 @@ class dgRecipe ( wx.Dialog ):
 
 
 		sbSizer1111.Add( bSizer572, 0, wx.EXPAND, 5 )
+
+		self.m_staticText46111 = wx.StaticText( sbSizer1111.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText46111.Wrap( -1 )
+
+		sbSizer1111.Add( self.m_staticText46111, 0, wx.ALL, 5 )
+
+		self.m_textCtrl7111 = wx.TextCtrl( sbSizer1111.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
+		sbSizer1111.Add( self.m_textCtrl7111, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer66.Add( sbSizer1111, 1, wx.ALL|wx.EXPAND, 5 )
@@ -554,43 +554,22 @@ class frMain ( wx.Frame ):
 
 		bSizer75 = wx.BoxSizer( wx.VERTICAL )
 
-		self.processStep1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"Masukkan material sebanyak 15 kg. Kemudian prsoes roll selama 120 detik (2 menit).", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.processStep1.Wrap( -1 )
+		self.stHomeTime1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"04:00", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stHomeTime1.Wrap( -1 )
 
-		bSizer75.Add( self.processStep1, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL|wx.EXPAND, 5 )
+		bSizer75.Add( self.stHomeTime1, 0, wx.ALL, 5 )
+
+		self.stHomeDesc1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"Masukkan material sebanyak 15 kg. Kemudian prsoes roll selama 120 detik (2 menit).", wx.DefaultPosition, wx.DefaultSize, wx.ST_NO_AUTORESIZE )
+		self.stHomeDesc1.Wrap( 0 )
+
+		bSizer75.Add( self.stHomeDesc1, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
 
 		bSizer97.Add( bSizer75, 2, wx.ALL|wx.EXPAND, 10 )
 
 		bSizer61112 = wx.BoxSizer( wx.VERTICAL )
 
-
-		bSizer61112.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.m_gauge1 = wx.Gauge( self.panStep1, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
-		self.m_gauge1.SetValue( 100 )
-		bSizer61112.Add( self.m_gauge1, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.m_button16 = wx.Button( self.panStep1, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
-		bSizer61112.Add( self.m_button16, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer61112.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.actTime1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"00.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
-		self.actTime1.Wrap( -1 )
-
-		self.actTime1.SetForegroundColour( wx.Colour( 115, 107, 96 ) )
-
-		bSizer61112.Add( self.actTime1, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer61112.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.stdTime1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"04.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
-		self.stdTime1.Wrap( -1 )
-
-		bSizer61112.Add( self.stdTime1, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer87 = wx.BoxSizer( wx.HORIZONTAL )
 
 		self.btnHomeCam1 = wx.BitmapButton( self.panStep1, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
 
@@ -598,10 +577,25 @@ class frMain ( wx.Frame ):
 		self.btnHomeCam1.SetBitmapDisabled( wx.NullBitmap )
 		self.btnHomeCam1.SetBitmapCurrent( wx.NullBitmap )
 		self.btnHomeCam1.SetBitmapPosition( wx.BOTTOM )
-		bSizer61112.Add( self.btnHomeCam1, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		bSizer87.Add( self.btnHomeCam1, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
 
-		bSizer61112.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer87.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		self.stHomeStdTime1 = wx.StaticText( self.panStep1, wx.ID_ANY, u"00:00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
+		self.stHomeStdTime1.Wrap( -1 )
+
+		bSizer87.Add( self.stHomeStdTime1, 0, wx.ALIGN_BOTTOM|wx.ALIGN_RIGHT|wx.ALL, 5 )
+
+
+		bSizer61112.Add( bSizer87, 1, wx.EXPAND, 5 )
+
+		self.m_gauge1 = wx.Gauge( self.panStep1, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
+		self.m_gauge1.SetValue( 100 )
+		bSizer61112.Add( self.m_gauge1, 0, wx.ALL|wx.EXPAND, 5 )
+
+		self.m_button16 = wx.Button( self.panStep1, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+		bSizer61112.Add( self.m_button16, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer97.Add( bSizer61112, 1, wx.EXPAND, 5 )
@@ -642,55 +636,51 @@ class frMain ( wx.Frame ):
 
 		bSizer751 = wx.BoxSizer( wx.VERTICAL )
 
-		self.processStep2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"Masukkan material sebanyak 15 kg, tambahkan pigment Regrind, Akselerator dan Sulfur. Kemudian proses roll selama 240 detik (4 menit)", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
-		self.processStep2.Wrap( -1 )
+		self.stHomeTime2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"04:00", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stHomeTime2.Wrap( -1 )
 
-		bSizer751.Add( self.processStep2, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL|wx.EXPAND, 5 )
+		bSizer751.Add( self.stHomeTime2, 0, wx.ALL, 5 )
+
+		self.stHomeDesc2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"Masukkan material sebanyak 15 kg, tambahkan pigment Regrind, Akselerator dan Sulfur. Kemudian proses roll selama 240 detik (4 menit)", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT|wx.ST_NO_AUTORESIZE )
+		self.stHomeDesc2.Wrap( 0 )
+
+		bSizer751.Add( self.stHomeDesc2, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
 
 		bSizer98.Add( bSizer751, 2, wx.ALL|wx.EXPAND, 10 )
 
-		bSizer61111 = wx.BoxSizer( wx.VERTICAL )
+		bSizer611121 = wx.BoxSizer( wx.VERTICAL )
 
-
-		bSizer61111.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.m_gauge2 = wx.Gauge( self.panStep2, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
-		self.m_gauge2.SetValue( 80 )
-		bSizer61111.Add( self.m_gauge2, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.m_button18 = wx.Button( self.panStep2, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
-		bSizer61111.Add( self.m_button18, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer61111.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.actTime2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"00.00", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.actTime2.Wrap( -1 )
-
-		self.actTime2.SetForegroundColour( wx.Colour( 255, 0, 0 ) )
-
-		bSizer61111.Add( self.actTime2, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-
-
-		bSizer61111.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.stdTime2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"04.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
-		self.stdTime2.Wrap( -1 )
-
-		bSizer61111.Add( self.stdTime2, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer61111.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer871 = wx.BoxSizer( wx.HORIZONTAL )
 
 		self.btnHomeCam2 = wx.BitmapButton( self.panStep2, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
 
 		self.btnHomeCam2.SetBitmap( wx.NullBitmap )
 		self.btnHomeCam2.SetBitmapDisabled( wx.NullBitmap )
-		bSizer61111.Add( self.btnHomeCam2, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		self.btnHomeCam2.SetBitmapCurrent( wx.NullBitmap )
+		self.btnHomeCam2.SetBitmapPosition( wx.BOTTOM )
+		bSizer871.Add( self.btnHomeCam2, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
 
-		bSizer98.Add( bSizer61111, 1, wx.EXPAND, 5 )
+		bSizer871.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		self.stHomeStdTime2 = wx.StaticText( self.panStep2, wx.ID_ANY, u"02:00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
+		self.stHomeStdTime2.Wrap( -1 )
+
+		bSizer871.Add( self.stHomeStdTime2, 0, wx.ALIGN_BOTTOM|wx.ALIGN_RIGHT|wx.ALL, 5 )
+
+
+		bSizer611121.Add( bSizer871, 1, wx.EXPAND, 5 )
+
+		self.m_gauge11 = wx.Gauge( self.panStep2, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
+		self.m_gauge11.SetValue( 50 )
+		bSizer611121.Add( self.m_gauge11, 0, wx.ALL|wx.EXPAND, 5 )
+
+		self.m_button161 = wx.Button( self.panStep2, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+		bSizer611121.Add( self.m_button161, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		bSizer98.Add( bSizer611121, 1, wx.EXPAND, 5 )
 
 
 		bSizer51.Add( bSizer98, 1, wx.ALL|wx.EXPAND, 5 )
@@ -728,55 +718,51 @@ class frMain ( wx.Frame ):
 
 		bSizer79 = wx.BoxSizer( wx.VERTICAL )
 
-		self.processStep3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"Masukkan campuran material sebanyak 45 kg. Tambahkan rework sebanyak 30%, lalu proses roll selama 660 detik. Jumlah total waktu yang dipakai 1020 detik (17 menit).\n", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
-		self.processStep3.Wrap( -1 )
+		self.stHomeTime3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"04:00", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stHomeTime3.Wrap( -1 )
 
-		bSizer79.Add( self.processStep3, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL|wx.EXPAND, 5 )
+		bSizer79.Add( self.stHomeTime3, 0, wx.ALL, 5 )
+
+		self.stHomeDesc3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"Masukkan campuran material sebanyak 45 kg. Tambahkan rework sebanyak 30%, lalu proses roll selama 660 detik. Jumlah total waktu yang dipakai 1020 detik (17 menit).\n", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT|wx.ST_NO_AUTORESIZE )
+		self.stHomeDesc3.Wrap( 0 )
+
+		bSizer79.Add( self.stHomeDesc3, 1, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
 
 		bSizer99.Add( bSizer79, 2, wx.ALL|wx.EXPAND, 10 )
 
-		bSizer6111 = wx.BoxSizer( wx.VERTICAL )
+		bSizer611122 = wx.BoxSizer( wx.VERTICAL )
 
-
-		bSizer6111.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.m_gauge3 = wx.Gauge( self.panStep3, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
-		self.m_gauge3.SetValue( 0 )
-		bSizer6111.Add( self.m_gauge3, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.m_button19 = wx.Button( self.panStep3, wx.ID_ANY, u"Finish", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
-		bSizer6111.Add( self.m_button19, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer6111.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.actNext3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"00.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
-		self.actNext3.Wrap( -1 )
-
-		self.actNext3.SetForegroundColour( wx.Colour( 115, 107, 96 ) )
-
-		bSizer6111.Add( self.actNext3, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer6111.Add( ( 0, 0), 1, wx.EXPAND, 5 )
-
-		self.stdTime3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"04.00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
-		self.stdTime3.Wrap( -1 )
-
-		bSizer6111.Add( self.stdTime3, 0, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer6111.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+		bSizer8711 = wx.BoxSizer( wx.HORIZONTAL )
 
 		self.btnHomeCam3 = wx.BitmapButton( self.panStep3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW|0 )
 
 		self.btnHomeCam3.SetBitmap( wx.NullBitmap )
 		self.btnHomeCam3.SetBitmapDisabled( wx.NullBitmap )
-		bSizer6111.Add( self.btnHomeCam3, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
+		self.btnHomeCam3.SetBitmapCurrent( wx.NullBitmap )
+		self.btnHomeCam3.SetBitmapPosition( wx.BOTTOM )
+		bSizer8711.Add( self.btnHomeCam3, 0, wx.ALIGN_BOTTOM|wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
 
-		bSizer99.Add( bSizer6111, 1, wx.EXPAND, 5 )
+		bSizer8711.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+		self.stHomeStdTime3 = wx.StaticText( self.panStep3, wx.ID_ANY, u"04:00", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_CENTER_HORIZONTAL )
+		self.stHomeStdTime3.Wrap( -1 )
+
+		bSizer8711.Add( self.stHomeStdTime3, 0, wx.ALIGN_BOTTOM|wx.ALIGN_RIGHT|wx.ALL, 5 )
+
+
+		bSizer611122.Add( bSizer8711, 1, wx.EXPAND, 5 )
+
+		self.m_gauge12 = wx.Gauge( self.panStep3, wx.ID_ANY, 100, wx.DefaultPosition, wx.DefaultSize, wx.GA_HORIZONTAL|wx.GA_SMOOTH )
+		self.m_gauge12.SetValue( 0 )
+		bSizer611122.Add( self.m_gauge12, 0, wx.ALL|wx.EXPAND, 5 )
+
+		self.m_button162 = wx.Button( self.panStep3, wx.ID_ANY, u"Finish", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+		bSizer611122.Add( self.m_button162, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		bSizer99.Add( bSizer611122, 1, wx.EXPAND, 5 )
 
 
 		bSizer52.Add( bSizer99, 1, wx.ALL|wx.EXPAND, 5 )
@@ -1053,6 +1039,8 @@ class frMain ( wx.Frame ):
 
 		self.SetSizer( bSizer29 )
 		self.Layout()
+		self.m_timer1 = wx.Timer()
+		self.m_timer1.SetOwner( self, self.m_timer1.GetId() )
 		icoCamPath = "resources/camera.svg"
 		svgCam = wx.svg.SVGimage.CreateFromFile(icoCamPath)
 		bmCam = svgCam.ConvertToBitmap(width=24, height=24, scale=0.047)
