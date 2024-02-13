@@ -60,7 +60,7 @@ class dgColor ( wx.Dialog ):
 class dgRecipe ( wx.Dialog ):
 
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Recipe", pos = wx.DefaultPosition, size = wx.Size( 659,439 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Recipe", pos = wx.DefaultPosition, size = wx.Size( 696,483 ), style = wx.DEFAULT_DIALOG_STYLE )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
@@ -73,8 +73,8 @@ class dgRecipe ( wx.Dialog ):
 
 		bSizer77.Add( self.m_staticText62, 0, wx.ALL, 5 )
 
-		self.m_textCtrl19 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer77.Add( self.m_textCtrl19, 0, wx.ALL, 5 )
+		self.tcColor = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer77.Add( self.tcColor, 0, wx.ALL, 5 )
 
 
 		bSizer60.Add( bSizer77, 0, wx.ALL|wx.EXPAND, 5 )
@@ -90,8 +90,8 @@ class dgRecipe ( wx.Dialog ):
 
 		bSizer57 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_spinCtrl1 = wx.SpinCtrl( sbSizer11.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		bSizer57.Add( self.m_spinCtrl1, 1, wx.ALL, 5 )
+		self.scTime1 = wx.SpinCtrl( sbSizer11.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 80,-1 ), wx.SP_ARROW_KEYS, 0, 3599, 0 )
+		bSizer57.Add( self.scTime1, 0, wx.ALL, 5 )
 
 		self.m_staticText46 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"seconds", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText46.Wrap( -1 )
@@ -106,8 +106,8 @@ class dgRecipe ( wx.Dialog ):
 
 		sbSizer11.Add( self.m_staticText461, 0, wx.ALL, 5 )
 
-		self.m_textCtrl71 = wx.TextCtrl( sbSizer11.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-		sbSizer11.Add( self.m_textCtrl71, 1, wx.ALL|wx.EXPAND, 5 )
+		self.tcDesc1 = wx.TextCtrl( sbSizer11.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
+		sbSizer11.Add( self.tcDesc1, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer66.Add( sbSizer11, 1, wx.ALL|wx.EXPAND, 5 )
@@ -121,8 +121,8 @@ class dgRecipe ( wx.Dialog ):
 
 		bSizer571 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_spinCtrl11 = wx.SpinCtrl( sbSizer111.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		bSizer571.Add( self.m_spinCtrl11, 1, wx.ALL, 5 )
+		self.scTime2 = wx.SpinCtrl( sbSizer111.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 80,-1 ), wx.SP_ARROW_KEYS, 0, 3599, 0 )
+		bSizer571.Add( self.scTime2, 0, wx.ALL, 5 )
 
 		self.m_staticText462 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"seconds", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText462.Wrap( -1 )
@@ -137,8 +137,8 @@ class dgRecipe ( wx.Dialog ):
 
 		sbSizer111.Add( self.m_staticText4611, 0, wx.ALL, 5 )
 
-		self.m_textCtrl711 = wx.TextCtrl( sbSizer111.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-		sbSizer111.Add( self.m_textCtrl711, 1, wx.ALL|wx.EXPAND, 5 )
+		self.tcDesc2 = wx.TextCtrl( sbSizer111.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
+		sbSizer111.Add( self.tcDesc2, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer66.Add( sbSizer111, 1, wx.ALL|wx.EXPAND, 5 )
@@ -152,8 +152,8 @@ class dgRecipe ( wx.Dialog ):
 
 		bSizer572 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_spinCtrl12 = wx.SpinCtrl( sbSizer1111.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		bSizer572.Add( self.m_spinCtrl12, 1, wx.ALL, 5 )
+		self.scTime3 = wx.SpinCtrl( sbSizer1111.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 80,-1 ), wx.SP_ARROW_KEYS, 0, 3599, 1 )
+		bSizer572.Add( self.scTime3, 0, wx.ALL, 5 )
 
 		self.m_staticText463 = wx.StaticText( sbSizer1111.GetStaticBox(), wx.ID_ANY, u"seconds", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText463.Wrap( -1 )
@@ -168,8 +168,8 @@ class dgRecipe ( wx.Dialog ):
 
 		sbSizer1111.Add( self.m_staticText46111, 0, wx.ALL, 5 )
 
-		self.m_textCtrl7111 = wx.TextCtrl( sbSizer1111.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
-		sbSizer1111.Add( self.m_textCtrl7111, 1, wx.ALL|wx.EXPAND, 5 )
+		self.tcDesc3 = wx.TextCtrl( sbSizer1111.GetStaticBox(), wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE )
+		sbSizer1111.Add( self.tcDesc3, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer66.Add( sbSizer1111, 1, wx.ALL|wx.EXPAND, 5 )
@@ -958,6 +958,9 @@ class frMain ( wx.Frame ):
 
 		self.btnRecCreate = wx.Button( self.panRecipes, wx.ID_ANY, u"Create", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer651.Add( self.btnRecCreate, 0, wx.ALL, 5 )
+
+		self.btnRecEdit = wx.Button( self.panRecipes, wx.ID_ANY, u"Edit", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer651.Add( self.btnRecEdit, 0, wx.ALL, 5 )
 
 		self.btnRecDelete = wx.Button( self.panRecipes, wx.ID_ANY, u"Delete", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer651.Add( self.btnRecDelete, 0, wx.ALL, 5 )

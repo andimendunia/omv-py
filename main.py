@@ -3,6 +3,7 @@ import wx.svg
 import os
 import sqlite3
 import math
+import cerberus
 from datetime import datetime
 from omv_ui import frMain, dgColor, dgRecipe
 
@@ -11,7 +12,21 @@ os.environ['WXSUPPRESS_SIZER_FLAGS_CHECK'] = '1'
 # Menghubungkan ke database
 conn = sqlite3.connect('omv.db')
 c = conn.cursor()
-c.execute('''CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY, name TEXT)''')
+
+# Buat tabel recipes
+c.execute("""CREATE TABLE IF NOT EXISTS recipes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    color TEXT,
+    time_1 INTEGER,
+    desc_1 TEXT,
+    time_2 INTEGER,
+    desc_2 TEXT,
+    time_3 INTEGER,
+    desc_3 TEXT
+)""")
+
+# Buat tabel operators
+c.execute('''CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)''')
 
 conn.commit()
 
@@ -76,7 +91,7 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("BAUD 9600", 2)
         self.sbMain.SetStatusText(nowStr, 3)
 
-        # Update hitung mundur
+        # Update hitung mundur jika tBatchTsEnd3 terisi
         if not self.tBatchTsEnd3 == 0:
            
             if nowTs < self.tBatchTsEnd1:
@@ -119,7 +134,7 @@ class frameMain(frMain):
         names = [item[0] for item in results]
 
     def btnStartOnButtonClick(self, event):
-        stdTime1 = 70
+        stdTime1 = 5
         stdTime2 = 5
         stdTime3 = 5
 
@@ -136,8 +151,11 @@ class frameMain(frMain):
         self.stHomeStdTime3.SetLabel(self.formatTime(stdTime3))
 
         nowTs = datetime.now().timestamp()
+        # Waktu berakhir step 1
         self.tBatchTsEnd1 = nowTs + stdTime1
+        # Waktu berakhir step 2
         self.tBatchTsEnd2 = self.tBatchTsEnd1 + stdTime2
+        # Waktu berakhir step 3
         self.tBatchTsEnd3 = self.tBatchTsEnd2 + stdTime3
 
     def btnEndOnButtonClick(self, event):
@@ -162,11 +180,10 @@ class frameMain(frMain):
         
     def btnOpCreateOnButtonClick(self, event):
         message = """Create a new operator name
+            1. Go to the Home tab.
+            2. Type it in the Operator field.
 
-1. Go to the Home tab.
-2. Type it in the Operator field.
-
-The app will remember the name if it doesn't already exist."""
+            The app will remember the name if it doesn't already exist."""
 
         wx.MessageBox(message, "Create a new name", wx.OK | wx.ICON_INFORMATION)
 
@@ -247,9 +264,6 @@ class dialogColor(dgColor):
         else:
             wx.MessageBox(f"Please choose a color.", "No color selected", wx.OK)
 
-
-   
-
 class dialogRecipe(dgRecipe):
     def __init__(self, parent):
         
@@ -257,7 +271,97 @@ class dialogRecipe(dgRecipe):
         dgRecipe.__init__(self, parent)
     
     def btnSaveOnButtonClick(self, event):
-        self.EndModal(wx.ID_OK)
+        schema = {
+            "color": {
+                "type": "string",
+                "required": True,
+                "minlength": 1,
+                "maxlength": 20,
+            },
+            "time_1": {
+                "type": "integer",
+                "required": True,
+                "min": 0,
+                "max": 3599,
+            },
+            "desc_1": {
+                "type": "string",
+                "required": True,
+                "minlength": 1,
+                "maxlength": 250,
+            },
+            "time_2": {
+                "type": "integer",
+                "required": True,
+                "min": 0,
+                "max": 3599,
+            },
+            "desc_2": {
+                "type": "string",
+                "required": True,
+                "minlength": 1,
+                "maxlength": 250,
+            },
+            "time_3": {
+                "type": "integer",
+                "required": True,
+                "min": 0,
+                "max": 3599,
+            },
+            "desc_3": {
+                "type": "string",
+                "required": True,
+                "minlength": 1,
+                "maxlength": 250,
+            },
+        }
+        validator = cerberus.Validator(schema)
+        color = str(self.tcColor.GetValue()).upper()
+        data = {
+            "color" : color,
+            "time_1": self.scTime1.GetValue(),
+            "desc_1": self.tcDesc1.GetValue(),
+            "time_2": self.scTime2.GetValue(),
+            "desc_2": self.tcDesc2.GetValue(),
+            "time_3": self.scTime3.GetValue(),
+            "desc_3": self.tcDesc3.GetValue(),
+        }
+        print (data)
+        is_valid = validator.validate(data)
+        if is_valid:
+            # Check if color exists
+            c.execute("SELECT id FROM recipes WHERE color = ?", (color,))
+            existing_id = c.fetchone()
+
+            if existing_id:
+                # Update existing recipe
+                recipe_id = existing_id[0]
+                update_sql = """
+                    UPDATE recipes
+                    SET time_1 = ?, desc_1 = ?, time_2 = ?, desc_2 = ?, time_3 = ?, desc_3 = ?
+                    WHERE id = ?
+                """
+                c.execute(update_sql, (data['time_1'], data['desc_1'], data['time_2'], data['desc_2'], data['time_3'], data['desc_3'],  recipe_id))
+                wx.MessageBox(f"Recipe with color '{color}' updated successfully!", "Recipe updated", wx.OK | wx.ICON_INFORMATION)
+            else:
+                # Insert new recipe
+                insert_sql = """
+                    INSERT INTO recipes (color, time_1, desc_1, time_2, desc_2, time_3, desc_3)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                """
+                c.execute(insert_sql, (data['color'], data['time_1'], data['desc_1'], data['time_2'], data['desc_2'], data['time_3'], data['desc_3']))
+                wx.MessageBox(f"Recipe with color '{color}' added successfully!", "Recipe added", wx.OK | wx.ICON_INFORMATION)
+            conn.commit()
+
+            self.EndModal(wx.ID_OK)
+        else:
+            error_messages = []
+            for field, errors in validator.errors.items():
+                error_messages.append(f"- {field}: {','.join(errors)}")
+
+            error_message = "\n".join(error_messages)
+            wx.MessageBox(error_message, "Data invalid", wx.OK | wx.ICON_EXCLAMATION)
+        
 
 #### MENYALAKAN APLIKASI ####            
 
