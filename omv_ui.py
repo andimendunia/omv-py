@@ -1086,6 +1086,7 @@ class frMain ( wx.Frame ):
 		self.btnConnect.Bind( wx.EVT_BUTTON, self.btn_connectOnButtonClick )
 		self.btnReset.Bind( wx.EVT_BUTTON, self.btn_resetOnButtonClick )
 		self.btnStatusLoad.Bind( wx.EVT_BUTTON, self.btn_indicatorOnButtonClick )
+		self.btnHomeCam1.Bind( wx.EVT_BUTTON, self.btnHomeCam1OnButtonClick )
 		self.btnSave1.Bind( wx.EVT_BUTTON, self.btn_save1OnButtonClick )
 		self.btnRecCreate.Bind( wx.EVT_BUTTON, self.btnRecCreateOnButtonClick )
 		self.btnOpCreate.Bind( wx.EVT_BUTTON, self.btnOpCreateOnButtonClick )
@@ -1114,6 +1115,9 @@ class frMain ( wx.Frame ):
 		event.Skip()
 
 	def btn_indicatorOnButtonClick( self, event ):
+		event.Skip()
+
+	def btnHomeCam1OnButtonClick( self, event ):
 		event.Skip()
 
 	def btn_save1OnButtonClick( self, event ):

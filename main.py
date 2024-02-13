@@ -4,6 +4,7 @@ import os
 import sqlite3
 import math
 import cerberus
+import cv2
 from datetime import datetime
 from omv_ui import frMain, dgColor, dgRecipe
 
@@ -166,6 +167,31 @@ class frameMain(frMain):
     def btnEndOnButtonClick(self, event):
         self.tBatchTsEnd3 = 0
         print('Triggered')
+
+    def btnHomeCam1OnButtonClick(self, event):
+        # Initialize the webcam, jangan lupa kamera nomor berapa
+        cap = cv2.VideoCapture(0)
+
+        # Check if the webcam is opened correctly
+        if not cap.isOpened():
+            raise IOError("Cannot open webcam")
+
+        # Capture one frame
+        ret, frame = cap.read()
+
+        if ret:
+            # Tentukan nama foto berdasarkan tanggal dan waktu
+            namaFoto = datetime.now().strftime('%Y%m%d-%H%M%S')
+            # Cek apabila ada folder photos
+            os.makedirs("photos", exist_ok=True)
+            # Save the captured image as a JPEG file
+            cv2.imwrite(f"photos\{namaFoto}.jpg", frame)
+            print("Photo captured and saved successfully.")
+        else:
+            print("Failed to capture photo.")
+
+        # Release the VideoCapture object
+        cap.release()
 
 
 #### KODE UNTUK TAB RECORDS 
