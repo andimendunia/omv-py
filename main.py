@@ -119,12 +119,17 @@ class frameMain(frMain):
 
 
 #### KODE UNTUK TAB HOME
-        
+
+    #Kode untuk pilih warna    
     def btnHomeColOnClick(self, event):
+
         # Buka dialog pilih warna
         dialog = dialogColor(self)
         if dialog.ShowModal() == wx.ID_OK:
+           
             # Eksekusi pilih warna ketika OK
+            color_choice = dialog.GetColorChoice()
+            event.GetEventObject().SetLabel(color_choice)
             pass
         dialog.Destroy()
         # No need to call event.Skip() unless you have a specific reason to continue event propagation
@@ -246,8 +251,13 @@ class dialogColor(dgColor):
         width = self.GetSize().width - 40
         self.lcColors.SetColumnWidth(0, width)
         self.lcColors.Append(["WHITE"])
-        self.lcColors.Append(["BLACK"])
+        self.lcColors.Append(["COLOR"])
+        self.lcColors.Append(["CLEAR"])
+        self.lcColors.Append(["BLACK & COLOR"])
+        self.lcColors.Append(["LOGO"])
         self.lcColors.Append(["WHITE REGRIND"])
+        self.lcColors.Append(["REGRIND 9%"])
+        self.lcColors.Append(["REGRIND 15%"])
 
         font = self.lcColors.GetFont()
         font.SetPointSize(font.GetPointSize() + 6)  # Increase font size
@@ -259,11 +269,14 @@ class dialogColor(dgColor):
         if index != -1:  # Ensure there is at least one selection
             # Retrieve the text of the selected item(s)
             color = self.lcColors.GetItemText(index)
-            wx.MessageBox(f"Selected color: {color}", "Information")
             self.EndModal(wx.ID_OK)
         else:
             wx.MessageBox(f"Please choose a color.", "No color selected", wx.OK)
 
+    def GetColorChoice(self):
+        index = self.lcColors.GetFirstSelected()
+        return self.lcColors.GetItemText(index)
+    
 class dialogRecipe(dgRecipe):
     def __init__(self, parent):
         
