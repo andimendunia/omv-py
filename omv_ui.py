@@ -303,9 +303,10 @@ class frMain ( wx.Frame ):
 
 		bSizer3.Add( self.lineMain, 0, wx.ALL, 5 )
 
-		m_comboBox5Choices = []
-		self.m_comboBox5 = wx.ComboBox( self.panHome, wx.ID_ANY, u"A10", wx.DefaultPosition, wx.Size( 60,-1 ), m_comboBox5Choices, 0 )
-		bSizer3.Add( self.m_comboBox5, 0, wx.ALL, 5 )
+		m_choice9Choices = [ u" ", u"1", u"2", u"3", u"4", u"5", u"6", u"7", u"8", u"9" ]
+		self.m_choice9 = wx.Choice( self.panHome, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice9Choices, 0 )
+		self.m_choice9.SetSelection( 0 )
+		bSizer3.Add( self.m_choice9, 0, wx.ALL, 5 )
 
 
 		bSizer83.Add( bSizer3, 0, wx.ALL|wx.EXPAND, 5 )
@@ -423,16 +424,16 @@ class frMain ( wx.Frame ):
 
 		bSizer56 = wx.BoxSizer( wx.VERTICAL )
 
-		self.btnConnect = wx.Button( self.panHome, wx.ID_ANY, u"Connect", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer56.Add( self.btnConnect, 1, wx.ALL|wx.EXPAND, 5 )
+		self.btnHomeConnect = wx.Button( self.panHome, wx.ID_ANY, u"Connect", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer56.Add( self.btnHomeConnect, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer55.Add( bSizer56, 1, wx.EXPAND, 5 )
 
 		bSizer57 = wx.BoxSizer( wx.VERTICAL )
 
-		self.btnReset = wx.Button( self.panHome, wx.ID_ANY, u" Reset ", wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT )
-		bSizer57.Add( self.btnReset, 1, wx.ALL, 5 )
+		self.btnHomeReset = wx.Button( self.panHome, wx.ID_ANY, u" Reset ", wx.DefaultPosition, wx.DefaultSize, wx.BU_EXACTFIT )
+		bSizer57.Add( self.btnHomeReset, 1, wx.ALL, 5 )
 
 
 		bSizer55.Add( bSizer57, 0, wx.EXPAND, 5 )
@@ -447,7 +448,7 @@ class frMain ( wx.Frame ):
 
 		gSizer7.Add( self.BaudRate, 0, wx.ALL, 5 )
 
-		choiceBaudRateChoices = []
+		choiceBaudRateChoices = [ u" ", u"2400", u"4800", u"9600", u"19200", u"38400", u"57600", u"115200" ]
 		self.choiceBaudRate = wx.Choice( self.panHome, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, choiceBaudRateChoices, 0 )
 		self.choiceBaudRate.SetSelection( 0 )
 		gSizer7.Add( self.choiceBaudRate, 1, wx.ALL|wx.EXPAND, 5 )
@@ -792,7 +793,7 @@ class frMain ( wx.Frame ):
 		self.panHome.SetSizer( bSizer162 )
 		self.panHome.Layout()
 		bSizer162.Fit( self.panHome )
-		self.nbMain.AddPage( self.panHome, u"Home", True )
+		self.nbMain.AddPage( self.panHome, u"Home", False )
 		self.panRecords = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panRecords.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -991,7 +992,7 @@ class frMain ( wx.Frame ):
 		self.panRecipes.SetSizer( bSizer119 )
 		self.panRecipes.Layout()
 		bSizer119.Fit( self.panRecipes )
-		self.nbMain.AddPage( self.panRecipes, u"Recipes", False )
+		self.nbMain.AddPage( self.panRecipes, u"Recipes", True )
 		self.panOperator = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panOperator.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -1083,8 +1084,8 @@ class frMain ( wx.Frame ):
 		self.btnHomeCol.Bind( wx.EVT_BUTTON, self.btnHomeColOnClick )
 		self.btnStart.Bind( wx.EVT_BUTTON, self.btnStartOnButtonClick )
 		self.btnEnd.Bind( wx.EVT_BUTTON, self.btnEndOnButtonClick )
-		self.btnConnect.Bind( wx.EVT_BUTTON, self.btn_connectOnButtonClick )
-		self.btnReset.Bind( wx.EVT_BUTTON, self.btn_resetOnButtonClick )
+		self.btnHomeConnect.Bind( wx.EVT_BUTTON, self.btnHomeConnectOnButtonClick )
+		self.btnHomeReset.Bind( wx.EVT_BUTTON, self.btnHomeResetOnButtonClick )
 		self.btnStatusLoad.Bind( wx.EVT_BUTTON, self.btn_indicatorOnButtonClick )
 		self.btnHomeCam1.Bind( wx.EVT_BUTTON, self.btnHomeCam1OnButtonClick )
 		self.btnSave1.Bind( wx.EVT_BUTTON, self.btn_save1OnButtonClick )
@@ -1108,10 +1109,10 @@ class frMain ( wx.Frame ):
 	def btnEndOnButtonClick( self, event ):
 		event.Skip()
 
-	def btn_connectOnButtonClick( self, event ):
+	def btnHomeConnectOnButtonClick( self, event ):
 		event.Skip()
 
-	def btn_resetOnButtonClick( self, event ):
+	def btnHomeResetOnButtonClick( self, event ):
 		event.Skip()
 
 	def btn_indicatorOnButtonClick( self, event ):
