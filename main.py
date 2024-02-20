@@ -6,7 +6,7 @@ import math
 import cerberus
 import cv2
 from datetime import datetime
-from omv_ui import frMain, dgColor, dgRecipe, dgTimeTolerance
+from omv_ui import frMain, dgColor, dgRecipes
 
 os.environ['WXSUPPRESS_SIZER_FLAGS_CHECK'] = '1'
 
@@ -28,9 +28,6 @@ c.execute("""CREATE TABLE IF NOT EXISTS recipes (
 
 # Buat tabel operators
 c.execute('''CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)''')
-
-# Buat tabel time tolerance
-c.execute('''CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOINCREMENT, time tolerance INTEGER)''')
 
 conn.commit()
 
@@ -84,11 +81,6 @@ class frameMain(frMain):
             self.lcRecRecipes.InsertItem(row_index, str(row_data[0]))
             for col_index, value in enumerate(row_data[1:]):
                 self.lcRecRecipes.SetItem(row_index, col_index + 1, str(value))
-        
-        # Inisiasi Time Tolerance
-        # self.lcTimeTol.InsertColumn(0, "Time Tolerance")
-        # self.btnTimeTolRefreshOnClick(self)
-        # self.inpTimeTolerance()
     
     def formatTime(self, secs):
         minutes = secs // 60
@@ -115,7 +107,7 @@ class frameMain(frMain):
                 print('Step 1')
                 remaining = math.floor(self.tBatchTsEnd1 - nowTs)
                 elapsed = self.gHome1.GetRange() - remaining
-                self.stHomeStdTime1.SetLabel(self.formatTime(remaining))
+                self.stHomeTime1.SetLabel(self.formatTime(remaining))
                 self.inpTotalTimeAct.SetLabel(self.formatTime(timeact + 1))
                 self.gHome1.SetValue(elapsed)
                 timeact += 1
@@ -124,18 +116,18 @@ class frameMain(frMain):
                 print('Step 2')
                 remaining = math.floor(self.tBatchTsEnd2 - nowTs)
                 elapsed = self.gHome2.GetRange() - remaining
-                self.stHomeStdTime2.SetLabel(self.formatTime(remaining))
+                self.stHomeTime2.SetLabel(self.formatTime(remaining))
                 self.gHome2.SetValue(elapsed)
             
             elif nowTs < self.tBatchTsEnd3:
                 print('Step 3')
                 remaining = math.floor(self.tBatchTsEnd3 - nowTs)
                 elapsed = self.gHome3.GetRange() - remaining
-                self.stHomeStdTime3.SetLabel(self.formatTime(remaining))                
+                self.stHomeTime3.SetLabel(self.formatTime(remaining))                
                 self.gHome3.SetValue(elapsed)
             else:
                 self.tBatchTsEnd3 = 0
-                self.btnStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
+                self.btnHomeStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 
 #### KODE UNTUK TAB HOME
 
@@ -161,7 +153,7 @@ class frameMain(frMain):
         stdTime1 = 5
         stdTime2 = 5
         stdTime3 = 5
-        self.btnStatusLoad.SetBackgroundColour(wx.GREEN)
+        self.btnHomeStatusLoad.SetBackgroundColour(wx.GREEN)
 
         self.gHome1.SetRange(stdTime1)
         self.gHome2.SetRange(stdTime2)
@@ -171,21 +163,21 @@ class frameMain(frMain):
         self.gHome2.SetValue(0)
         self.gHome3.SetValue(0)
 
-        self.stHomeStdTime1.SetLabel(self.formatTime(stdTime1))
-        self.stHomeStdTime2.SetLabel(self.formatTime(stdTime2))
-        self.stHomeStdTime3.SetLabel(self.formatTime(stdTime3))
+        self.stHomeTime1.SetLabel(self.formatTime(Time1))
+        self.stHomeTime2.SetLabel(self.formatTime(Time2))
+        self.stHomeTime3.SetLabel(self.formatTime(Time3))
 
         nowTs = datetime.now().timestamp()
         # Waktu berakhir step 1
-        self.tBatchTsEnd1 = nowTs + stdTime1
+        self.tBatchTsEnd1 = nowTs + Time1
         # Waktu berakhir step 2
-        self.tBatchTsEnd2 = self.tBatchTsEnd1 + stdTime2
+        self.tBatchTsEnd2 = self.tBatchTsEnd1 + Time2
         # Waktu berakhir step 3
-        self.tBatchTsEnd3 = self.tBatchTsEnd2 + stdTime3
+        self.tBatchTsEnd3 = self.tBatchTsEnd2 + Time3
 
-    def btnEndOnButtonClick(self, event):
+    def btnHomeFinishOnButtonClick(self, event):
         self.tBatchTsEnd3 = 0
-        self.btnStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
+        self.btnHomeStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 
     #Fungsi Button Camera
     def btnHomeCam1OnButtonClick(self, event):
@@ -233,7 +225,7 @@ class frameMain(frMain):
 
     def btnRecCreateOnButtonClick(self, event):
         # Buka dialog editor resep
-        dialog = dialogRecipe(self)
+        dialog = dialogRecipes(self)
         if dialog.ShowModal() == wx.ID_OK:
             # jika OK
             pass
@@ -366,11 +358,11 @@ class dialogColor(dgColor):
         index = self.lcColors.GetFirstSelected()
         return self.lcColors.GetItemText(index)
     
-class dialogRecipe(dgRecipe):
+class dialogRecipes(dgRecipes):
     def __init__(self, parent):
         
         # Insiasi parent class
-        dgRecipe.__init__(self, parent)
+        dgRecipes.__init__(self, parent)
 
     # Get Data Recipes
     def get_data_recipes(self):
@@ -442,23 +434,23 @@ class dialogRecipe(dgRecipe):
             existing_id = c.fetchone()
 
             if existing_id:
-                # Update existing recipe
-                recipe_id = existing_id[0]
+                # Update existing recipes
+                recipes_id = existing_id[0]
                 update_sql = """
                     UPDATE recipes
                     SET time_1 = ?, desc_1 = ?, time_2 = ?, desc_2 = ?, time_3 = ?, desc_3 = ?
                     WHERE id = ?
                 """
                 c.execute(update_sql, (data['time_1'], data['desc_1'], data['time_2'], data['desc_2'], data['time_3'], data['desc_3'],  recipe_id))
-                wx.MessageBox(f"Recipe with color '{color}' updated successfully!", "Recipe updated", wx.OK | wx.ICON_INFORMATION)
+                wx.MessageBox(f"Recipes with color '{color}' updated successfully!", "Recipes updated", wx.OK | wx.ICON_INFORMATION)
             else:
-                # Insert new recipe
+                # Insert new recipes
                 insert_sql = """
                     INSERT INTO recipes (color, time_1, desc_1, time_2, desc_2, time_3, desc_3)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
                 """
                 c.execute(insert_sql, (data['color'], data['time_1'], data['desc_1'], data['time_2'], data['desc_2'], data['time_3'], data['desc_3']))
-                wx.MessageBox(f"Recipe with color '{color}' added successfully!", "Recipe added", wx.OK | wx.ICON_INFORMATION)
+                wx.MessageBox(f"Recipes with color '{color}' added successfully!", "Recipes added", wx.OK | wx.ICON_INFORMATION)
             conn.commit()
 
             self.EndModal(wx.ID_OK)
