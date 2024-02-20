@@ -6,7 +6,7 @@ import math
 import cerberus
 import cv2
 from datetime import datetime
-from omv_ui import frMain, dgColor, dgRecipe
+from omv_ui import frMain, dgColor, dgRecipe, dgTimeTolerance
 
 os.environ['WXSUPPRESS_SIZER_FLAGS_CHECK'] = '1'
 
@@ -28,6 +28,9 @@ c.execute("""CREATE TABLE IF NOT EXISTS recipes (
 
 # Buat tabel operators
 c.execute('''CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)''')
+
+# Buat tabel time tolerance
+c.execute('''CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOINCREMENT, time tolerance INTEGER)''')
 
 conn.commit()
 
@@ -67,7 +70,7 @@ class frameMain(frMain):
         self.btnOpRefreshOnClick(self)
         self.cbHomeOpUpdate()
 
-        # Inisasi kolom Recipes
+        # Inisasi Kolom Recipes
         self.lcRecRecipes.InsertColumn(0, "Color")
         self.lcRecRecipes.InsertColumn(1, "Time 1")
         self.lcRecRecipes.InsertColumn(2, "Description 1", width=200)
@@ -81,6 +84,11 @@ class frameMain(frMain):
             self.lcRecRecipes.InsertItem(row_index, str(row_data[0]))
             for col_index, value in enumerate(row_data[1:]):
                 self.lcRecRecipes.SetItem(row_index, col_index + 1, str(value))
+        
+        # Inisiasi Time Tolerance
+        # self.lcTimeTol.InsertColumn(0, "Time Tolerance")
+        # self.btnTimeTolRefreshOnClick(self)
+        # self.inpTimeTolerance()
     
     def formatTime(self, secs):
         minutes = secs // 60
@@ -98,6 +106,7 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("COM3", 1)
         self.sbMain.SetStatusText("BAUD 9600", 2)
         self.sbMain.SetStatusText(nowStr, 3)
+        timeact = 0
 
         # Update hitung mundur jika tBatchTsEnd3 terisi
         if not self.tBatchTsEnd3 == 0:
@@ -107,7 +116,9 @@ class frameMain(frMain):
                 remaining = math.floor(self.tBatchTsEnd1 - nowTs)
                 elapsed = self.gHome1.GetRange() - remaining
                 self.stHomeStdTime1.SetLabel(self.formatTime(remaining))
+                self.inpTotalTimeAct.SetLabel(self.formatTime(timeact + 1))
                 self.gHome1.SetValue(elapsed)
+                timeact += 1
 
             elif nowTs < self.tBatchTsEnd2:
                 print('Step 2')
@@ -120,11 +131,11 @@ class frameMain(frMain):
                 print('Step 3')
                 remaining = math.floor(self.tBatchTsEnd3 - nowTs)
                 elapsed = self.gHome3.GetRange() - remaining
-                self.stHomeStdTime3.SetLabel(self.formatTime(remaining))
+                self.stHomeStdTime3.SetLabel(self.formatTime(remaining))                
                 self.gHome3.SetValue(elapsed)
-                self.btnStatusLoad.SetBackgroundColour(wx.WHITE)
             else:
                 self.tBatchTsEnd3 = 0
+                self.btnStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 
 #### KODE UNTUK TAB HOME
 
@@ -174,9 +185,9 @@ class frameMain(frMain):
 
     def btnEndOnButtonClick(self, event):
         self.tBatchTsEnd3 = 0
-        self.btnStatusLoad.SetBackgroundColour(240,240,240)
-        print('Triggered')
+        self.btnStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 
+    #Fungsi Button Camera
     def btnHomeCam1OnButtonClick(self, event):
         # Initialize the webcam, jangan lupa kamera nomor berapa
         cap = cv2.VideoCapture(0)
@@ -202,7 +213,7 @@ class frameMain(frMain):
         # Release the VideoCapture object
         cap.release()
     
-    # Button Connect/Disconnect
+    # Fungsi Button Connect/Disconnect
     def btnHomeConnectOnButtonClick(self, event):
         if self.btnHomeConnect.GetLabel() == "Connect":
             self.btnHomeConnect.SetLabel("Disconnect")
@@ -318,6 +329,7 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("", 3)
 
 
+#### FUNGSI DIALOG ####
 class dialogColor(dgColor):
     def __init__(self, parent):
         
