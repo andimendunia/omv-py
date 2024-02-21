@@ -31,6 +31,13 @@ c.execute('''CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOIN
 
 conn.commit()
 
+# Untuk mengubah time (integer) menjadi format mm:ss
+def formatTime(secs):
+    minutes = secs // 60
+    seconds = secs % 60
+    return f"{minutes:02d}:{seconds:02d}"
+
+#### FRAME MAIN ####
 
 class frameMain(frMain):
     def __init__(self, parent):
@@ -63,29 +70,19 @@ class frameMain(frMain):
         self.stHomeDesc3.SetFont(fontDesc)
 
         # Inisiasi Operators
-        self.lcOpOperators.InsertColumn(0, "Name")
-        self.btnOpRefreshOnClick(self)
+        self.lcOperators.InsertColumn(0, "Name")
+        self.btnOpRefreshOnButtonClick(self)
         self.cbHomeOpUpdate()
 
         # Inisasi Kolom Recipes
-        self.lcRecRecipes.InsertColumn(0, "Color")
-        self.lcRecRecipes.InsertColumn(1, "Time 1")
-        self.lcRecRecipes.InsertColumn(2, "Description 1", width=200)
-        self.lcRecRecipes.InsertColumn(3, "Time 2")
-        self.lcRecRecipes.InsertColumn(4, "Description 2", width=200)
-        self.lcRecRecipes.InsertColumn(5, "Time 3")
-        self.lcRecRecipes.InsertColumn(6, "Description 3", width=200)
-        
-        data = self.get_data_recipes()
-        for row_index, row_data in enumerate(data):
-            self.lcRecRecipes.InsertItem(row_index, str(row_data[0]))
-            for col_index, value in enumerate(row_data[1:]):
-                self.lcRecRecipes.SetItem(row_index, col_index + 1, str(value))
-    
-    def formatTime(self, secs):
-        minutes = secs // 60
-        seconds = secs % 60
-        return f"{minutes:02d}:{seconds:02d}"
+        self.lcRecipes.InsertColumn(0, "Color")
+        self.lcRecipes.InsertColumn(1, "Time 1")
+        self.lcRecipes.InsertColumn(2, "Description 1", width=200)
+        self.lcRecipes.InsertColumn(3, "Time 2")
+        self.lcRecipes.InsertColumn(4, "Description 2", width=200)
+        self.lcRecipes.InsertColumn(5, "Time 3")
+        self.lcRecipes.InsertColumn(6, "Description 3", width=200)
+        self.lcRecipesUpdate()
 
     def updateTime(self, event):
         # Format tanggal dan waktu bergerak
@@ -102,13 +99,17 @@ class frameMain(frMain):
 
         # Update hitung mundur jika tBatchTsEnd3 terisi
         if not self.tBatchTsEnd3 == 0:
+
+            timeTotal = self.gHome1.GetRange() + self.gHome2.GetRange() + self.gHome3.GetRange()
+            remainingTotal = self.tBatchTsEnd3 - nowTs
+            elapsedTotal = timeTotal - remainingTotal
+            self.stHomeElapsed.SetLabel(formatTime(math.floor(elapsedTotal)))      
            
             if nowTs < self.tBatchTsEnd1:
                 print('Step 1')
                 remaining = math.floor(self.tBatchTsEnd1 - nowTs)
                 elapsed = self.gHome1.GetRange() - remaining
-                self.stHomeTime1.SetLabel(self.formatTime(remaining))
-                self.inpTotalTimeAct.SetLabel(self.formatTime(timeact + 1))
+                self.stHomeTime1.SetLabel(formatTime(remaining))
                 self.gHome1.SetValue(elapsed)
                 timeact += 1
 
@@ -116,22 +117,22 @@ class frameMain(frMain):
                 print('Step 2')
                 remaining = math.floor(self.tBatchTsEnd2 - nowTs)
                 elapsed = self.gHome2.GetRange() - remaining
-                self.stHomeTime2.SetLabel(self.formatTime(remaining))
+                self.stHomeTime2.SetLabel(formatTime(remaining))
                 self.gHome2.SetValue(elapsed)
             
             elif nowTs < self.tBatchTsEnd3:
                 print('Step 3')
                 remaining = math.floor(self.tBatchTsEnd3 - nowTs)
                 elapsed = self.gHome3.GetRange() - remaining
-                self.stHomeTime3.SetLabel(self.formatTime(remaining))                
-                self.gHome3.SetValue(elapsed)
+                self.stHomeTime3.SetLabel(formatTime(remaining))               
+                self.gHome3.SetValue(elapsed) 
             else:
                 self.tBatchTsEnd3 = 0
                 self.btnHomeStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 
-#### KODE UNTUK TAB HOME
+#### FRAME MAIN: TAB HOME ####
 
-    #Kode untuk pilih warna    
+    # Kode untuk pilih warna    
     def btnHomeColOnClick(self, event):
 
         # Buka dialog pilih warna
@@ -142,30 +143,34 @@ class frameMain(frMain):
             color_choice = dialog.GetColorChoice()
             event.GetEventObject().SetLabel(color_choice)
             pass
-        dialog.Destroy()
-        # No need to call event.Skip() unless you have a specific reason to continue event propagation
-    
-    def cbHomeOpUpdate(self):
-        results = self.getOpNames()
-        names = [item[0] for item in results]
 
+        dialog.Destroy()
+    
+    # Update combo box operator 1 dan operator 2
+    def cbHomeOpUpdate(self):
+        
+        operators = self.getOp()
+        names = [item[0] for item in operators]
+        # kode belum beres
+
+    # Start manual proses batch (harusnya pake sensor arduino)
     def btnStartOnButtonClick(self, event):
-        stdTime1 = 5
-        stdTime2 = 5
-        stdTime3 = 5
+        Time1 = 5
+        Time2 = 5
+        Time3 = 5
         self.btnHomeStatusLoad.SetBackgroundColour(wx.GREEN)
 
-        self.gHome1.SetRange(stdTime1)
-        self.gHome2.SetRange(stdTime2)
-        self.gHome3.SetRange(stdTime3)
+        self.gHome1.SetRange(Time1)
+        self.gHome2.SetRange(Time2)
+        self.gHome3.SetRange(Time3)
 
         self.gHome1.SetValue(0)
         self.gHome2.SetValue(0)
         self.gHome3.SetValue(0)
 
-        self.stHomeTime1.SetLabel(self.formatTime(Time1))
-        self.stHomeTime2.SetLabel(self.formatTime(Time2))
-        self.stHomeTime3.SetLabel(self.formatTime(Time3))
+        self.stHomeTime1.SetLabel(formatTime(Time1))
+        self.stHomeTime2.SetLabel(formatTime(Time2))
+        self.stHomeTime3.SetLabel(formatTime(Time3))
 
         nowTs = datetime.now().timestamp()
         # Waktu berakhir step 1
@@ -179,28 +184,34 @@ class frameMain(frMain):
         self.tBatchTsEnd3 = 0
         self.btnHomeStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
 
-    #Fungsi Button Camera
+    # Fungsi button finish
+    
+    # Ambil foto dari webcam dan simpan dengan nama timestamp
     def btnHomeCam1OnButtonClick(self, event):
-        # Initialize the webcam, jangan lupa kamera nomor berapa
+
+        # Inisiasi webcam, jangan lupa kamera nomor berapa 0 kamera utama, 1 kamera kedua, 2 kamera ketiga etc...
         cap = cv2.VideoCapture(0)
 
-        # Check if the webcam is opened correctly
+        # Cek jika sambungn ke webcam berhasil
         if not cap.isOpened():
             raise IOError("Cannot open webcam")
 
-        # Capture one frame
+        # Ambil satu foto / frame
         ret, frame = cap.read()
 
         if ret:
             # Tentukan nama foto berdasarkan tanggal dan waktu
             namaFoto = datetime.now().strftime('%Y%m%d-%H%M%S')
+
             # Cek apabila ada folder photos
             os.makedirs("photos", exist_ok=True)
-            # Save the captured image as a JPEG file
+
+            # Simpan foto yang ditangkap dalam format JPG
             cv2.imwrite(f"photos/{namaFoto}.jpg", frame)
             print("Photo captured and saved successfully.")
+
         else:
-            print("Failed to capture photo.")
+            wx.MessageBox("Failed to capture photo.", "Error", wx.OK | wx.ICON_ERROR)
 
         # Release the VideoCapture object
         cap.release()
@@ -211,68 +222,147 @@ class frameMain(frMain):
             self.btnHomeConnect.SetLabel("Disconnect")
         else:
             self.btnHomeConnect.SetLabel("Connect")
-#### KODE UNTUK TAB RECORDS 
-        
-#### KODE UNTUK TAB SUMMARY
-
-#### KODE UNTUK TAB RECIPES
             
-    # Get Data Recipes
-    def get_data_recipes(self):
+#### FRAME MAIN: TAB RECORDS ####
+
+#### FRAME MAIN: TAB SUMMARY ####
+            
+#### FRAME MAIN: TAB SETTINGS ####
+            
+#### FRAME MAIN: TAB SETTINGS: LIST BOOK: GENERAL ####
+            
+#### FRAME MAIN: TAB SETTINGS: LIST BOOK: RECIPES ####
+            
+    # Ambil semua data resep dari database
+    def getRecipes(self):
         c.execute('SELECT color,time_1,desc_1,time_2,desc_2,time_3,desc_3 FROM recipes')
         data = c.fetchall()
         return data
+    
+    # Panggil data dari database recipes, dan masukkan ke list control recipes
+    def lcRecipesUpdate(self):  
 
+        # Hapus dulu
+        self.lcRecipes.DeleteAllItems()  
+
+        # ambil semua resep dari database
+        data = self.getRecipes()
+
+        # baru update lagi
+        for row_index, row_data in enumerate(data):
+            self.lcRecipes.InsertItem(row_index, str(row_data[0]))
+            for col_index, value in enumerate(row_data[0:]):
+                modified_value = formatTime(value) if isinstance(value, int) and col_index in (1, 3, 5) else value
+                self.lcRecipes.SetItem(row_index, col_index, str(modified_value))
+
+    # Buka dialog editor resep (Buat baru, atau edit kalau colornya sudah ada)
     def btnRecCreateOnButtonClick(self, event):
-        # Buka dialog editor resep
-        dialog = dialogRecipes(self)
+
+        # Inisiasi dialog resep
+        dialog = dialogRecipes(self, colorName="")
+
         if dialog.ShowModal() == wx.ID_OK:
-            # jika OK
-            pass
+            self.lcRecipesUpdate()
+
         dialog.Destroy()
 
     def btnRecRefreshOnClick(self, event):
         # Clear the list control first
-        self.lcRecRecipes.DeleteAllItems()
-        self.lcRecRecipes.DeleteAllColumns()
+        self.lcRecipes.DeleteAllItems()
+        self.lcRecipes.DeleteAllColumns()
 
         # Inisasi kolom Recipes
-        self.lcRecRecipes.InsertColumn(0, "Color")
-        self.lcRecRecipes.InsertColumn(1, "Time 1")
-        self.lcRecRecipes.InsertColumn(2, "Description 1", width=200)
-        self.lcRecRecipes.InsertColumn(3, "Time 2")
-        self.lcRecRecipes.InsertColumn(4, "Description 2", width=200)
-        self.lcRecRecipes.InsertColumn(5, "Time 3")
-        self.lcRecRecipes.InsertColumn(6, "Description 3", width=200)
+        self.lcRecipes.InsertColumn(0, "Color")
+        self.lcRecipes.InsertColumn(1, "Time 1")
+        self.lcRecipes.InsertColumn(2, "Description 1", width=200)
+        self.lcRecipes.InsertColumn(3, "Time 2")
+        self.lcRecipes.InsertColumn(4, "Description 2", width=200)
+        self.lcRecipes.InsertColumn(5, "Time 3")
+        self.lcRecipes.InsertColumn(6, "Description 3", width=200)
 
-        data = self.get_data_recipes()
+        data = self.getRecipes()
         for row_index, row_data in enumerate(data):
-            self.lcRecRecipes.InsertItem(row_index, str(row_data[0]))
+            self.lcRecipes.InsertItem(row_index, str(row_data[0]))
             for col_index, value in enumerate(row_data[1:]):
-                self.lcRecRecipes.SetItem(row_index, col_index + 1, str(value))
+                self.lcRecipes.SetItem(row_index, col_index + 1, str(value))
+       
+    # Fungsi edit (masih error)
+       
+    def btnRecEditOnButtonClick(self, event):
+        # Dapatkan baris yang dipilih
+        index = self.lcRecipes.GetFirstSelected()
 
-#### KODE UNTUK TAB OPERATORS
-        
-    def btnOpCreateOnButtonClick(self, event):
-        message = """Create a new operator name
-            1. Go to the Home tab.
-            2. Type it in the Operator field.
+        # Jika ada baris yang dipilih
+        if not index == -1:
+            
+            # Dapatkan warna berdasarkan index baris yang dipilih
+            colorName = self.lcRecipes.GetItemText(index)
+            
+        else:
+            wx.MessageBox(f"Please choose a recipe to edit.", "No recipe selected", wx.OK)
 
-            The app will remember the name if it doesn't already exist."""
+        # Inisiasi dialog resep
+        dialog = dialogRecipes(self, colorName=colorName)
 
-        wx.MessageBox(message, "Create a new name", wx.OK | wx.ICON_INFORMATION)
+        if dialog.ShowModal() == wx.ID_OK:
+            self.lcRecipesUpdate()
+            pass
 
-    def btnOpRefreshOnClick(self, event):
-        results = self.getOpNames()
+        dialog.Destroy()
+    
+    #Fungsi delete
+    
+    def on_delete_button(self, event):
+    
+        # Dapatkan baris yang dipilih
+        selected_row = self.lcRecipes.GetSelectedRow()
+
+        # Jika ada baris yang dipilih
+        if selected_row != -1:
+            # Dapatkan ID resep dari baris yang dipilih
+            recipe_id = int(self.lcRecipes.GetItemText(selected_row, 0))
+
+            # Konfirmasi penghapusan
+            dialog = wx.MessageDialog(
+                self,
+                "Apakah Anda yakin ingin menghapus resep ini?",
+                "Konfirmasi Penghapusan",
+                wx.YES_NO | wx.ICON_QUESTION,
+            )
+            result = dialog.ShowModal()
+
+            # Jika dikonfirmasi
+            if result == wx.ID_YES:
+                # Hapus data dari database MySQL
+                # ... (kode untuk menghapus data dari database)
+
+                # Hapus item dari list control
+                self.lcRecipes.DeleteItem(selected_row)
+
+
+    
+#### FRAME MAIN: TAB SETTINGS: LIST BOOK: OPERATORS ####
+                
+        def btnOpCreateOnButtonClick(self, event):
+            message = """Create a new operator name
+                1. Go to the Home tab.
+                2. Type it in the Operator field.
+
+                The app will remember the name if it doesn't already exist."""
+
+            wx.MessageBox(message, "Create a new name", wx.OK | wx.ICON_INFORMATION)
+
+    def btnOpRefreshOnButtonClick(self, event):
+        results = self.getOp()
 
         # Clear the list control first
-        self.lcOpOperators.DeleteAllItems()
+        self.lcOperators.DeleteAllItems()
 
         for i, row in enumerate(results):
             name = row[0]
-            index = self.lcOpOperators.InsertItem(i, name)
+            index = self.lcOperators.InsertItem(i, name)
 
-    def getOpNames(self):
+    def getOp(self):
         try:
             c.execute("SELECT name FROM operators") 
             return c.fetchall()
@@ -282,14 +372,13 @@ class frameMain(frMain):
 
     def btnOpDeleteOnClick(self, event):
         # Jika ada yang di pilih
-        index = self.lcOpOperators.GetFirstSelected()
-        if index != -1:  # Ensure there is at least one selection
+        index = self.lcOperators.GetFirstSelected()
+        if not index == -1:  # Ensure there is at least one selection
             # Retrieve the text of the selected item(s)
-            name = self.lcOpOperators.GetItemText(index)
+            name = self.lcOperators.GetItemText(index)
             self.cfmOpDelete(name)
         else:
             wx.MessageBox(f"Please choose an operator name to delete.", "No name selected", wx.OK)
-
 
     def cfmOpDelete(self, name):
         dialog = wx.MessageDialog(self,
@@ -304,7 +393,7 @@ class frameMain(frMain):
             c.execute("DELETE FROM operators WHERE LOWER(name) = LOWER(?)", (name,))
             conn.commit()
 
-            self.btnOpRefreshOnClick(self)
+            self.btnOpRefreshOnButtonClick(self)
             self.cbHomeOpUpdate()
 
         except sqlite3.Error as e:
@@ -321,7 +410,8 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("", 3)
 
 
-#### FUNGSI DIALOG ####
+#### DIALOG COLOR ####
+        
 class dialogColor(dgColor):
     def __init__(self, parent):
         
@@ -357,18 +447,49 @@ class dialogColor(dgColor):
     def GetColorChoice(self):
         index = self.lcColors.GetFirstSelected()
         return self.lcColors.GetItemText(index)
-    
+
+
+#### DIALOG RECIPES ####
+      
 class dialogRecipes(dgRecipes):
-    def __init__(self, parent):
+    def __init__(self, parent, colorName):
         
         # Insiasi parent class
         dgRecipes.__init__(self, parent)
 
-    # Get Data Recipes
-    def get_data_recipes(self):
-        c.execute('SELECT color,time_1,desc_1,time_2,desc_2,time_3,desc_3 FROM recipes')
-        data = c.fetchall()
-        return data
+        # Inisiasi variabel color
+        self.colorName = colorName
+
+        if colorName:
+            print("Dialog recipes ada terima warna, ambil dari database...")
+            data = self.getRecipe(colorName)
+            if data:
+                self.tcColor.SetValue(str(data[1]))
+                self.scTime1.SetValue(int(data[2]))
+                self.tcDesc1.SetValue(str(data[3]))
+                self.scTime2.SetValue(int(data[4]))
+                self.tcDesc2.SetValue(str(data[5]))
+                self.scTime3.SetValue(int(data[6]))
+                self.tcDesc3.SetValue(str(data[7]))
+                # disable tcColor
+                self.tcColor.Disable()
+
+    def getRecipe(self, colorName):
+        try:
+            c.execute(f"SELECT * FROM recipes WHERE color = '{colorName}'") 
+            return c.fetchone()
+        except sqlite3.Error as e:
+            wx.MessageBox(f"Error fetching data: {e}.", "Error", wx.OK | wx.ICON_ERROR)
+            return []
+
+    def scTime1Update(self, event):
+        self.stTime1.SetLabel(formatTime(self.scTime1.GetValue()))
+
+    def scTime2Update(self, event):
+        self.stTime2.SetLabel(formatTime(self.scTime2.GetValue()))
+
+    def scTime3Update(self, event):
+        self.stTime3.SetLabel(formatTime(self.scTime3.GetValue()))
     
     def btnSaveOnButtonClick(self, event):
         schema = {
@@ -434,8 +555,9 @@ class dialogRecipes(dgRecipes):
             existing_id = c.fetchone()
 
             if existing_id:
-                # Update existing recipes
-                recipes_id = existing_id[0]
+
+                # Update resep yang sudah ada di database
+                recipe_id = existing_id[0]
                 update_sql = """
                     UPDATE recipes
                     SET time_1 = ?, desc_1 = ?, time_2 = ?, desc_2 = ?, time_3 = ?, desc_3 = ?
@@ -444,7 +566,7 @@ class dialogRecipes(dgRecipes):
                 c.execute(update_sql, (data['time_1'], data['desc_1'], data['time_2'], data['desc_2'], data['time_3'], data['desc_3'],  recipe_id))
                 wx.MessageBox(f"Recipes with color '{color}' updated successfully!", "Recipes updated", wx.OK | wx.ICON_INFORMATION)
             else:
-                # Insert new recipes
+                # Simpan resep baru di database
                 insert_sql = """
                     INSERT INTO recipes (color, time_1, desc_1, time_2, desc_2, time_3, desc_3)
                     VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -454,7 +576,6 @@ class dialogRecipes(dgRecipes):
             conn.commit()
 
             self.EndModal(wx.ID_OK)
-            self.get_data_recipes()
         else:
             error_messages = []
             for field, errors in validator.errors.items():
