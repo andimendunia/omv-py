@@ -946,7 +946,7 @@ class frMain ( wx.Frame ):
 		self.panTimeTolerance.SetSizer( bSizer991 )
 		self.panTimeTolerance.Layout()
 		bSizer991.Fit( self.panTimeTolerance )
-		self.nbMain.AddPage( self.panTimeTolerance, u"Settings", True )
+		self.nbMain.AddPage( self.panTimeTolerance, u"Settings", False )
 
 		bSizer36.Add( self.nbMain, 1, wx.ALL|wx.EXPAND, 10 )
 
