@@ -95,18 +95,23 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("COM3", 1)
         self.sbMain.SetStatusText("BAUD 9600", 2)
         self.sbMain.SetStatusText(nowStr, 3)
-        timeact = 0
+        timeact = 99999
+        timeTotal = self.gHome1.GetRange() + self.gHome2.GetRange() + self.gHome3.GetRange()
 
         # Update hitung mundur jika tBatchTsEnd3 terisi
-        if not self.tBatchTsEnd3 == 0:
+        if not timeact == 0:
 
-            timeTotal = self.gHome1.GetRange() + self.gHome2.GetRange() + self.gHome3.GetRange()
-            remainingTotal = self.tBatchTsEnd3 - nowTs
-            elapsedTotal = timeTotal - remainingTotal
-            self.stHomeElapsed.SetLabel(formatTime(math.floor(elapsedTotal)))      
+            # Elapsed Time
+            # timeTotal = self.gHome1.GetRange() + self.gHome2.GetRange() + self.gHome3.GetRange()
+            # remainingTotal = self.tBatchTsEnd3 - nowTs
+            # elapsedTotal = timeTotal - remainingTotal
+            timeact -= 1
+            timeTotal -= 1
+            self.stHomeElapsed.SetLabel(formatTime(math.floor(timeTotal))) 
            
             if nowTs < self.tBatchTsEnd1:
                 print('Step 1')
+                self.btnHomeFinish.Disable()
                 remaining = math.floor(self.tBatchTsEnd1 - nowTs)
                 elapsed = self.gHome1.GetRange() - remaining
                 self.stHomeTime1.SetLabel(formatTime(remaining))
@@ -115,6 +120,7 @@ class frameMain(frMain):
 
             elif nowTs < self.tBatchTsEnd2:
                 print('Step 2')
+                self.btnHomeFinish.Disable()
                 remaining = math.floor(self.tBatchTsEnd2 - nowTs)
                 elapsed = self.gHome2.GetRange() - remaining
                 self.stHomeTime2.SetLabel(formatTime(remaining))
@@ -122,6 +128,7 @@ class frameMain(frMain):
             
             elif nowTs < self.tBatchTsEnd3:
                 print('Step 3')
+                self.btnHomeFinish.Enable()
                 remaining = math.floor(self.tBatchTsEnd3 - nowTs)
                 elapsed = self.gHome3.GetRange() - remaining
                 self.stHomeTime3.SetLabel(formatTime(remaining))               
@@ -180,11 +187,14 @@ class frameMain(frMain):
         # Waktu berakhir step 3
         self.tBatchTsEnd3 = self.tBatchTsEnd2 + Time3
 
+    # Fungsi button finish
     def btnHomeFinishOnButtonClick(self, event):
         self.tBatchTsEnd3 = 0
+        wx.MessageBox(f"Process Finished", "Final Step", wx.OK)
+        self.gHome1.SetValue(0)
+        self.gHome2.SetValue(0)
+        self.gHome3.SetValue(0)
         self.btnHomeStatusLoad.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
-
-    # Fungsi button finish
     
     # Ambil foto dari webcam dan simpan dengan nama timestamp
     def btnHomeCam1OnButtonClick(self, event):
@@ -286,7 +296,7 @@ class frameMain(frMain):
             for col_index, value in enumerate(row_data[1:]):
                 self.lcRecipes.SetItem(row_index, col_index + 1, str(value))
        
-    # Fungsi edit (masih error)
+    # Fungsi edit recipis (minus timer nya)
        
     def btnRecEditOnButtonClick(self, event):
         # Dapatkan baris yang dipilih
@@ -310,23 +320,24 @@ class frameMain(frMain):
 
         dialog.Destroy()
     
-    #Fungsi delete
+    #Fungsi delete recipes
     
-    def on_delete_button(self, event):
-    
+    def btnRecDeleteOnButtonClick(self, event):
+        
         # Dapatkan baris yang dipilih
-        selected_row = self.lcRecipes.GetSelectedRow()
+        index = self.lcRecipes.GetFirstSelected()
 
         # Jika ada baris yang dipilih
-        if selected_row != -1:
-            # Dapatkan ID resep dari baris yang dipilih
-            recipe_id = int(self.lcRecipes.GetItemText(selected_row, 0))
+        if not index == -1:
+
+            # Dapatkan warna berdasarkan index baris yang dipilih
+            colorName = self.lcRecipes.GetItemText(index)
 
             # Konfirmasi penghapusan
             dialog = wx.MessageDialog(
                 self,
-                "Apakah Anda yakin ingin menghapus resep ini?",
-                "Konfirmasi Penghapusan",
+                "Are you sure you want to delete this recipe?",
+                "Delete",
                 wx.YES_NO | wx.ICON_QUESTION,
             )
             result = dialog.ShowModal()
@@ -337,7 +348,7 @@ class frameMain(frMain):
                 # ... (kode untuk menghapus data dari database)
 
                 # Hapus item dari list control
-                self.lcRecipes.DeleteItem(selected_row)
+                self.lcRecipes.DeleteItem(index)
 
 
     
@@ -418,35 +429,35 @@ class dialogColor(dgColor):
         # Insiasi parent class
         dgColor.__init__(self, parent)
 
-        self.lcColors.InsertColumn(0, "Colors")
+        self.lcColor.InsertColumn(0, "Colors")
         width = self.GetSize().width - 40
-        self.lcColors.SetColumnWidth(0, width)
-        self.lcColors.Append(["WHITE"])
-        self.lcColors.Append(["COLOR"])
-        self.lcColors.Append(["CLEAR"])
-        self.lcColors.Append(["BLACK & COLOR"])
-        self.lcColors.Append(["LOGO"])
-        self.lcColors.Append(["WHITE REGRIND"])
-        self.lcColors.Append(["REGRIND 9%"])
-        self.lcColors.Append(["REGRIND 15%"])
+        self.lcColor.SetColumnWidth(0, width)
+        self.lcColor.Append(["WHITE"])
+        self.lcColor.Append(["COLOR"])
+        self.lcColor.Append(["CLEAR"])
+        self.lcColor.Append(["BLACK & COLOR"])
+        self.lcColor.Append(["LOGO"])
+        self.lcColor.Append(["WHITE REGRIND"])
+        self.lcColor.Append(["REGRIND 9%"])
+        self.lcColor.Append(["REGRIND 15%"])
 
-        font = self.lcColors.GetFont()
+        font = self.lcColor.GetFont()
         font.SetPointSize(font.GetPointSize() + 6)  # Increase font size
-        self.lcColors.SetFont(font)
+        self.lcColor.SetFont(font)
     
     def btnApplyOnButtonClick(self, event):
         
-        index = self.lcColors.GetFirstSelected()
+        index = self.lcColor.GetFirstSelected()
         if index != -1:  # Ensure there is at least one selection
             # Retrieve the text of the selected item(s)
-            color = self.lcColors.GetItemText(index)
+            color = self.lcColor.GetItemText(index)
             self.EndModal(wx.ID_OK)
         else:
             wx.MessageBox(f"Please choose a color.", "No color selected", wx.OK)
 
     def GetColorChoice(self):
-        index = self.lcColors.GetFirstSelected()
-        return self.lcColors.GetItemText(index)
+        index = self.lcColor.GetFirstSelected()
+        return self.lcColor.GetItemText(index)
 
 
 #### DIALOG RECIPES ####
