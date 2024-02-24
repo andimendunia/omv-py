@@ -18,7 +18,7 @@ import wx.adv
 class frMain ( wx.Frame ):
 
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Open Mill Process Validator", pos = wx.DefaultPosition, size = wx.Size( 943,566 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Open Mill Process Validator", pos = wx.DefaultPosition, size = wx.Size( 1025,566 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 		self.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_MENU ) )
@@ -50,7 +50,7 @@ class frMain ( wx.Frame ):
 
 		chHomeShiftChoices = [ wx.EmptyString, u"1", u"2", u"3", u"Saturday" ]
 		self.chHomeShift = wx.Choice( self.panHome, wx.ID_ANY, wx.DefaultPosition, wx.Size( 80,-1 ), chHomeShiftChoices, 0 )
-		self.chHomeShift.SetSelection( 4 )
+		self.chHomeShift.SetSelection( 0 )
 		bSizer761.Add( self.chHomeShift, 0, wx.ALL, 5 )
 
 
@@ -58,14 +58,14 @@ class frMain ( wx.Frame ):
 
 		bSizer7611 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText661 = wx.StaticText( self.panHome, wx.ID_ANY, u"Group", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText661 = wx.StaticText( self.panHome, wx.ID_ANY, u"Tim", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText661.Wrap( -1 )
 
 		bSizer7611.Add( self.m_staticText661, 0, wx.ALL, 5 )
 
 		chHomeGroupChoices = [ wx.EmptyString, u"A", u"B", u"C" ]
 		self.chHomeGroup = wx.Choice( self.panHome, wx.ID_ANY, wx.DefaultPosition, wx.Size( 60,-1 ), chHomeGroupChoices, 0 )
-		self.chHomeGroup.SetSelection( 1 )
+		self.chHomeGroup.SetSelection( 0 )
 		bSizer7611.Add( self.chHomeGroup, 0, wx.ALL, 5 )
 
 
@@ -80,13 +80,11 @@ class frMain ( wx.Frame ):
 
 		bSizer821 = wx.BoxSizer( wx.HORIZONTAL )
 
-		chHomeOp1Choices = []
-		self.chHomeOp1 = wx.ComboBox( self.panHome, wx.ID_ANY, u"MUTMAENAH", wx.DefaultPosition, wx.Size( 200,-1 ), chHomeOp1Choices, 0 )
-		bSizer821.Add( self.chHomeOp1, 0, wx.ALL, 5 )
+		self.m_textCtrl6 = wx.TextCtrl( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer821.Add( self.m_textCtrl6, 1, wx.ALL|wx.EXPAND, 5 )
 
-		chHomeOp2Choices = []
-		self.chHomeOp2 = wx.ComboBox( self.panHome, wx.ID_ANY, u"SUSILAWATI", wx.DefaultPosition, wx.Size( 200,-1 ), chHomeOp2Choices, 0 )
-		bSizer821.Add( self.chHomeOp2, 0, wx.ALL, 5 )
+		self.m_textCtrl7 = wx.TextCtrl( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer821.Add( self.m_textCtrl7, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer7612.Add( bSizer821, 1, wx.EXPAND, 5 )
@@ -121,7 +119,7 @@ class frMain ( wx.Frame ):
 
 		bSizer40 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText36 = wx.StaticText( self.panHome, wx.ID_ANY, u"Batch no.", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText36 = wx.StaticText( self.panHome, wx.ID_ANY, u"No. batch", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText36.Wrap( -1 )
 
 		bSizer40.Add( self.m_staticText36, 0, wx.ALL, 5 )
@@ -131,6 +129,19 @@ class frMain ( wx.Frame ):
 
 
 		bSizer83.Add( bSizer40, 0, wx.ALL|wx.EXPAND, 5 )
+
+		bSizer402 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText362 = wx.StaticText( self.panHome, wx.ID_ANY, u"Suhu", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText362.Wrap( -1 )
+
+		bSizer402.Add( self.m_staticText362, 0, wx.ALL, 5 )
+
+		self.tcHomeBatch1 = wx.TextCtrl( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 140,-1 ), 0 )
+		bSizer402.Add( self.tcHomeBatch1, 0, wx.ALL, 5 )
+
+
+		bSizer83.Add( bSizer402, 1, wx.EXPAND, 5 )
 
 		bSizer401 = wx.BoxSizer( wx.VERTICAL )
 
@@ -168,6 +179,19 @@ class frMain ( wx.Frame ):
 
 		bSizer83.Add( bSizer401, 0, wx.ALL|wx.EXPAND, 5 )
 
+		bSizer403 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText363 = wx.StaticText( self.panHome, wx.ID_ANY, u"No. batch", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText363.Wrap( -1 )
+
+		bSizer403.Add( self.m_staticText363, 0, wx.ALL, 5 )
+
+		self.tcHomeBatch2 = wx.TextCtrl( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 140,-1 ), 0 )
+		bSizer403.Add( self.tcHomeBatch2, 0, wx.ALL, 5 )
+
+
+		bSizer83.Add( bSizer403, 1, wx.EXPAND, 5 )
+
 
 		bSizer531.Add( bSizer83, 1, wx.ALL|wx.EXPAND, 5 )
 
@@ -187,7 +211,7 @@ class frMain ( wx.Frame ):
 
 		bSizer80 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText55 = wx.StaticText( self.panColMain, wx.ID_ANY, u"Color", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText55 = wx.StaticText( self.panColMain, wx.ID_ANY, u"Warna", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText55.Wrap( -1 )
 
 		bSizer80.Add( self.m_staticText55, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -225,42 +249,6 @@ class frMain ( wx.Frame ):
 
 		bSizer53 = wx.BoxSizer( wx.VERTICAL )
 
-		bSizer55 = wx.BoxSizer( wx.HORIZONTAL )
-
-		bSizer56 = wx.BoxSizer( wx.VERTICAL )
-
-		self.btnHomeConnect = wx.Button( self.panHome, wx.ID_ANY, u"Connect", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer56.Add( self.btnHomeConnect, 1, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer55.Add( bSizer56, 1, wx.EXPAND, 5 )
-
-		bSizer57 = wx.BoxSizer( wx.VERTICAL )
-
-
-		bSizer55.Add( bSizer57, 0, wx.EXPAND, 5 )
-
-
-		bSizer53.Add( bSizer55, 1, wx.EXPAND, 5 )
-
-		gSizer7 = wx.GridSizer( 0, 3, 0, 0 )
-
-		self.Port = wx.StaticText( self.panHome, wx.ID_ANY, u"Port", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.Port.Wrap( -1 )
-
-		gSizer7.Add( self.Port, 1, wx.ALL, 5 )
-
-		chHomePortChoices = []
-		self.chHomePort = wx.Choice( self.panHome, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, chHomePortChoices, 0 )
-		self.chHomePort.SetSelection( 0 )
-		gSizer7.Add( self.chHomePort, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.btnHomeReset = wx.Button( self.panHome, wx.ID_ANY, u"Reset", wx.DefaultPosition, wx.DefaultSize, 0 )
-		gSizer7.Add( self.btnHomeReset, 1, wx.ALL|wx.EXPAND, 5 )
-
-
-		bSizer53.Add( gSizer7, 0, wx.EXPAND, 5 )
-
 		bSizer581 = wx.BoxSizer( wx.HORIZONTAL )
 
 		gSizer711 = wx.GridSizer( 0, 2, 0, 0 )
@@ -268,7 +256,7 @@ class frMain ( wx.Frame ):
 
 		bSizer581.Add( gSizer711, 1, wx.EXPAND, 5 )
 
-		self.ElapsedTime = wx.StaticText( self.panHome, wx.ID_ANY, u"Elapsed time", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.ElapsedTime = wx.StaticText( self.panHome, wx.ID_ANY, u"Total waktu", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.ElapsedTime.Wrap( -1 )
 
 		bSizer581.Add( self.ElapsedTime, 1, wx.ALL|wx.EXPAND, 5 )
@@ -288,7 +276,7 @@ class frMain ( wx.Frame ):
 
 		bSizer551.Add( gSizer12, 1, wx.EXPAND, 5 )
 
-		self.TimeTolerance = wx.StaticText( self.panHome, wx.ID_ANY, u"Time Tolerance", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.TimeTolerance = wx.StaticText( self.panHome, wx.ID_ANY, u"Toleransi waktu", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.TimeTolerance.Wrap( -1 )
 
 		bSizer551.Add( self.TimeTolerance, 1, wx.ALL|wx.EXPAND, 5 )
@@ -394,11 +382,8 @@ class frMain ( wx.Frame ):
 		self.gHome1.SetValue( 0 )
 		bSizer61112.Add( self.gHome1, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_button16 = wx.Button( self.panStep1, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
-		bSizer61112.Add( self.m_button16, 0, wx.ALL|wx.EXPAND, 5 )
 
-
-		bSizer97.Add( bSizer61112, 1, wx.EXPAND, 5 )
+		bSizer97.Add( bSizer61112, 0, wx.EXPAND, 5 )
 
 
 		bSizer421.Add( bSizer97, 1, wx.ALL|wx.EXPAND, 5 )
@@ -476,11 +461,8 @@ class frMain ( wx.Frame ):
 		self.gHome2.SetValue( 0 )
 		bSizer611121.Add( self.gHome2, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_button161 = wx.Button( self.panStep2, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
-		bSizer611121.Add( self.m_button161, 0, wx.ALL|wx.EXPAND, 5 )
 
-
-		bSizer98.Add( bSizer611121, 1, wx.EXPAND, 5 )
+		bSizer98.Add( bSizer611121, 0, wx.EXPAND, 5 )
 
 
 		bSizer51.Add( bSizer98, 1, wx.ALL|wx.EXPAND, 5 )
@@ -531,6 +513,14 @@ class frMain ( wx.Frame ):
 
 		bSizer99.Add( bSizer79, 2, wx.ALL|wx.EXPAND, 10 )
 
+		bSizer115 = wx.BoxSizer( wx.VERTICAL )
+
+		self.btnHomeFinish = wx.Button( self.panStep3, wx.ID_ANY, u"Selesai", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+		bSizer115.Add( self.btnHomeFinish, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+
+
+		bSizer99.Add( bSizer115, 0, wx.EXPAND, 5 )
+
 		bSizer611122 = wx.BoxSizer( wx.VERTICAL )
 
 		bSizer8711 = wx.BoxSizer( wx.HORIZONTAL )
@@ -558,11 +548,8 @@ class frMain ( wx.Frame ):
 		self.gHome3.SetValue( 0 )
 		bSizer611122.Add( self.gHome3, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.btnHomeFinish = wx.Button( self.panStep3, wx.ID_ANY, u"Finish", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
-		bSizer611122.Add( self.btnHomeFinish, 0, wx.ALL|wx.EXPAND, 5 )
 
-
-		bSizer99.Add( bSizer611122, 1, wx.EXPAND, 5 )
+		bSizer99.Add( bSizer611122, 0, wx.EXPAND, 5 )
 
 
 		bSizer52.Add( bSizer99, 1, wx.ALL|wx.EXPAND, 5 )
@@ -583,7 +570,7 @@ class frMain ( wx.Frame ):
 		self.panHome.SetSizer( bSizer162 )
 		self.panHome.Layout()
 		bSizer162.Fit( self.panHome )
-		self.nbMain.AddPage( self.panHome, u"Home", False )
+		self.nbMain.AddPage( self.panHome, u"Halaman utama", True )
 		self.panRecords = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panRecords.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -608,7 +595,7 @@ class frMain ( wx.Frame ):
 
 		bSizer89 = wx.BoxSizer( wx.VERTICAL )
 
-		self.startDt1 = wx.StaticText( self.panRecords, wx.ID_ANY, u"From", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.startDt1 = wx.StaticText( self.panRecords, wx.ID_ANY, u"Mulai", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.startDt1.Wrap( -1 )
 
 		bSizer89.Add( self.startDt1, 0, wx.ALL, 5 )
@@ -621,7 +608,7 @@ class frMain ( wx.Frame ):
 
 		bSizer90 = wx.BoxSizer( wx.VERTICAL )
 
-		self.finishDt1 = wx.StaticText( self.panRecords, wx.ID_ANY, u"To", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.finishDt1 = wx.StaticText( self.panRecords, wx.ID_ANY, u"Sampai", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.finishDt1.Wrap( -1 )
 
 		bSizer90.Add( self.finishDt1, 0, wx.ALL, 5 )
@@ -639,7 +626,7 @@ class frMain ( wx.Frame ):
 
 		bSizer91.Add( self.m_staticText70, 0, wx.ALL, 5 )
 
-		self.btnRecordsApply = wx.Button( self.panRecords, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.Size( 140,-1 ), 0 )
+		self.btnRecordsApply = wx.Button( self.panRecords, wx.ID_ANY, u"Terapkan", wx.DefaultPosition, wx.Size( 140,-1 ), 0 )
 		bSizer91.Add( self.btnRecordsApply, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -660,7 +647,7 @@ class frMain ( wx.Frame ):
 		self.panRecords.SetSizer( bSizer69 )
 		self.panRecords.Layout()
 		bSizer69.Fit( self.panRecords )
-		self.nbMain.AddPage( self.panRecords, u"Records", False )
+		self.nbMain.AddPage( self.panRecords, u"Informasi", False )
 		self.panSummary = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panSummary.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -685,7 +672,7 @@ class frMain ( wx.Frame ):
 
 		bSizer94 = wx.BoxSizer( wx.VERTICAL )
 
-		self.startDt2 = wx.StaticText( self.panSummary, wx.ID_ANY, u"From", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.startDt2 = wx.StaticText( self.panSummary, wx.ID_ANY, u"Mulai", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.startDt2.Wrap( -1 )
 
 		bSizer94.Add( self.startDt2, 0, wx.ALL, 5 )
@@ -698,7 +685,7 @@ class frMain ( wx.Frame ):
 
 		bSizer95 = wx.BoxSizer( wx.VERTICAL )
 
-		self.finishDt2 = wx.StaticText( self.panSummary, wx.ID_ANY, u"To", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.finishDt2 = wx.StaticText( self.panSummary, wx.ID_ANY, u"Sampai", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.finishDt2.Wrap( -1 )
 
 		bSizer95.Add( self.finishDt2, 0, wx.ALL, 5 )
@@ -716,7 +703,7 @@ class frMain ( wx.Frame ):
 
 		bSizer96.Add( self.m_staticText71, 0, wx.ALL, 5 )
 
-		self.btnSumApply = wx.Button( self.panSummary, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.Size( 140,-1 ), 0 )
+		self.btnSumApply = wx.Button( self.panSummary, wx.ID_ANY, u"Terapkan", wx.DefaultPosition, wx.Size( 140,-1 ), 0 )
 		bSizer96.Add( self.btnSumApply, 0, wx.ALL|wx.EXPAND, 5 )
 
 
@@ -737,7 +724,7 @@ class frMain ( wx.Frame ):
 		self.panSummary.SetSizer( bSizer45 )
 		self.panSummary.Layout()
 		bSizer45.Fit( self.panSummary )
-		self.nbMain.AddPage( self.panSummary, u"Summary", False )
+		self.nbMain.AddPage( self.panSummary, u"Rekap", False )
 		self.panTimeTolerance = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panTimeTolerance.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -749,7 +736,7 @@ class frMain ( wx.Frame ):
 
 		bSizer1172 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText752 = wx.StaticText( self.panSetBasic, wx.ID_ANY, u"General", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText752 = wx.StaticText( self.panSetBasic, wx.ID_ANY, u"Umum", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText752.Wrap( -1 )
 
 		bSizer1172.Add( self.m_staticText752, 0, wx.ALL, 5 )
@@ -763,9 +750,60 @@ class frMain ( wx.Frame ):
 
 		bSizer127 = wx.BoxSizer( wx.VERTICAL )
 
+		bSizer116 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText64 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Port", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText64.Wrap( -1 )
+
+		bSizer116.Add( self.m_staticText64, 0, wx.ALL, 5 )
+
+		bSizer1173 = wx.BoxSizer( wx.HORIZONTAL )
+
+		m_choice10Choices = []
+		self.m_choice10 = wx.Choice( sbSizer11.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice10Choices, 0 )
+		self.m_choice10.SetSelection( 0 )
+		bSizer1173.Add( self.m_choice10, 0, wx.ALL|wx.EXPAND, 5 )
+
+		self.btnHomeReset = wx.Button( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Reset", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer1173.Add( self.btnHomeReset, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		bSizer116.Add( bSizer1173, 0, wx.EXPAND, 5 )
+
+
+		bSizer127.Add( bSizer116, 0, wx.EXPAND, 5 )
+
+		bSizer55 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText65 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Perangkat", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText65.Wrap( -1 )
+
+		bSizer55.Add( self.m_staticText65, 0, wx.ALL, 5 )
+
+		self.btnHomeConnect = wx.Button( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Connect", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer55.Add( self.btnHomeConnect, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+		bSizer127.Add( bSizer55, 0, 0, 5 )
+
+		bSizer571 = wx.BoxSizer( wx.VERTICAL )
+
+		self.m_staticText831 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Baud rate", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText831.Wrap( -1 )
+
+		bSizer571.Add( self.m_staticText831, 0, wx.ALL, 5 )
+
+		chGenBaudChoices = [ u" ", u"2400", u"4800", u"9600", u"19200", u"38400", u"57600", u"115200" ]
+		self.chGenBaud = wx.Choice( sbSizer11.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.Size( 100,-1 ), chGenBaudChoices, 0 )
+		self.chGenBaud.SetSelection( 0 )
+		bSizer571.Add( self.chGenBaud, 0, wx.ALL, 5 )
+
+
+		bSizer127.Add( bSizer571, 0, wx.ALL|wx.EXPAND, 5 )
+
 		bSizer573 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText8311 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Line count", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText8311 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Jumlah line", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText8311.Wrap( -1 )
 
 		bSizer573.Add( self.m_staticText8311, 0, wx.ALL, 5 )
@@ -788,7 +826,7 @@ class frMain ( wx.Frame ):
 		self.scGenTimeTol = wx.SpinCtrl( sbSizer11.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 100,-1 ), wx.SP_ARROW_KEYS, 0, 3599, 1 )
 		bSizer128.Add( self.scGenTimeTol, 0, wx.ALL, 5 )
 
-		self.m_staticText463 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"seconds", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText463 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Detik", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText463.Wrap( -1 )
 
 		bSizer128.Add( self.m_staticText463, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -799,27 +837,12 @@ class frMain ( wx.Frame ):
 
 		bSizer127.Add( bSizer572, 0, wx.ALL|wx.EXPAND, 5 )
 
-		bSizer571 = wx.BoxSizer( wx.VERTICAL )
-
-		self.m_staticText831 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Baud rate", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText831.Wrap( -1 )
-
-		bSizer571.Add( self.m_staticText831, 0, wx.ALL, 5 )
-
-		chGenBaudChoices = [ u" ", u"2400", u"4800", u"9600", u"19200", u"38400", u"57600", u"115200" ]
-		self.chGenBaud = wx.Choice( sbSizer11.GetStaticBox(), wx.ID_ANY, wx.DefaultPosition, wx.Size( 100,-1 ), chGenBaudChoices, 0 )
-		self.chGenBaud.SetSelection( 2 )
-		bSizer571.Add( self.chGenBaud, 0, wx.ALL, 5 )
-
-
-		bSizer127.Add( bSizer571, 0, wx.ALL|wx.EXPAND, 5 )
-
 
 		sbSizer11.Add( bSizer127, 1, wx.EXPAND, 5 )
 
 		bSizer73 = wx.BoxSizer( wx.VERTICAL )
 
-		self.btnGenSave = wx.Button( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.btnGenSave = wx.Button( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Simpan", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer73.Add( self.btnGenSave, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
@@ -835,13 +858,13 @@ class frMain ( wx.Frame ):
 		self.panSetBasic.SetSizer( bSizer60 )
 		self.panSetBasic.Layout()
 		bSizer60.Fit( self.panSetBasic )
-		self.m_listbook1.AddPage( self.panSetBasic, u"General", False )
+		self.m_listbook1.AddPage( self.panSetBasic, u"Umum", False )
 		self.panSetRecipes = wx.Panel( self.m_listbook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer119 = wx.BoxSizer( wx.VERTICAL )
 
 		bSizer117 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText75 = wx.StaticText( self.panSetRecipes, wx.ID_ANY, u"Recipes", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText75 = wx.StaticText( self.panSetRecipes, wx.ID_ANY, u"Warna", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText75.Wrap( -1 )
 
 		bSizer117.Add( self.m_staticText75, 0, wx.ALL, 5 )
@@ -853,13 +876,13 @@ class frMain ( wx.Frame ):
 
 		bSizer651 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.btnRecCreate = wx.Button( self.panSetRecipes, wx.ID_ANY, u"Create", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.btnRecCreate = wx.Button( self.panSetRecipes, wx.ID_ANY, u"Baru", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer651.Add( self.btnRecCreate, 0, wx.ALL, 5 )
 
 		self.btnRecEdit = wx.Button( self.panSetRecipes, wx.ID_ANY, u"Edit", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer651.Add( self.btnRecEdit, 0, wx.ALL, 5 )
 
-		self.btnRecDelete = wx.Button( self.panSetRecipes, wx.ID_ANY, u"Delete", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.btnRecDelete = wx.Button( self.panSetRecipes, wx.ID_ANY, u"Hapus", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer651.Add( self.btnRecDelete, 0, wx.ALL, 5 )
 
 
@@ -888,7 +911,7 @@ class frMain ( wx.Frame ):
 		self.panSetRecipes.SetSizer( bSizer119 )
 		self.panSetRecipes.Layout()
 		bSizer119.Fit( self.panSetRecipes )
-		self.m_listbook1.AddPage( self.panSetRecipes, u"Recipes", True )
+		self.m_listbook1.AddPage( self.panSetRecipes, u"Warna", False )
 		self.panSetOperators = wx.Panel( self.m_listbook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer582 = wx.BoxSizer( wx.VERTICAL )
 
@@ -904,16 +927,19 @@ class frMain ( wx.Frame ):
 
 		bSizer76 = wx.BoxSizer( wx.HORIZONTAL )
 
-		btnOpCreate1 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer6511 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.btnOpCreate = wx.Button( self.panSetOperators, wx.ID_ANY, u"Create", wx.DefaultPosition, wx.DefaultSize, 0 )
-		btnOpCreate1.Add( self.btnOpCreate, 0, wx.ALL, 5 )
+		self.btnOpBaru = wx.Button( self.panSetOperators, wx.ID_ANY, u"Baru", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6511.Add( self.btnOpBaru, 0, wx.ALL, 5 )
 
-		self.btnOpDelete = wx.Button( self.panSetOperators, wx.ID_ANY, u"Delete", wx.DefaultPosition, wx.DefaultSize, 0 )
-		btnOpCreate1.Add( self.btnOpDelete, 0, wx.ALL, 5 )
+		self.btnOpEdit = wx.Button( self.panSetOperators, wx.ID_ANY, u"Edit", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6511.Add( self.btnOpEdit, 0, wx.ALL, 5 )
+
+		self.btnOpDelete = wx.Button( self.panSetOperators, wx.ID_ANY, u"Hapus", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer6511.Add( self.btnOpDelete, 0, wx.ALL, 5 )
 
 
-		bSizer76.Add( btnOpCreate1, 1, wx.ALL|wx.EXPAND, 5 )
+		bSizer76.Add( bSizer6511, 1, wx.EXPAND, 5 )
 
 		bSizer701 = wx.BoxSizer( wx.VERTICAL )
 
@@ -938,7 +964,7 @@ class frMain ( wx.Frame ):
 		self.panSetOperators.SetSizer( bSizer582 )
 		self.panSetOperators.Layout()
 		bSizer582.Fit( self.panSetOperators )
-		self.m_listbook1.AddPage( self.panSetOperators, u"Operators", False )
+		self.m_listbook1.AddPage( self.panSetOperators, u"Operator", True )
 
 		bSizer991.Add( self.m_listbook1, 1, wx.EXPAND |wx.ALL, 5 )
 
@@ -946,7 +972,7 @@ class frMain ( wx.Frame ):
 		self.panTimeTolerance.SetSizer( bSizer991 )
 		self.panTimeTolerance.Layout()
 		bSizer991.Fit( self.panTimeTolerance )
-		self.nbMain.AddPage( self.panTimeTolerance, u"Settings", False )
+		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", False )
 
 		bSizer36.Add( self.nbMain, 1, wx.ALL|wx.EXPAND, 10 )
 
@@ -995,14 +1021,9 @@ class frMain ( wx.Frame ):
 		# Connect Events
 		self.chHomeShift.Bind( wx.EVT_CHOICE, self.chHomeShiftOnChoice )
 		self.chHomeGroup.Bind( wx.EVT_CHOICE, self.chHomeGroupOnChoice )
-		self.chHomeOp1.Bind( wx.EVT_COMBOBOX, self.chHomeOp1OnCombobox )
-		self.chHomeOp2.Bind( wx.EVT_COMBOBOX, self.chHomeOp2OnCombobox )
 		self.chHomeLine.Bind( wx.EVT_CHOICE, self.chHomeLineOnChoice )
 		self.btnHomeCol.Bind( wx.EVT_BUTTON, self.btnHomeColOnClick )
 		self.btnStart.Bind( wx.EVT_BUTTON, self.btnStartOnButtonClick )
-		self.btnHomeConnect.Bind( wx.EVT_BUTTON, self.btnHomeConnectOnButtonClick )
-		self.chHomePort.Bind( wx.EVT_CHOICE, self.chHomePortOnChoice )
-		self.btnHomeReset.Bind( wx.EVT_BUTTON, self.btnHomeResetOnButtonClick )
 		self.btnHomeStatusLoad.Bind( wx.EVT_BUTTON, self.btnHomeStatusLoadOnButtonClick )
 		self.btnHomeCam1.Bind( wx.EVT_BUTTON, self.btnHomeCam1OnButtonClick )
 		self.btnHomeFinish.Bind( wx.EVT_BUTTON, self.btnHomeFinishOnButtonClick )
@@ -1014,14 +1035,17 @@ class frMain ( wx.Frame ):
 		self.calSumStartDt2.Bind( wx.adv.EVT_DATE_CHANGED, self.calSumStartDt2OnDateChanged )
 		self.calSumFinishDt2.Bind( wx.adv.EVT_DATE_CHANGED, self.calSumFinishDt2OnDateChanged )
 		self.btnSumApply.Bind( wx.EVT_BUTTON, self.btnSumApplyOnButtonClick )
+		self.btnHomeReset.Bind( wx.EVT_BUTTON, self.btnHomeResetOnButtonClick )
+		self.btnHomeConnect.Bind( wx.EVT_BUTTON, self.btnHomeConnectOnButtonClick )
 		self.chGenBaud.Bind( wx.EVT_CHOICE, self.chGenBaudOnChoice )
 		self.btnGenSave.Bind( wx.EVT_BUTTON, self.btnGenSaveOnButtonClick )
 		self.btnRecCreate.Bind( wx.EVT_BUTTON, self.btnRecCreateOnButtonClick )
 		self.btnRecEdit.Bind( wx.EVT_BUTTON, self.btnRecEditOnButtonClick )
 		self.btnRecDelete.Bind( wx.EVT_BUTTON, self.btnRecDeleteOnButtonClick )
 		self.btnRecRefresh.Bind( wx.EVT_BUTTON, self.btnRecRefreshOnButtonClick )
-		self.btnOpCreate.Bind( wx.EVT_BUTTON, self.btnOpCreateOnButtonClick )
-		self.btnOpDelete.Bind( wx.EVT_BUTTON, self.btnOpDeleteOnButtonClick )
+		self.btnOpBaru.Bind( wx.EVT_BUTTON, self.btnRecCreateOnButtonClick )
+		self.btnOpEdit.Bind( wx.EVT_BUTTON, self.btnRecEditOnButtonClick )
+		self.btnOpDelete.Bind( wx.EVT_BUTTON, self.btnRecDeleteOnButtonClick )
 		self.btnOpRefresh.Bind( wx.EVT_BUTTON, self.btnOpRefreshOnButtonClick )
 		self.lcOperators.Bind( wx.EVT_LIST_ITEM_SELECTED, self.lcOpOperatorsOnListItemSelected )
 
@@ -1036,12 +1060,6 @@ class frMain ( wx.Frame ):
 	def chHomeGroupOnChoice( self, event ):
 		event.Skip()
 
-	def chHomeOp1OnCombobox( self, event ):
-		event.Skip()
-
-	def chHomeOp2OnCombobox( self, event ):
-		event.Skip()
-
 	def chHomeLineOnChoice( self, event ):
 		event.Skip()
 
@@ -1049,15 +1067,6 @@ class frMain ( wx.Frame ):
 		event.Skip()
 
 	def btnStartOnButtonClick( self, event ):
-		event.Skip()
-
-	def btnHomeConnectOnButtonClick( self, event ):
-		event.Skip()
-
-	def chHomePortOnChoice( self, event ):
-		event.Skip()
-
-	def btnHomeResetOnButtonClick( self, event ):
 		event.Skip()
 
 	def btnHomeStatusLoadOnButtonClick( self, event ):
@@ -1093,6 +1102,12 @@ class frMain ( wx.Frame ):
 	def btnSumApplyOnButtonClick( self, event ):
 		event.Skip()
 
+	def btnHomeResetOnButtonClick( self, event ):
+		event.Skip()
+
+	def btnHomeConnectOnButtonClick( self, event ):
+		event.Skip()
+
 	def chGenBaudOnChoice( self, event ):
 		event.Skip()
 
@@ -1111,11 +1126,8 @@ class frMain ( wx.Frame ):
 	def btnRecRefreshOnButtonClick( self, event ):
 		event.Skip()
 
-	def btnOpCreateOnButtonClick( self, event ):
-		event.Skip()
 
-	def btnOpDeleteOnButtonClick( self, event ):
-		event.Skip()
+
 
 	def btnOpRefreshOnButtonClick( self, event ):
 		event.Skip()
@@ -1131,7 +1143,7 @@ class frMain ( wx.Frame ):
 class dgColor ( wx.Dialog ):
 
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Color Selector", pos = wx.DefaultPosition, size = wx.Size( 300,400 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Pilih warna", pos = wx.DefaultPosition, size = wx.Size( 300,400 ), style = wx.DEFAULT_DIALOG_STYLE )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
@@ -1142,7 +1154,7 @@ class dgColor ( wx.Dialog ):
 		self.lcColor = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_LIST|wx.LC_SINGLE_SEL )
 		bSizer63.Add( self.lcColor, 1, wx.ALL|wx.EXPAND, 5 )
 
-		self.btnApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
+		self.btnApply = wx.Button( self, wx.ID_ANY, u"Terapkan", wx.DefaultPosition, wx.Size( -1,40 ), 0 )
 		bSizer63.Add( self.btnApply, 0, wx.ALIGN_RIGHT|wx.ALL|wx.BOTTOM|wx.EXPAND|wx.LEFT|wx.RIGHT, 5 )
 
 
@@ -1173,7 +1185,7 @@ class dgColor ( wx.Dialog ):
 class dgRecipes ( wx.Dialog ):
 
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Recipes", pos = wx.DefaultPosition, size = wx.Size( 757,495 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Warna", pos = wx.DefaultPosition, size = wx.Size( 757,495 ), style = wx.DEFAULT_DIALOG_STYLE )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
@@ -1183,7 +1195,7 @@ class dgRecipes ( wx.Dialog ):
 
 		bSizer103 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText62 = wx.StaticText( self, wx.ID_ANY, u"Color", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText62 = wx.StaticText( self, wx.ID_ANY, u"Warna", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText62.Wrap( -1 )
 
 		bSizer103.Add( self.m_staticText62, 0, wx.ALL, 5 )
@@ -1205,7 +1217,7 @@ class dgRecipes ( wx.Dialog ):
 
 		bSizer104 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_staticText471 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText471 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Waktu", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText471.Wrap( -1 )
 
 		bSizer104.Add( self.m_staticText471, 0, wx.ALL, 5 )
@@ -1226,7 +1238,7 @@ class dgRecipes ( wx.Dialog ):
 		self.scTime1 = wx.SpinCtrl( sbSizer11.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 80,-1 ), wx.SP_ARROW_KEYS, 0, 3599, 0 )
 		bSizer57.Add( self.scTime1, 1, wx.ALL, 5 )
 
-		self.m_staticText46 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"seconds", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText46 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Detik", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText46.Wrap( -1 )
 
 		bSizer57.Add( self.m_staticText46, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -1239,7 +1251,7 @@ class dgRecipes ( wx.Dialog ):
 
 		bSizer102 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText461 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText461 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Deskripsi", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText461.Wrap( -1 )
 
 		bSizer102.Add( self.m_staticText461, 0, wx.ALL, 5 )
@@ -1259,7 +1271,7 @@ class dgRecipes ( wx.Dialog ):
 
 		bSizer1041 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_staticText4711 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText4711 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"Waktu", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText4711.Wrap( -1 )
 
 		bSizer1041.Add( self.m_staticText4711, 0, wx.ALL, 5 )
@@ -1280,7 +1292,7 @@ class dgRecipes ( wx.Dialog ):
 		self.scTime2 = wx.SpinCtrl( sbSizer111.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 80,-1 ), wx.SP_ARROW_KEYS, 0, 3599, 0 )
 		bSizer571.Add( self.scTime2, 1, wx.ALL, 5 )
 
-		self.m_staticText462 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"seconds", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText462 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"Detik", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText462.Wrap( -1 )
 
 		bSizer571.Add( self.m_staticText462, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -1293,7 +1305,7 @@ class dgRecipes ( wx.Dialog ):
 
 		bSizer1021 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText4611 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText4611 = wx.StaticText( sbSizer111.GetStaticBox(), wx.ID_ANY, u"Deskripsi", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText4611.Wrap( -1 )
 
 		bSizer1021.Add( self.m_staticText4611, 0, wx.ALL, 5 )
@@ -1313,7 +1325,7 @@ class dgRecipes ( wx.Dialog ):
 
 		bSizer1042 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_staticText4712 = wx.StaticText( sbSizer112.GetStaticBox(), wx.ID_ANY, u"Time", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText4712 = wx.StaticText( sbSizer112.GetStaticBox(), wx.ID_ANY, u"Waktu", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText4712.Wrap( -1 )
 
 		bSizer1042.Add( self.m_staticText4712, 0, wx.ALL, 5 )
@@ -1334,7 +1346,7 @@ class dgRecipes ( wx.Dialog ):
 		self.scTime3 = wx.SpinCtrl( sbSizer112.GetStaticBox(), wx.ID_ANY, u"0", wx.DefaultPosition, wx.Size( 80,-1 ), wx.SP_ARROW_KEYS, 0, 3599, 0 )
 		bSizer572.Add( self.scTime3, 1, wx.ALL, 5 )
 
-		self.m_staticText463 = wx.StaticText( sbSizer112.GetStaticBox(), wx.ID_ANY, u"seconds", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText463 = wx.StaticText( sbSizer112.GetStaticBox(), wx.ID_ANY, u"Detik", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText463.Wrap( -1 )
 
 		bSizer572.Add( self.m_staticText463, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -1347,7 +1359,7 @@ class dgRecipes ( wx.Dialog ):
 
 		bSizer1022 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText4612 = wx.StaticText( sbSizer112.GetStaticBox(), wx.ID_ANY, u"Description", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText4612 = wx.StaticText( sbSizer112.GetStaticBox(), wx.ID_ANY, u"Deskripsi", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText4612.Wrap( -1 )
 
 		bSizer1022.Add( self.m_staticText4612, 0, wx.ALL, 5 )
@@ -1366,7 +1378,7 @@ class dgRecipes ( wx.Dialog ):
 
 		bSizer73 = wx.BoxSizer( wx.VERTICAL )
 
-		self.btnSave = wx.Button( self, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.btnSave = wx.Button( self, wx.ID_ANY, u"Simpan", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer73.Add( self.btnSave, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
@@ -1413,13 +1425,13 @@ class dgRecipes ( wx.Dialog ):
 
 
 ###########################################################################
-## Class dgLogin
+## Class dgInfoOp
 ###########################################################################
 
-class dgLogin ( wx.Dialog ):
+class dgInfoOp ( wx.Dialog ):
 
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Login", pos = wx.DefaultPosition, size = wx.Size( 309,464 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Info Operator", pos = wx.DefaultPosition, size = wx.Size( 309,464 ), style = wx.DEFAULT_DIALOG_STYLE )
 
 		self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
@@ -1443,50 +1455,28 @@ class dgLogin ( wx.Dialog ):
 
 		bSizer74 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText62 = wx.StaticText( self, wx.ID_ANY, u"Shift", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText62 = wx.StaticText( self, wx.ID_ANY, u"NIK", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText62.Wrap( -1 )
 
 		bSizer74.Add( self.m_staticText62, 0, wx.ALL, 5 )
 
-		m_choice8Choices = [ wx.EmptyString, u"1", u"2", u"3" ]
-		self.m_choice8 = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice8Choices, 0 )
-		self.m_choice8.SetSelection( 0 )
-		bSizer74.Add( self.m_choice8, 0, wx.ALL|wx.EXPAND, 5 )
+		self.m_textCtrl14 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer74.Add( self.m_textCtrl14, 0, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_staticText61 = wx.StaticText( self, wx.ID_ANY, u"Group", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText61 = wx.StaticText( self, wx.ID_ANY, u"Nama operator", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText61.Wrap( -1 )
 
 		bSizer74.Add( self.m_staticText61, 0, wx.ALL, 5 )
 
-		m_choice7Choices = [ wx.EmptyString, u"A", u"B", u"C" ]
-		self.m_choice7 = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_choice7Choices, 0 )
-		self.m_choice7.SetSelection( 0 )
-		bSizer74.Add( self.m_choice7, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.m_staticText63 = wx.StaticText( self, wx.ID_ANY, u"Operator 1", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText63.Wrap( -1 )
-
-		bSizer74.Add( self.m_staticText63, 0, wx.ALL, 5 )
-
-		m_comboBox4Choices = []
-		self.m_comboBox4 = wx.ComboBox( self, wx.ID_ANY, u"Combo!", wx.DefaultPosition, wx.DefaultSize, m_comboBox4Choices, 0 )
-		bSizer74.Add( self.m_comboBox4, 0, wx.ALL|wx.EXPAND, 5 )
-
-		self.m_staticText64 = wx.StaticText( self, wx.ID_ANY, u"Operator 2", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText64.Wrap( -1 )
-
-		bSizer74.Add( self.m_staticText64, 0, wx.ALL, 5 )
-
-		m_comboBox5Choices = []
-		self.m_comboBox5 = wx.ComboBox( self, wx.ID_ANY, u"Combo!", wx.DefaultPosition, wx.DefaultSize, m_comboBox5Choices, 0 )
-		bSizer74.Add( self.m_comboBox5, 0, wx.ALL|wx.EXPAND, 5 )
+		self.m_textCtrl13 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer74.Add( self.m_textCtrl13, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer72.Add( bSizer74, 3, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer77 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_button20 = wx.Button( self, wx.ID_ANY, u"Login", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_button20 = wx.Button( self, wx.ID_ANY, u"Simpan", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer77.Add( self.m_button20, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
 
 
