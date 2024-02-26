@@ -6,7 +6,7 @@ import math
 import cerberus
 import cv2
 from datetime import datetime
-from omv_ui import frMain, dgColor, dgRecipes
+from omv_ui import frMain, dgColor, dgRecipes, dgInfoOp
 
 os.environ["WXSUPPRESS_SIZER_FLAGS_CHECK"] = "1"
 
@@ -30,7 +30,7 @@ c.execute(
 
 # Buat tabel operators
 c.execute(
-    """CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)"""
+    """CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, nik INTEGER)"""
 )
 
 conn.commit()
@@ -61,6 +61,26 @@ class frameMain(frMain):
         self.timer = wx.Timer(self)
         self.Bind(wx.EVT_TIMER, self.updateTime, self.timer)
         self.timer.Start(1000)
+
+        # Inisiasi data warna
+        self.color = "Pilih Warna"
+        self.time1 = 0
+        self.time2 = 0
+        self.time3 = 0
+        self.desc1 = "Deskripsi Step 1"
+        self.desc2 = "Deskripsi Step 2"
+        self.desc3 = "Deskripsi Step 3"
+
+        # Default value
+        self.btnHomeCol.SetLabel(self.color)
+        self.stHomeDesc1.SetLabel(self.desc1)
+        self.stHomeDesc2.SetLabel(self.desc2)
+        self.stHomeDesc3.SetLabel(self.desc3)
+        self.stHomeStdTime1.SetLabel(formatTime(self.time1))
+        self.stHomeStdTime2.SetLabel(formatTime(self.time2))
+        self.stHomeStdTime3.SetLabel(formatTime(self.time3))
+        self.btnHomeFinish.Disable()
+        self.btnStart.Disable()
 
         self.tBatchTsEnd1 = 0
         self.tBatchTsEnd2 = 0
@@ -178,12 +198,23 @@ class frameMain(frMain):
             # Get data
             data = dialog.GetDataColor()
             self.dataRec = data
-            self.stHomeTime1.SetLabel(formatTime(self.dataRec[2]))
-            self.stHomeTime2.SetLabel(formatTime(self.dataRec[4]))
-            self.stHomeTime3.SetLabel(formatTime(self.dataRec[6]))
-            self.stHomeDesc1.SetLabel(self.dataRec[3])
-            self.stHomeDesc2.SetLabel(self.dataRec[5])
-            self.stHomeDesc3.SetLabel(self.dataRec[7])
+            self.color = self.dataRec[1]
+            self.time1 = self.dataRec[2]
+            self.time2 = self.dataRec[4]
+            self.time3 = self.dataRec[6]
+            self.desc1 = self.dataRec[3]
+            self.desc2 = self.dataRec[5]
+            self.desc3 = self.dataRec[7]
+            self.stHomeTime1.SetLabel(formatTime(self.time1))
+            self.stHomeTime2.SetLabel(formatTime(self.time2))
+            self.stHomeTime3.SetLabel(formatTime(self.time3))
+            self.stHomeDesc1.SetLabel(self.desc1)
+            self.stHomeDesc2.SetLabel(self.desc2)
+            self.stHomeDesc3.SetLabel(self.desc3)
+            self.stHomeStdTime1.SetLabel(formatTime(self.time1))
+            self.stHomeStdTime2.SetLabel(formatTime(self.time2))
+            self.stHomeStdTime3.SetLabel(formatTime(self.time3))
+            self.btnStart.Enable()
         dialog.Destroy()        
 
     # Update combo box operator 1 dan operator 2
@@ -227,6 +258,10 @@ class frameMain(frMain):
         self.gHome1.SetValue(0)
         self.gHome2.SetValue(0)
         self.gHome3.SetValue(0)
+        self.stHomeTime1.SetLabel(formatTime(self.time1))
+        self.stHomeTime2.SetLabel(formatTime(self.time2))
+        self.stHomeTime3.SetLabel(formatTime(self.time3))
+        self.stHomeElapsed.SetLabel(formatTime(0))
         self.timer.Stop()
         self.btnHomeStatusLoad.SetBackgroundColour(
             wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU)
@@ -467,6 +502,14 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("", 2)
         self.sbMain.SetStatusText("", 3)
 
+    def on_op1_click(self, event):
+        # Inisiasi dialog resep
+        dialog = dialogOperators(self)
+
+        if dialog.ShowModal() == wx.ID_OK:
+            self.lcRecipesUpdate()
+
+        dialog.Destroy()
 
 #### DIALOG COLOR ####
 
@@ -687,8 +730,20 @@ class dialogRecipes(dgRecipes):
             wx.MessageBox(error_message, "Data invalid", wx.OK | wx.ICON_EXCLAMATION)
 
 
-#### MENYALAKAN APLIKASI ####
+# Dialog Info Operator
 
+class dialogOperators(dgInfoOp):
+    def __init__(self, parent):
+        dgInfoOp.__init__(self, parent)
+
+        # Inisiasi warna
+        c.execute("SELECT * FROM operators")
+        data = c.fetchall()
+        print(data)
+        if self.ShowModal() == wx.ID_EXIT:
+            self.Destroy()
+
+#### MENYALAKAN APLIKASI ####
 
 class MainApp(wx.App):
     def OnInit(self):

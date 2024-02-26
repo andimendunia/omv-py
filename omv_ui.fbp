@@ -617,7 +617,7 @@
                                               <property name="minimize_button">0</property>
                                               <property name="minimum_size"></property>
                                               <property name="moveable">1</property>
-                                              <property name="name">m_textCtrl6</property>
+                                              <property name="name">btnHomeOp1</property>
                                               <property name="pane_border">1</property>
                                               <property name="pane_position"></property>
                                               <property name="pane_size"></property>
@@ -639,6 +639,7 @@
                                               <property name="window_extra_style"></property>
                                               <property name="window_name"></property>
                                               <property name="window_style"></property>
+                                              <event name="OnLeftUp">on_op1_click</event>
                                             </object>
                                           </object>
                                           <object class="sizeritem" expanded="false">
@@ -682,7 +683,7 @@
                                               <property name="minimize_button">0</property>
                                               <property name="minimum_size"></property>
                                               <property name="moveable">1</property>
-                                              <property name="name">m_textCtrl7</property>
+                                              <property name="name">btnHomeOp2</property>
                                               <property name="pane_border">1</property>
                                               <property name="pane_position"></property>
                                               <property name="pane_size"></property>
@@ -704,6 +705,7 @@
                                               <property name="window_extra_style"></property>
                                               <property name="window_name"></property>
                                               <property name="window_style"></property>
+                                              <event name="OnLeftDClick">btnHomeOp2OnLeftDClick</event>
                                             </object>
                                           </object>
                                         </object>
@@ -9891,7 +9893,7 @@
         </object>
       </object>
     </object>
-    <object class="Dialog" expanded="true">
+    <object class="Dialog" expanded="false">
       <property name="aui_managed">0</property>
       <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
       <property name="bg"></property>
@@ -9919,7 +9921,7 @@
       <property name="window_extra_style"></property>
       <property name="window_name"></property>
       <property name="window_style"></property>
-      <object class="wxBoxSizer" expanded="true">
+      <object class="wxBoxSizer" expanded="false">
         <property name="minimum_size"></property>
         <property name="name">bSizer72</property>
         <property name="orient">wxVERTICAL</property>
@@ -10088,11 +10090,11 @@
                 <property name="wrap">-1</property>
               </object>
             </object>
-            <object class="sizeritem" expanded="true">
+            <object class="sizeritem" expanded="false">
               <property name="border">5</property>
               <property name="flag">wxALL|wxEXPAND</property>
               <property name="proportion">0</property>
-              <object class="wxTextCtrl" expanded="true">
+              <object class="wxTextCtrl" expanded="false">
                 <property name="BottomDockable">1</property>
                 <property name="LeftDockable">1</property>
                 <property name="RightDockable">1</property>
@@ -10215,11 +10217,11 @@
                 <property name="wrap">-1</property>
               </object>
             </object>
-            <object class="sizeritem" expanded="true">
+            <object class="sizeritem" expanded="false">
               <property name="border">5</property>
               <property name="flag">wxALL|wxEXPAND</property>
               <property name="proportion">0</property>
-              <object class="wxTextCtrl" expanded="true">
+              <object class="wxTextCtrl" expanded="false">
                 <property name="BottomDockable">1</property>
                 <property name="LeftDockable">1</property>
                 <property name="RightDockable">1</property>

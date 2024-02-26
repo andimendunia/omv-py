@@ -80,11 +80,11 @@ class frMain ( wx.Frame ):
 
 		bSizer821 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_textCtrl6 = wx.TextCtrl( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer821.Add( self.m_textCtrl6, 1, wx.ALL|wx.EXPAND, 5 )
+		self.btnHomeOp1 = wx.TextCtrl( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer821.Add( self.btnHomeOp1, 1, wx.ALL|wx.EXPAND, 5 )
 
-		self.m_textCtrl7 = wx.TextCtrl( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer821.Add( self.m_textCtrl7, 1, wx.ALL|wx.EXPAND, 5 )
+		self.btnHomeOp2 = wx.TextCtrl( self.panHome, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer821.Add( self.btnHomeOp2, 1, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer7612.Add( bSizer821, 1, wx.EXPAND, 5 )
@@ -1021,6 +1021,8 @@ class frMain ( wx.Frame ):
 		# Connect Events
 		self.chHomeShift.Bind( wx.EVT_CHOICE, self.chHomeShiftOnChoice )
 		self.chHomeGroup.Bind( wx.EVT_CHOICE, self.chHomeGroupOnChoice )
+		self.btnHomeOp1.Bind( wx.EVT_LEFT_UP, self.on_op1_click )
+		self.btnHomeOp2.Bind( wx.EVT_LEFT_DCLICK, self.btnHomeOp2OnLeftDClick )
 		self.chHomeLine.Bind( wx.EVT_CHOICE, self.chHomeLineOnChoice )
 		self.btnHomeCol.Bind( wx.EVT_BUTTON, self.btnHomeColOnClick )
 		self.btnStart.Bind( wx.EVT_BUTTON, self.btnStartOnButtonClick )
@@ -1058,6 +1060,12 @@ class frMain ( wx.Frame ):
 		event.Skip()
 
 	def chHomeGroupOnChoice( self, event ):
+		event.Skip()
+
+	def on_op1_click( self, event ):
+		event.Skip()
+
+	def btnHomeOp2OnLeftDClick( self, event ):
 		event.Skip()
 
 	def chHomeLineOnChoice( self, event ):
