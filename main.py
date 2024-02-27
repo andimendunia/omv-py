@@ -6,7 +6,7 @@ import math
 import cerberus
 import cv2
 from datetime import datetime
-from omv_ui import frMain, dgColor, dgRecipes, dgInfoOp
+from omv_ui import frMain, dgColor, dgRecipes, dgLogin
 
 os.environ["WXSUPPRESS_SIZER_FLAGS_CHECK"] = "1"
 
@@ -101,10 +101,10 @@ class frameMain(frMain):
         self.stHomeDesc2.SetFont(fontDesc)
         self.stHomeDesc3.SetFont(fontDesc)
 
-        # Inisiasi Operators
-        self.lcOperators.InsertColumn(0, "Name")
-        self.btnOpRefreshOnButtonClick(self)
-        self.cbHomeOpUpdate()
+        # # Inisiasi Operators
+        # self.lcOperators.InsertColumn(0, "Name")
+        # self.btnOpRefreshOnButtonClick(self)
+        # self.cbHomeOpUpdate()
 
         # Inisasi Kolom Recipes
         self.lcRecipes.InsertColumn(0, "Color")
@@ -183,7 +183,7 @@ class frameMain(frMain):
                 self.countdown += 1
                 self.stHomeElapsed.SetLabel(formatTime(self.countdown))
 
-    #### FRAME MAIN: TAB HOME ####
+    #### FRAME MAIN: TAB HALAMAN UTAMA ####
 
     # Kode untuk pilih warna
     def btnHomeColOnClick(self, event):
@@ -218,11 +218,11 @@ class frameMain(frMain):
         dialog.Destroy()        
 
     # Update combo box operator 1 dan operator 2
-    def cbHomeOpUpdate(self):
+    # def cbHomeOpUpdate(self):
 
-        operators = self.getOp()
-        names = [item[0] for item in operators]
-        # kode belum beres
+    #     operators = self.getOp()
+    #     names = [item[0] for item in operators]
+    #     # kode belum beres
 
     # Start manual proses batch (harusnya pake sensor arduino)
     def btnStartOnButtonClick(self, event):
@@ -251,7 +251,7 @@ class frameMain(frMain):
         self.timer.Start(1000)
         self.stopper = True
 
-    # Fungsi button finish
+    # Fungsi button stop
     def btnHomeFinishOnButtonClick(self, event):
         self.tBatchTsEnd3 = 0
         wx.MessageBox(f"Process Finished", "Final Step", wx.OK)
@@ -298,13 +298,6 @@ class frameMain(frMain):
         # Release the VideoCapture object
         cap.release()
 
-    # Fungsi Button Connect/Disconnect
-    def btnHomeConnectOnButtonClick(self, event):
-        if self.btnHomeConnect.GetLabel() == "Connect":
-            self.btnHomeConnect.SetLabel("Disconnect")
-        else:
-            self.btnHomeConnect.SetLabel("Connect")
-
     #### FRAME MAIN: TAB RECORDS ####
 
     #### FRAME MAIN: TAB SUMMARY ####
@@ -312,6 +305,13 @@ class frameMain(frMain):
     #### FRAME MAIN: TAB SETTINGS ####
 
     #### FRAME MAIN: TAB SETTINGS: LIST BOOK: GENERAL ####
+    
+    # Fungsi Button Connect/Disconnect
+    def btnHomeConnectOnButtonClick(self, event):
+        if self.btnHomeConnect.GetLabel() == "Connect":
+            self.btnHomeConnect.SetLabel("Disconnect")
+        else:
+            self.btnHomeConnect.SetLabel("Connect")
 
     #### FRAME MAIN: TAB SETTINGS: LIST BOOK: RECIPES ####
 
@@ -502,14 +502,14 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("", 2)
         self.sbMain.SetStatusText("", 3)
 
-    def on_op1_click(self, event):
-        # Inisiasi dialog resep
-        dialog = dialogOperators(self)
+    # def on_op1_click(self, event):
+    #     # Inisiasi dialog resep
+    #     dialog = dialogOperators(self)
 
-        if dialog.ShowModal() == wx.ID_OK:
-            self.lcRecipesUpdate()
+    #     if dialog.ShowModal() == wx.ID_OK:
+    #         self.lcRecipesUpdate()
 
-        dialog.Destroy()
+    #     dialog.Destroy()
 
 #### DIALOG COLOR ####
 
@@ -732,16 +732,6 @@ class dialogRecipes(dgRecipes):
 
 # Dialog Info Operator
 
-class dialogOperators(dgInfoOp):
-    def __init__(self, parent):
-        dgInfoOp.__init__(self, parent)
-
-        # Inisiasi warna
-        c.execute("SELECT * FROM operators")
-        data = c.fetchall()
-        print(data)
-        if self.ShowModal() == wx.ID_EXIT:
-            self.Destroy()
 
 #### MENYALAKAN APLIKASI ####
 
