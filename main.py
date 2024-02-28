@@ -123,7 +123,7 @@ class frameMain(frMain):
 
         # Insiasi waktu mundur
         self.countdown = 0
-        self.remain = 0
+        self.remain = 1
         self.stHomeElapsed.SetLabel(formatTime(self.countdown))
 
         # Flagging untuk waktu finish & start
@@ -180,8 +180,13 @@ class frameMain(frMain):
                 # elapsed time
                 self.countdown += 1
                 self.stHomeElapsed.SetLabel(formatTime(self.countdown))
+                self.stHomeLatestBatch.SetLabel("LESS")
             
             else:
+                if self.tBatchTsEnd3 == self.remain:
+                    self.stHomeLatestBatch.SetLabel("OK")
+                else:
+                    self.stHomeLatestBatch.SetLabel("OVER")
                 # Buat minus step 3
                 self.remain -= 1 
                 self.stHomeTime3.SetLabel(formatTime(self.remain))
@@ -265,6 +270,7 @@ class frameMain(frMain):
         self.gHome1.SetValue(0)
         self.gHome2.SetValue(0)
         self.gHome3.SetValue(0)
+
         self.timer.Stop()
         self.btnHomeStatusLoad.SetBackgroundColour(
             wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU)
