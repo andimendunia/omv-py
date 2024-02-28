@@ -61,60 +61,60 @@ class frMain ( wx.Frame ):
 
 		bSizer76124 = wx.BoxSizer( wx.VERTICAL )
 
-		self.stHomeOp2 = wx.StaticText( self.panHome, wx.ID_ANY, u"Operator 2", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.mStaticText999 = wx.StaticText( self.panHome, wx.ID_ANY, u"Operator 2", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.mStaticText999.Wrap( -1 )
+
+		bSizer76124.Add( self.mStaticText999, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
+		self.stHomeOp2 = wx.StaticText( self.panHome, wx.ID_ANY, u"UCI", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.stHomeOp2.Wrap( -1 )
 
 		bSizer76124.Add( self.stHomeOp2, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
-
-		self.m_staticText634 = wx.StaticText( self.panHome, wx.ID_ANY, u"UCI", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText634.Wrap( -1 )
-
-		bSizer76124.Add( self.m_staticText634, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
 
 		bSizer83.Add( bSizer76124, 0, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer76121 = wx.BoxSizer( wx.VERTICAL )
 
-		self.stHomeShift = wx.StaticText( self.panHome, wx.ID_ANY, u"Shift", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stShift = wx.StaticText( self.panHome, wx.ID_ANY, u"Shift", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stShift.Wrap( -1 )
+
+		bSizer76121.Add( self.stShift, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
+		self.stHomeShift = wx.StaticText( self.panHome, wx.ID_ANY, u"1", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.stHomeShift.Wrap( -1 )
 
 		bSizer76121.Add( self.stHomeShift, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
-
-		self.m_staticText631 = wx.StaticText( self.panHome, wx.ID_ANY, u"1", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText631.Wrap( -1 )
-
-		bSizer76121.Add( self.m_staticText631, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
 
 		bSizer83.Add( bSizer76121, 0, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer76122 = wx.BoxSizer( wx.VERTICAL )
 
-		self.stHomeTim = wx.StaticText( self.panHome, wx.ID_ANY, u"Tim", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stTim = wx.StaticText( self.panHome, wx.ID_ANY, u"Tim", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stTim.Wrap( -1 )
+
+		bSizer76122.Add( self.stTim, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
+		self.stHomeTim = wx.StaticText( self.panHome, wx.ID_ANY, u"A", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.stHomeTim.Wrap( -1 )
 
 		bSizer76122.Add( self.stHomeTim, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
-
-		self.m_staticText632 = wx.StaticText( self.panHome, wx.ID_ANY, u"A", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText632.Wrap( -1 )
-
-		bSizer76122.Add( self.m_staticText632, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
 
 		bSizer83.Add( bSizer76122, 0, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer76123 = wx.BoxSizer( wx.VERTICAL )
 
-		self.stHomeLine = wx.StaticText( self.panHome, wx.ID_ANY, u"Line", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stLine = wx.StaticText( self.panHome, wx.ID_ANY, u"Line", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stLine.Wrap( -1 )
+
+		bSizer76123.Add( self.stLine, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+
+		self.stHomeLine = wx.StaticText( self.panHome, wx.ID_ANY, u"7", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.stHomeLine.Wrap( -1 )
 
 		bSizer76123.Add( self.stHomeLine, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
-
-		self.m_staticText633 = wx.StaticText( self.panHome, wx.ID_ANY, u"7", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText633.Wrap( -1 )
-
-		bSizer76123.Add( self.m_staticText633, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
 
 		bSizer83.Add( bSizer76123, 0, wx.ALL|wx.EXPAND, 5 )
@@ -569,7 +569,7 @@ class frMain ( wx.Frame ):
 		self.panHome.SetSizer( bSizer162 )
 		self.panHome.Layout()
 		bSizer162.Fit( self.panHome )
-		self.nbMain.AddPage( self.panHome, u"Beranda", False )
+		self.nbMain.AddPage( self.panHome, u"Beranda", True )
 		self.panRecords = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panRecords.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -971,7 +971,7 @@ class frMain ( wx.Frame ):
 		self.panTimeTolerance.SetSizer( bSizer991 )
 		self.panTimeTolerance.Layout()
 		bSizer991.Fit( self.panTimeTolerance )
-		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", True )
+		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", False )
 
 		bSizer36.Add( self.nbMain, 1, wx.ALL|wx.EXPAND, 10 )
 

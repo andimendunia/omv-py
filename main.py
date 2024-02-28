@@ -81,6 +81,11 @@ class frameMain(frMain):
         self.stHomeStdTime3.SetLabel(formatTime(self.time3))
         self.btnHomeFinish.Disable()
         self.btnStart.Disable()
+        self.stHomeOp1.SetLabel("Pilih")
+        self.stHomeOp2.SetLabel("Pilih")
+        self.stHomeLine.SetLabel("-")
+        self.stHomeShift.SetLabel("-")
+        self.stHomeTim.SetLabel("-")
 
         self.tBatchTsEnd1 = 0
         self.tBatchTsEnd2 = 0
@@ -118,7 +123,7 @@ class frameMain(frMain):
 
         # Insiasi waktu mundur
         self.countdown = 0
-        self.remain = -1
+        self.remain = 0
         self.stHomeElapsed.SetLabel(formatTime(self.countdown))
 
         # Flagging untuk waktu finish & start
@@ -150,8 +155,9 @@ class frameMain(frMain):
                 self.stHomeTime1.SetLabel(formatTime(remaining))
                 self.gHome1.SetValue(elapsed)
                 # elapsed time
-                self.stHomeElapsed.SetLabel(formatTime(self.countdown))
                 self.countdown += 1
+                self.stHomeElapsed.SetLabel(formatTime(self.countdown))
+                
 
             elif nowTs < self.tBatchTsEnd2:
                 print("Step 2")
@@ -172,8 +178,8 @@ class frameMain(frMain):
                 self.stHomeTime3.SetLabel(formatTime(remaining))
                 self.gHome3.SetValue(elapsed)
                 # elapsed time
-                self.stHomeElapsed.SetLabel(formatTime(self.countdown))
                 self.countdown += 1
+                self.stHomeElapsed.SetLabel(formatTime(self.countdown))
             
             else:
                 # Buat minus step 3
@@ -227,6 +233,11 @@ class frameMain(frMain):
     # Start manual proses batch (harusnya pake sensor arduino)
     def btnStartOnButtonClick(self, event):
         self.btnHomeStatusLoad.SetBackgroundColour(wx.GREEN)
+        
+        self.countdown = 0
+        self.stHomeTime1.SetLabel(formatTime(self.time1))
+        self.stHomeTime2.SetLabel(formatTime(self.time2))
+        self.stHomeTime3.SetLabel(formatTime(self.time3))
 
         self.gHome1.SetRange(self.dataRec[2])
         self.gHome2.SetRange(self.dataRec[4])
@@ -235,10 +246,6 @@ class frameMain(frMain):
         self.gHome1.SetValue(0)
         self.gHome2.SetValue(0)
         self.gHome3.SetValue(0)
-
-        self.stHomeTime1.SetLabel(formatTime(self.dataRec[2]))
-        self.stHomeTime2.SetLabel(formatTime(self.dataRec[4]))
-        self.stHomeTime3.SetLabel(formatTime(self.dataRec[6]))
 
         nowTs = datetime.now().timestamp()
         # Waktu berakhir step 1
@@ -258,10 +265,6 @@ class frameMain(frMain):
         self.gHome1.SetValue(0)
         self.gHome2.SetValue(0)
         self.gHome3.SetValue(0)
-        self.stHomeTime1.SetLabel(formatTime(self.time1))
-        self.stHomeTime2.SetLabel(formatTime(self.time2))
-        self.stHomeTime3.SetLabel(formatTime(self.time3))
-        self.stHomeElapsed.SetLabel(formatTime(0))
         self.timer.Stop()
         self.btnHomeStatusLoad.SetBackgroundColour(
             wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU)
