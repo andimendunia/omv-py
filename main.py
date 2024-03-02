@@ -6,7 +6,7 @@ import math
 import cerberus
 import cv2
 from datetime import datetime
-from omv_ui import frMain, dgColor, dgRecipes, dgLogin
+from omv_ui import frMain, dgColor, dgRecipes, dgLogin, dgRegister
 
 os.environ["WXSUPPRESS_SIZER_FLAGS_CHECK"] = "1"
 
@@ -14,7 +14,38 @@ os.environ["WXSUPPRESS_SIZER_FLAGS_CHECK"] = "1"
 conn = sqlite3.connect("omv.db")
 c = conn.cursor()
 
-# Buat tabel recipes
+# Buat tabel informasi (records)
+c.execute(
+    """CREATE TABLE IF NOT EXISTS records (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date INTEGER,
+    operator_1 TEXT,
+    operator_2 TEXT,
+    shift INTEGER,
+    line INTEGER,
+    color TEXT,
+    no_batch INTEGER,
+    start_time INTEGER,
+    finish_time INTEGER,
+    total_time INTEGER,
+    validation_1 TEXT,
+    validation_2 TEXT,
+    validation_3 TEXT,
+)"""
+)
+
+# Buat tabel rekap (summary)
+c.execute(
+    """CREATE TABLE IF NOT EXISTS summary (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    amount_batch TEXT,
+    under STRING,
+    ok STRING,
+    over STRING,
+)"""
+)
+
+# Buat tabel settings warna(recipes)
 c.execute(
     """CREATE TABLE IF NOT EXISTS recipes (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,7 +61,11 @@ c.execute(
 
 # Buat tabel operators
 c.execute(
-    """CREATE TABLE IF NOT EXISTS operators (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, nik INTEGER)"""
+    """CREATE TABLE IF NOT EXISTS operators (
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    nik INTEGER,
+    name TEXT,
+)"""
 )
 
 conn.commit()
@@ -48,7 +83,7 @@ def formatTime(secs):
         return f"{minutes:02d}:{seconds:02d}"
 
 
-#### FRAME MAIN ####
+#### FRAME MAIN (BERANDA)####
 
 
 class frameMain(frMain):
@@ -106,11 +141,6 @@ class frameMain(frMain):
         self.stHomeDesc2.SetFont(fontDesc)
         self.stHomeDesc3.SetFont(fontDesc)
 
-        # # Inisiasi Operators
-        # self.lcOperators.InsertColumn(0, "Name")
-        # self.btnOpRefreshOnButtonClick(self)
-        # self.cbHomeOpUpdate()
-
         # Inisasi Kolom Recipes
         self.lcRecipes.InsertColumn(0, "Color")
         self.lcRecipes.InsertColumn(1, "Time 1")
@@ -139,10 +169,9 @@ class frameMain(frMain):
         nowTs = now.timestamp()
 
         # Update status bar yang di bawah
-        self.sbMain.SetStatusText("Ready", 0)
-        self.sbMain.SetStatusText("COM3", 1)
-        self.sbMain.SetStatusText("BAUD 9600", 2)
-        self.sbMain.SetStatusText(nowStr, 3)
+        self.sbMain.SetStatusText("COM3", 0)
+        self.sbMain.SetStatusText("BAUD 9600", 1)
+        self.sbMain.SetStatusText(nowStr, 2)
 
         # Update hitung mundur jika stopper statusnya True
         if self.stopper == True:
@@ -156,8 +185,7 @@ class frameMain(frMain):
                 self.gHome1.SetValue(elapsed)
                 # elapsed time
                 self.countdown += 1
-                self.stHomeElapsed.SetLabel(formatTime(self.countdown))
-                
+                self.stHomeElapsed.SetLabel(formatTime(self.countdown))    
 
             elif nowTs < self.tBatchTsEnd2:
                 print("Step 2")
@@ -194,7 +222,7 @@ class frameMain(frMain):
                 self.countdown += 1
                 self.stHomeElapsed.SetLabel(formatTime(self.countdown))
 
-    #### FRAME MAIN: TAB HALAMAN UTAMA ####
+    #### FRAME MAIN: TAB BERANDA ####
 
     # Kode untuk pilih warna
     def btnHomeColOnClick(self, event):
@@ -228,13 +256,6 @@ class frameMain(frMain):
             self.btnStart.Enable()
         dialog.Destroy()        
 
-    # Update combo box operator 1 dan operator 2
-    # def cbHomeOpUpdate(self):
-
-    #     operators = self.getOp()
-    #     names = [item[0] for item in operators]
-    #     # kode belum beres
-
     # Start manual proses batch (harusnya pake sensor arduino)
     def btnStartOnButtonClick(self, event):
         self.btnHomeStatusLoad.SetBackgroundColour(wx.GREEN)
@@ -263,7 +284,7 @@ class frameMain(frMain):
         self.timer.Start(1000)
         self.stopper = True
 
-    # Fungsi button stop
+    # Fungsi button selesai (finish)
     def btnHomeFinishOnButtonClick(self, event):
         self.tBatchTsEnd3 = 0
         wx.MessageBox(f"Process Finished", "Final Step", wx.OK)
@@ -321,6 +342,7 @@ class frameMain(frMain):
             self.btnHomeConnect.SetLabel("Disconnect")
         else:
             self.btnHomeConnect.SetLabel("Connect")
+
 
     #### FRAME MAIN: TAB SETTINGS: LIST BOOK: RECIPES ####
 
@@ -381,7 +403,7 @@ class frameMain(frMain):
             for col_index, value in enumerate(row_data[1:]):
                 self.lcRecipes.SetItem(row_index, col_index + 1, str(value))
 
-    # Fungsi edit recipis (minus timer nya)
+    # Fungsi edit recipes
 
     def btnRecEditOnButtonClick(self, event):
         # Dapatkan baris yang dipilih
@@ -439,16 +461,8 @@ class frameMain(frMain):
                 conn.commit()
                 self.lcRecipes.DeleteItem(index)
 
+
         #### FRAME MAIN: TAB SETTINGS: LIST BOOK: OPERATORS ####
-
-        def btnOpCreateOnButtonClick(self, event):
-            message = """Create a new operator name
-                1. Go to the Home tab.
-                2. Type it in the Operator field.
-
-                The app will remember the name if it doesn't already exist."""
-
-            wx.MessageBox(message, "Create a new name", wx.OK | wx.ICON_INFORMATION)
 
     def btnOpRefreshOnButtonClick(self, event):
         results = self.getOp()
@@ -509,16 +523,6 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("", 0)
         self.sbMain.SetStatusText("", 1)
         self.sbMain.SetStatusText("", 2)
-        self.sbMain.SetStatusText("", 3)
-
-    # def on_op1_click(self, event):
-    #     # Inisiasi dialog resep
-    #     dialog = dialogOperators(self)
-
-    #     if dialog.ShowModal() == wx.ID_OK:
-    #         self.lcRecipesUpdate()
-
-    #     dialog.Destroy()
 
 #### DIALOG COLOR ####
 
@@ -572,8 +576,8 @@ class dialogColor(dgColor):
         data = self.getRecipe(color)
         return data
 
-#### DIALOG RECIPES ####
 
+#### DIALOG RECIPES ####
 
 class dialogRecipes(dgRecipes):
     def __init__(self, parent, colorName):
@@ -739,7 +743,9 @@ class dialogRecipes(dgRecipes):
             wx.MessageBox(error_message, "Data invalid", wx.OK | wx.ICON_EXCLAMATION)
 
 
-# Dialog Info Operator
+#### DIALOG LOGIN ####
+            
+#### DIALOG REGISTER ####
 
 
 #### MENYALAKAN APLIKASI ####
