@@ -29,7 +29,7 @@
     <property name="use_array_enum">0</property>
     <property name="use_enum">0</property>
     <property name="use_microsoft_bom">0</property>
-    <object class="Frame" expanded="true">
+    <object class="Frame" expanded="false">
       <property name="aui_managed">0</property>
       <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
       <property name="bg">wxSYS_COLOUR_MENU</property>
@@ -142,7 +142,7 @@
                     <object class="notebookpage" expanded="false">
                       <property name="bitmap"></property>
                       <property name="label">Beranda</property>
-                      <property name="select">0</property>
+                      <property name="select">1</property>
                       <object class="wxPanel" expanded="false">
                         <property name="BottomDockable">1</property>
                         <property name="LeftDockable">1</property>
@@ -540,7 +540,7 @@
                                           <property name="minimize_button">0</property>
                                           <property name="minimum_size"></property>
                                           <property name="moveable">1</property>
-                                          <property name="name">m_staticText634</property>
+                                          <property name="name">stHomeOp2</property>
                                           <property name="pane_border">1</property>
                                           <property name="pane_position"></property>
                                           <property name="pane_size"></property>
@@ -675,7 +675,7 @@
                                           <property name="minimize_button">0</property>
                                           <property name="minimum_size"></property>
                                           <property name="moveable">1</property>
-                                          <property name="name">m_staticText631</property>
+                                          <property name="name">stHomeShift</property>
                                           <property name="pane_border">1</property>
                                           <property name="pane_position"></property>
                                           <property name="pane_size"></property>
@@ -821,7 +821,7 @@
                                           <property name="minimize_button">0</property>
                                           <property name="minimum_size"></property>
                                           <property name="moveable">1</property>
-                                          <property name="name">m_staticText633</property>
+                                          <property name="name">stHomeLine</property>
                                           <property name="pane_border">1</property>
                                           <property name="pane_position"></property>
                                           <property name="pane_size"></property>
@@ -5573,7 +5573,7 @@
                     <object class="notebookpage" expanded="false">
                       <property name="bitmap"></property>
                       <property name="label">Pengaturan</property>
-                      <property name="select">1</property>
+                      <property name="select">0</property>
                       <object class="wxPanel" expanded="false">
                         <property name="BottomDockable">1</property>
                         <property name="LeftDockable">1</property>
@@ -5692,7 +5692,7 @@
                               <object class="listbookpage" expanded="false">
                                 <property name="bitmap"></property>
                                 <property name="label">Umum</property>
-                                <property name="select">1</property>
+                                <property name="select">0</property>
                                 <object class="wxPanel" expanded="false">
                                   <property name="BottomDockable">1</property>
                                   <property name="LeftDockable">1</property>
@@ -6542,7 +6542,7 @@
                                                         <property name="gripper">0</property>
                                                         <property name="hidden">0</property>
                                                         <property name="id">wxID_ANY</property>
-                                                        <property name="label">Time tolerance</property>
+                                                        <property name="label">Toleransi Waktu</property>
                                                         <property name="markup">0</property>
                                                         <property name="max_size"></property>
                                                         <property name="maximize_button">0</property>
@@ -6807,7 +6807,7 @@
                               <object class="listbookpage" expanded="false">
                                 <property name="bitmap"></property>
                                 <property name="label">Warna</property>
-                                <property name="select">0</property>
+                                <property name="select">1</property>
                                 <object class="wxPanel" expanded="false">
                                   <property name="BottomDockable">1</property>
                                   <property name="LeftDockable">1</property>
@@ -7451,7 +7451,7 @@
                                             <property name="gripper">0</property>
                                             <property name="hidden">0</property>
                                             <property name="id">wxID_ANY</property>
-                                            <property name="label">Operators</property>
+                                            <property name="label">Operator</property>
                                             <property name="markup">0</property>
                                             <property name="max_size"></property>
                                             <property name="maximize_button">0</property>
@@ -8053,7 +8053,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_staticText621</property>
+                    <property name="name">stLoginNameOp1</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8125,7 +8125,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_textCtrl14</property>
+                    <property name="name">tcLoginNikOp1</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8202,7 +8202,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_staticText61</property>
+                    <property name="name">stLoginNameOp2</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8263,7 +8263,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_textCtrl13</property>
+                    <property name="name">tcLoginNikOp2</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8340,7 +8340,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_staticText66</property>
+                    <property name="name">stLoginShift</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8411,7 +8411,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">chHomeShift</property>
+                    <property name="name">chLoginShift</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8500,7 +8500,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">lineMain</property>
+                    <property name="name">stLoginLine</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8571,7 +8571,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">chHomeLine</property>
+                    <property name="name">chLoginLine</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8688,7 +8688,7 @@
         </object>
       </object>
     </object>
-    <object class="Dialog" expanded="true">
+    <object class="Dialog" expanded="false">
       <property name="aui_managed">0</property>
       <property name="aui_manager_style">wxAUI_MGR_DEFAULT</property>
       <property name="bg"></property>
@@ -8874,7 +8874,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_staticText621</property>
+                    <property name="name">stRegistNik</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -8946,7 +8946,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_textCtrl14</property>
+                    <property name="name">tcRegistNik</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -9023,7 +9023,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_staticText61</property>
+                    <property name="name">stRegistName</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>
@@ -9084,7 +9084,7 @@
                     <property name="minimize_button">0</property>
                     <property name="minimum_size"></property>
                     <property name="moveable">1</property>
-                    <property name="name">m_textCtrl13</property>
+                    <property name="name">tcRegistName</property>
                     <property name="pane_border">1</property>
                     <property name="pane_position"></property>
                     <property name="pane_size"></property>

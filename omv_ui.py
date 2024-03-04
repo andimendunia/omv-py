@@ -66,10 +66,10 @@ class frMain ( wx.Frame ):
 
 		bSizer76124.Add( self.stHomeOp2, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
-		self.m_staticText634 = wx.StaticText( self.panHome, wx.ID_ANY, u"UCI", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText634.Wrap( -1 )
+		self.stHomeOp2 = wx.StaticText( self.panHome, wx.ID_ANY, u"UCI", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stHomeOp2.Wrap( -1 )
 
-		bSizer76124.Add( self.m_staticText634, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+		bSizer76124.Add( self.stHomeOp2, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
 
 		bSizer83.Add( bSizer76124, 0, wx.ALL|wx.EXPAND, 5 )
@@ -81,10 +81,10 @@ class frMain ( wx.Frame ):
 
 		bSizer76121.Add( self.stHomeShift, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
-		self.m_staticText631 = wx.StaticText( self.panHome, wx.ID_ANY, u"1", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText631.Wrap( -1 )
+		self.stHomeShift = wx.StaticText( self.panHome, wx.ID_ANY, u"1", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stHomeShift.Wrap( -1 )
 
-		bSizer76121.Add( self.m_staticText631, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+		bSizer76121.Add( self.stHomeShift, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
 
 		bSizer83.Add( bSizer76121, 0, wx.ALL|wx.EXPAND, 5 )
@@ -101,10 +101,10 @@ class frMain ( wx.Frame ):
 
 		bSizer76123.Add( self.stHomeLine, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
-		self.m_staticText633 = wx.StaticText( self.panHome, wx.ID_ANY, u"7", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText633.Wrap( -1 )
+		self.stHomeLine = wx.StaticText( self.panHome, wx.ID_ANY, u"7", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stHomeLine.Wrap( -1 )
 
-		bSizer76123.Add( self.m_staticText633, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+		bSizer76123.Add( self.stHomeLine, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
 
 		bSizer83.Add( bSizer76123, 0, wx.ALL|wx.EXPAND, 5 )
@@ -559,7 +559,7 @@ class frMain ( wx.Frame ):
 		self.panHome.SetSizer( bSizer162 )
 		self.panHome.Layout()
 		bSizer162.Fit( self.panHome )
-		self.nbMain.AddPage( self.panHome, u"Beranda", False )
+		self.nbMain.AddPage( self.panHome, u"Beranda", True )
 		self.panRecords = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panRecords.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -805,7 +805,7 @@ class frMain ( wx.Frame ):
 
 		bSizer572 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText83 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Time tolerance", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText83 = wx.StaticText( sbSizer11.GetStaticBox(), wx.ID_ANY, u"Toleransi Waktu", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText83.Wrap( -1 )
 
 		bSizer572.Add( self.m_staticText83, 0, wx.ALL, 5 )
@@ -900,13 +900,13 @@ class frMain ( wx.Frame ):
 		self.panSetRecipes.SetSizer( bSizer119 )
 		self.panSetRecipes.Layout()
 		bSizer119.Fit( self.panSetRecipes )
-		self.m_listbook1.AddPage( self.panSetRecipes, u"Warna", False )
+		self.m_listbook1.AddPage( self.panSetRecipes, u"Warna", True )
 		self.panSetOperators = wx.Panel( self.m_listbook1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		bSizer582 = wx.BoxSizer( wx.VERTICAL )
 
 		bSizer1171 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText751 = wx.StaticText( self.panSetOperators, wx.ID_ANY, u"Operators", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.m_staticText751 = wx.StaticText( self.panSetOperators, wx.ID_ANY, u"Operator", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.m_staticText751.Wrap( -1 )
 
 		bSizer1171.Add( self.m_staticText751, 0, wx.ALL, 5 )
@@ -950,7 +950,7 @@ class frMain ( wx.Frame ):
 		self.panSetOperators.SetSizer( bSizer582 )
 		self.panSetOperators.Layout()
 		bSizer582.Fit( self.panSetOperators )
-		self.m_listbook1.AddPage( self.panSetOperators, u"Operator", True )
+		self.m_listbook1.AddPage( self.panSetOperators, u"Operator", False )
 
 		bSizer991.Add( self.m_listbook1, 1, wx.EXPAND |wx.ALL, 5 )
 
@@ -958,7 +958,7 @@ class frMain ( wx.Frame ):
 		self.panTimeTolerance.SetSizer( bSizer991 )
 		self.panTimeTolerance.Layout()
 		bSizer991.Fit( self.panTimeTolerance )
-		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", True )
+		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", False )
 
 		bSizer36.Add( self.nbMain, 1, wx.ALL|wx.EXPAND, 10 )
 
@@ -1141,49 +1141,49 @@ class dgLogin ( wx.Dialog ):
 
 		bSizer116 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText621 = wx.StaticText( self, wx.ID_ANY, u"ICA", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText621.Wrap( -1 )
+		self.stLoginNameOp1 = wx.StaticText( self, wx.ID_ANY, u"ICA", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stLoginNameOp1.Wrap( -1 )
 
-		bSizer116.Add( self.m_staticText621, 0, wx.ALL, 5 )
+		bSizer116.Add( self.stLoginNameOp1, 0, wx.ALL, 5 )
 
 
 		bSizer74.Add( bSizer116, 0, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer114 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_textCtrl14 = wx.TextCtrl( self, wx.ID_ANY, u"TT1234567", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer114.Add( self.m_textCtrl14, 0, wx.ALL|wx.EXPAND, 5 )
+		self.tcLoginNikOp1 = wx.TextCtrl( self, wx.ID_ANY, u"TT1234567", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer114.Add( self.tcLoginNikOp1, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer74.Add( bSizer114, 0, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer115 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText61 = wx.StaticText( self, wx.ID_ANY, u"UCI", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText61.Wrap( -1 )
+		self.stLoginNameOp2 = wx.StaticText( self, wx.ID_ANY, u"UCI", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stLoginNameOp2.Wrap( -1 )
 
-		bSizer115.Add( self.m_staticText61, 0, wx.ALL, 5 )
+		bSizer115.Add( self.stLoginNameOp2, 0, wx.ALL, 5 )
 
-		self.m_textCtrl13 = wx.TextCtrl( self, wx.ID_ANY, u"TT1111000", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer115.Add( self.m_textCtrl13, 0, wx.ALL|wx.EXPAND, 5 )
+		self.tcLoginNikOp2 = wx.TextCtrl( self, wx.ID_ANY, u"TT1111000", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer115.Add( self.tcLoginNikOp2, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer74.Add( bSizer115, 0, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer761 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText66 = wx.StaticText( self, wx.ID_ANY, u"Shift", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText66.Wrap( -1 )
+		self.stLoginShift = wx.StaticText( self, wx.ID_ANY, u"Shift", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stLoginShift.Wrap( -1 )
 
-		bSizer761.Add( self.m_staticText66, 0, wx.ALL, 5 )
+		bSizer761.Add( self.stLoginShift, 0, wx.ALL, 5 )
 
 
 		bSizer761.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		chHomeShiftChoices = [ wx.EmptyString, u"1", u"2", u"3", u"Saturday" ]
-		self.chHomeShift = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 80,-1 ), chHomeShiftChoices, 0 )
-		self.chHomeShift.SetSelection( 0 )
-		bSizer761.Add( self.chHomeShift, 0, wx.ALL|wx.EXPAND, 5 )
+		chLoginShiftChoices = [ wx.EmptyString, u"1", u"2", u"3", u"Saturday" ]
+		self.chLoginShift = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 80,-1 ), chLoginShiftChoices, 0 )
+		self.chLoginShift.SetSelection( 0 )
+		bSizer761.Add( self.chLoginShift, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer74.Add( bSizer761, 0, wx.ALL|wx.EXPAND, 5 )
@@ -1195,18 +1195,18 @@ class dgLogin ( wx.Dialog ):
 
 		bSizer3 = wx.BoxSizer( wx.VERTICAL )
 
-		self.lineMain = wx.StaticText( self, wx.ID_ANY, u"Line", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.lineMain.Wrap( -1 )
+		self.stLoginLine = wx.StaticText( self, wx.ID_ANY, u"Line", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stLoginLine.Wrap( -1 )
 
-		bSizer3.Add( self.lineMain, 0, wx.ALL, 5 )
+		bSizer3.Add( self.stLoginLine, 0, wx.ALL, 5 )
 
 
 		bSizer3.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-		chHomeLineChoices = [ u" ", u"1", u"2", u"3", u"4", u"5", u"6", u"7", u"8", u"9" ]
-		self.chHomeLine = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 80,-1 ), chHomeLineChoices, 0 )
-		self.chHomeLine.SetSelection( 0 )
-		bSizer3.Add( self.chHomeLine, 0, wx.ALL|wx.EXPAND, 5 )
+		chLoginLineChoices = [ u" ", u"1", u"2", u"3", u"4", u"5", u"6", u"7", u"8", u"9" ]
+		self.chLoginLine = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 80,-1 ), chLoginLineChoices, 0 )
+		self.chLoginLine.SetSelection( 0 )
+		bSizer3.Add( self.chLoginLine, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer74.Add( bSizer3, 0, wx.ALL|wx.EXPAND, 5 )
@@ -1229,8 +1229,8 @@ class dgLogin ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
-		self.chHomeShift.Bind( wx.EVT_CHOICE, self.chHomeShiftOnChoice )
-		self.chHomeLine.Bind( wx.EVT_CHOICE, self.chHomeLineOnChoice )
+		self.chLoginShift.Bind( wx.EVT_CHOICE, self.chHomeShiftOnChoice )
+		self.chLoginLine.Bind( wx.EVT_CHOICE, self.chHomeLineOnChoice )
 		self.btnDgLoginMasuk.Bind( wx.EVT_BUTTON, self.btnDgLoginMasukOnButtonClick )
 
 	def __del__( self ):
@@ -1281,31 +1281,31 @@ class dgRegister ( wx.Dialog ):
 
 		bSizer116 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText621 = wx.StaticText( self, wx.ID_ANY, u"NIK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText621.Wrap( -1 )
+		self.stRegistNik = wx.StaticText( self, wx.ID_ANY, u"NIK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stRegistNik.Wrap( -1 )
 
-		bSizer116.Add( self.m_staticText621, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
+		bSizer116.Add( self.stRegistNik, 0, wx.ALIGN_CENTER_HORIZONTAL|wx.ALL, 5 )
 
 
 		bSizer74.Add( bSizer116, 0, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer114 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_textCtrl14 = wx.TextCtrl( self, wx.ID_ANY, u"TT23232323", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer114.Add( self.m_textCtrl14, 0, wx.ALL|wx.EXPAND, 5 )
+		self.tcRegistNik = wx.TextCtrl( self, wx.ID_ANY, u"TT23232323", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer114.Add( self.tcRegistNik, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer74.Add( bSizer114, 0, wx.ALL|wx.EXPAND, 5 )
 
 		bSizer115 = wx.BoxSizer( wx.VERTICAL )
 
-		self.m_staticText61 = wx.StaticText( self, wx.ID_ANY, u"Nama karyawan", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.m_staticText61.Wrap( -1 )
+		self.stRegistName = wx.StaticText( self, wx.ID_ANY, u"Nama karyawan", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.stRegistName.Wrap( -1 )
 
-		bSizer115.Add( self.m_staticText61, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
+		bSizer115.Add( self.stRegistName, 0, wx.ALIGN_CENTER|wx.ALL, 5 )
 
-		self.m_textCtrl13 = wx.TextCtrl( self, wx.ID_ANY, u"LALA", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer115.Add( self.m_textCtrl13, 0, wx.ALL|wx.EXPAND, 5 )
+		self.tcRegistName = wx.TextCtrl( self, wx.ID_ANY, u"LALA", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer115.Add( self.tcRegistName, 0, wx.ALL|wx.EXPAND, 5 )
 
 
 		bSizer74.Add( bSizer115, 0, wx.ALL|wx.EXPAND, 5 )

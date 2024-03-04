@@ -24,13 +24,14 @@ c.execute(
     shift INTEGER,
     line INTEGER,
     color TEXT,
-    no_batch INTEGER,
+    no_batch TEXT,
+    status_batch TEXT,
     start_time INTEGER,
     finish_time INTEGER,
     total_time INTEGER,
-    validation_1 TEXT,
-    validation_2 TEXT,
-    validation_3 TEXT,
+    validation_1 STRING,
+    validation_2 STRING,
+    validation_3 STRING
 )"""
 )
 
@@ -38,10 +39,10 @@ c.execute(
 c.execute(
     """CREATE TABLE IF NOT EXISTS summary (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    amount_batch TEXT,
-    under STRING,
-    ok STRING,
-    over STRING,
+    amount_batch INTEGER,
+    under CHAR,
+    ok CHAR,
+    over CHAR
 )"""
 )
 
@@ -64,7 +65,7 @@ c.execute(
     """CREATE TABLE IF NOT EXISTS operators (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
     nik INTEGER,
-    name TEXT,
+    name TEXT
 )"""
 )
 
@@ -116,11 +117,11 @@ class frameMain(frMain):
         self.stHomeStdTime3.SetLabel(formatTime(self.time3))
         self.btnHomeFinish.Disable()
         self.btnStart.Disable()
-        self.stHomeOp1.SetLabel("Pilih")
-        self.stHomeOp2.SetLabel("Pilih")
-        self.stHomeLine.SetLabel("-")
+        self.stHomeOp1.SetLabel("-")
+        self.stHomeOp2.SetLabel("-")
         self.stHomeShift.SetLabel("-")
-        self.stHomeTim.SetLabel("-")
+        self.stHomeLine.SetLabel("-")
+        self.stHomeTime1.SetLabel("-")
 
         self.tBatchTsEnd1 = 0
         self.tBatchTsEnd2 = 0
@@ -150,6 +151,29 @@ class frameMain(frMain):
         self.lcRecipes.InsertColumn(5, "Time 3")
         self.lcRecipes.InsertColumn(6, "Description 3", width=200)
         self.lcRecipesUpdate()
+
+        # Inisasi Kolom Records
+        self.lcRecords.InsertColumn(0, "Tanggal")
+        self.lcRecords.InsertColumn(1, "Operator 1")
+        self.lcRecords.InsertColumn(2, "Operator 2")
+        self.lcRecords.InsertColumn(3, "Shift")
+        self.lcRecords.InsertColumn(4, "Line",)
+        self.lcRecords.InsertColumn(5, "Color")
+        self.lcRecords.InsertColumn(6, "No. Batch")
+        self.lcRecords.InsertColumn(7, "Status batch")
+        self.lcRecords.InsertColumn(8, "Waktu mulai")
+        self.lcRecords.InsertColumn(9, "Waktu selesai")
+        self.lcRecords.InsertColumn(10, "Total waktu")
+        self.lcRecords.InsertColumn(11, "Validasi 1")
+        self.lcRecords.InsertColumn(12, "Validasi 2")
+        self.lcRecords.InsertColumn(13, "Validasi 3")
+        self.lcRecordsUpdate()
+
+        # Inisasi Kolom Summary
+        self.lcSum.InsertColumn(0, "Jumlah batch")
+        self.lcSum.InsertColumn(1, "Under")
+        self.lcSum.InsertColumn(2, "Ok")
+        self.lcSum.InsertColumn(3, "Over")
 
         # Insiasi waktu mundur
         self.countdown = 0
@@ -463,57 +487,98 @@ class frameMain(frMain):
 
 
         #### FRAME MAIN: TAB SETTINGS: LIST BOOK: OPERATORS ####
+    
+    # Inisiasi dialog register
+        dialog = dialogRegister(self, opName="")
+    
+    # Ambil semua data operator dari database
+    def getRegister(self):
+        c.execute("SELECT nik, nama")
+        data = c.fetchall()
+        return data
+    
+    # Panggil data dari database operators, dan masukkan ke list control operators
+    def lcOperatorsUpdate(self):
 
-    def btnOpRefreshOnButtonClick(self, event):
-        results = self.getOp()
-
-        # Clear the list control first
+        # Hapus dulu
         self.lcOperators.DeleteAllItems()
 
-        for i, row in enumerate(results):
-            name = row[0]
-            index = self.lcOperators.InsertItem(i, name)
+        # ambil semua resep dari database
+        data = self.getOperators()
 
-    def getOp(self):
-        try:
-            c.execute("SELECT name FROM operators")
-            return c.fetchall()
-        except sqlite3.Error as e:
-            wx.MessageBox(f"Error fetching data: {e}.", "Error", wx.OK | wx.ICON_ERROR)
-            return []
+        # baru update lagi
+        for row_index, row_data in enumerate(data):
+            self.lcOperators.InsertItem(row_index, str(row_data[0]))
+            for col_index, value in enumerate(row_data[0:]):
+                modified_value = (
+                    formatTime(value)
+                    if isinstance(value, int) and col_index in (0, 1, 2)
+                    else value
+                )
+                self.lcOperators.SetItem(row_index, col_index, str(modified_value))
 
-    def btnOpDeleteOnClick(self, event):
-        # Jika ada yang di pilih
-        index = self.lcOperators.GetFirstSelected()
-        if not index == -1:  # Ensure there is at least one selection
-            # Retrieve the text of the selected item(s)
-            name = self.lcOperators.GetItemText(index)
-            self.cfmOpDelete(name)
-        else:
-            wx.MessageBox(
-                f"Please choose an operator name to delete.", "No name selected", wx.OK
-            )
+    # Buka dialog register (Buat baru, atau edit kalau namanya sudah ada)
+    def btnOpBaruOnButtonClick(self, event):
 
-    def cfmOpDelete(self, name):
-        dialog = wx.MessageDialog(
-            self,
-            f"Are you sure you want to delete '{name}'?",
-            "Delete confirmation",
-            style=wx.YES_NO | wx.NO_DEFAULT,
-        )
-        if dialog.ShowModal() == wx.ID_YES:
-            self.delOpName(name)
+        # Inisiasi dialog resep
+        dialog = dialogRegister(self, opName="")
 
-    def delOpName(self, name):
-        try:
-            c.execute("DELETE FROM operators WHERE LOWER(name) = LOWER(?)", (name,))
-            conn.commit()
+        if dialog.ShowModal() == wx.ID_OK:
+            self.lcOperatorsUpdate()
 
-            self.btnOpRefreshOnButtonClick(self)
-            self.cbHomeOpUpdate()
+        dialog.Destroy()
 
-        except sqlite3.Error as e:
-            wx.MessageBox(f"Error deleting item: {e}", "Error", wx.OK | wx.ICON_ERROR)
+
+    # def btnOpRefreshOnButtonClick(self, event):
+    #     results = self.getOp()
+
+    #     # Clear the list control first
+    #     self.lcOperators.DeleteAllItems()
+
+    #     for i, row in enumerate(results):
+    #         name = row[0]
+    #         index = self.lcOperators.InsertItem(i, name)
+
+    # def getOp(self):
+    #     try:
+    #         c.execute("SELECT name FROM operators")
+    #         return c.fetchall()
+    #     except sqlite3.Error as e:
+    #         wx.MessageBox(f"Error fetching data: {e}.", "Error", wx.OK | wx.ICON_ERROR)
+    #         return []
+
+    # def btnOpDeleteOnClick(self, event):
+    #     # Jika ada yang di pilih
+    #     index = self.lcOperators.GetFirstSelected()
+    #     if not index == -1:  # Ensure there is at least one selection
+    #         # Retrieve the text of the selected item(s)
+    #         name = self.lcOperators.GetItemText(index)
+    #         self.cfmOpDelete(name)
+    #     else:
+    #         wx.MessageBox(
+    #             f"Please choose an operator name to delete.", "No name selected", wx.OK
+    #         )
+
+    # def cfmOpDelete(self, name):
+    #     dialog = wx.MessageDialog(
+    #         self,
+    #         f"Are you sure you want to delete '{name}'?",
+    #         "Delete confirmation",
+    #         style=wx.YES_NO | wx.NO_DEFAULT,
+    #     )
+    #     if dialog.ShowModal() == wx.ID_YES:
+    #         self.delOpName(name)
+
+    # def delOpName(self, name):
+    #     try:
+    #         c.execute("DELETE FROM operators WHERE LOWER(name) = LOWER(?)", (name,))
+    #         conn.commit()
+
+    #         self.btnOpRefreshOnButtonClick(self)
+    #         self.cbHomeOpUpdate()
+
+    #     except sqlite3.Error as e:
+    #         wx.MessageBox(f"Error deleting item: {e}", "Error", wx.OK | wx.ICON_ERROR)
 
     # Fungsi button reset
     def btn_resetOnButtonClick(self, event):
@@ -525,7 +590,6 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("", 2)
 
 #### DIALOG COLOR ####
-
 
 class dialogColor(dgColor):
     def __init__(self, parent):
@@ -745,14 +809,123 @@ class dialogRecipes(dgRecipes):
 
 #### DIALOG LOGIN ####
             
-#### DIALOG REGISTER ####
 
+#### DIALOG REGISTER ####
+            
+class dialogRegister(dgRegister):
+    def __init__(self, parent, opName):
+
+        # Insiasi parent class
+        dgRegister.__init__(self, parent)
+
+        # Inisiasi variabel name
+        self.opName = opName
+
+        if opName:
+            print("Dialog register ada terima nama, ambil dari database...")
+            data = self.getOperators(opName)
+            if data:
+                self.tcNik.SetValue(int(data[1]))
+                self.tcOpName.SetValue(str(data[2]))
+                # disable tcNik
+                self.tcNik.Disable()
+
+    def getOperators(self, opName):
+        try:
+            c.execute(f"SELECT * FROM operators WHERE name = '{opName}'")
+            return c.fetchone()
+        except sqlite3.Error as e:
+            wx.MessageBox(f"Error fetching data: {e}.", "Error", wx.OK | wx.ICON_ERROR)
+            return []
+
+    def tcNikUpdate(self, event):
+        self.tcNik.SetLabel(formatTime(self.tcNik.GetValue()))
+
+    def dgRegistSimpanOnButtonClick(self, event):
+        schema = {
+            "nik": {
+                "type": "integer",
+                "required": True,
+                "minlength": 1,
+                "maxlength": 20,
+            },
+            "name": {
+                "type": "string",
+                "required": True,
+                "min": 1,
+                "max": 3599,
+            },
+        }
+        validator = cerberus.Validator(schema)
+        name = str(self.tcOpName.GetValue()).upper()
+        data = {
+            "op_name": name,
+            "nik": self.tcNik.GetValue(),
+            "name": self.tcOpName.GetValue(),
+        }
+        print(data)
+        is_valid = validator.validate(data)
+        if is_valid:
+            # Check if color exists
+            c.execute("SELECT id FROM operators WHERE name = ?", (name,))
+            existing_id = c.fetchone()
+
+            if existing_id:
+
+                # Update nama yang sudah ada di database
+                operators_id = existing_id[0]
+                update_sql = """
+                    UPDATE operators
+                    SET nik = ?, name = ?
+                    WHERE id = ?
+                """
+                c.execute(
+                    update_sql,
+                    (
+                        data["nik"],
+                        data["name"],
+                        operators_id,
+                    ),
+                )
+                wx.MessageBox(
+                    f"Operatos with name '{name}' updated successfully!",
+                    "Operators updated",
+                    wx.OK | wx.ICON_INFORMATION,
+                )
+            else:
+                # Simpan nama operator baru di database
+                insert_sql = """
+                    INSERT INTO operators (nik, name)
+                    VALUES (?, ?)
+                """
+                c.execute(
+                    insert_sql,
+                    (
+                        data["nik"],
+                        data["name"],
+                    ),
+                )
+                wx.MessageBox(
+                    f"Operators with name '{name}' added successfully!",
+                    "Operators added",
+                    wx.OK | wx.ICON_INFORMATION,
+                )
+            conn.commit()
+
+            self.EndModal(wx.ID_OK)
+        else:
+            error_messages = []
+            for field, errors in validator.errors.items():
+                error_messages.append(f"- {field}: {','.join(errors)}")
+
+            error_message = "\n".join(error_messages)
+            wx.MessageBox(error_message, "Data invalid", wx.OK | wx.ICON_EXCLAMATION)
 
 #### MENYALAKAN APLIKASI ####
 
 class MainApp(wx.App):
     def OnInit(self):
-        self.frame = frameMain(None)
+        self.frame = frMain(None)
         self.SetTopWindow(self.frame)
         self.frame.Show(True)
         return True
