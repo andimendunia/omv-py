@@ -167,7 +167,6 @@ class frameMain(frMain):
         self.lcRecords.InsertColumn(11, "Validasi 1")
         self.lcRecords.InsertColumn(12, "Validasi 2")
         self.lcRecords.InsertColumn(13, "Validasi 3")
-        self.lcRecordsUpdate()
 
         # Inisasi Kolom Summary
         self.lcSum.InsertColumn(0, "Jumlah batch")
@@ -248,6 +247,9 @@ class frameMain(frMain):
 
     #### FRAME MAIN: TAB BERANDA ####
 
+     # Kode untuk ganti operator
+    # def btnHomeChangeOnButtonClickk(self, event):
+
     # Kode untuk pilih warna
     def btnHomeColOnClick(self, event):
 
@@ -315,7 +317,6 @@ class frameMain(frMain):
         self.gHome1.SetValue(0)
         self.gHome2.SetValue(0)
         self.gHome3.SetValue(0)
-
         self.timer.Stop()
         self.btnHomeStatusLoad.SetBackgroundColour(
             wx.SystemSettings.GetColour(wx.SYS_COLOUR_MENU)
@@ -330,7 +331,7 @@ class frameMain(frMain):
 
         # Cek jika sambungn ke webcam berhasil
         if not cap.isOpened():
-            raise IOError("Cannot open webcam")
+            raise IOError("Tidak bisa membuka webcam")
 
         # Ambil satu foto / frame
         ret, frame = cap.read()
@@ -441,7 +442,7 @@ class frameMain(frMain):
 
         else:
             wx.MessageBox(
-                f"Please choose a recipe to edit.", "No recipe selected", wx.OK
+                f"Silahkan pilih resep untuk di edit", "Tidak ada resep yang dipilih", wx.OK
             )
 
         # Inisiasi dialog resep
@@ -469,8 +470,8 @@ class frameMain(frMain):
             # Konfirmasi penghapusan
             dialog = wx.MessageDialog(
                 self,
-                "Are you sure you want to delete this recipe?",
-                "Delete",
+                "Anda yakin akan menghapus resep ini?",
+                "Hapus",
                 wx.YES_NO | wx.ICON_QUESTION,
             )
             result = dialog.ShowModal()
@@ -485,6 +486,30 @@ class frameMain(frMain):
                 conn.commit()
                 self.lcRecipes.DeleteItem(index)
 
+    #Fungsi duplicate recipes
+    def btnRecDupOnButtonClick(self, event):
+        # Dapatkan baris yang dipilih
+        index = self.lcRecipes.GetFirstSelected()
+
+        # Jika ada baris yang dipilih
+        if not index == -1:
+
+            # Dapatkan warna berdasarkan index baris yang dipilih
+            colorName = self.lcRecipes.GetItemText(index)
+
+        else:
+            wx.MessageBox(
+                f"Silahkan pilih resep untuk di duplikat", "Tidak ada resep yang dipilih", wx.OK
+            )
+
+        # Inisiasi dialog resep
+        dialog = dialogRecipes(self, colorName=colorName)
+
+        if dialog.ShowModal() == wx.ID_OK:
+            self.lcRecipesUpdate()    
+            pass
+
+        dialog.Destroy()
 
         #### FRAME MAIN: TAB SETTINGS: LIST BOOK: OPERATORS ####
     
@@ -527,58 +552,6 @@ class frameMain(frMain):
             self.lcOperatorsUpdate()
 
         dialog.Destroy()
-
-
-    # def btnOpRefreshOnButtonClick(self, event):
-    #     results = self.getOp()
-
-    #     # Clear the list control first
-    #     self.lcOperators.DeleteAllItems()
-
-    #     for i, row in enumerate(results):
-    #         name = row[0]
-    #         index = self.lcOperators.InsertItem(i, name)
-
-    # def getOp(self):
-    #     try:
-    #         c.execute("SELECT name FROM operators")
-    #         return c.fetchall()
-    #     except sqlite3.Error as e:
-    #         wx.MessageBox(f"Error fetching data: {e}.", "Error", wx.OK | wx.ICON_ERROR)
-    #         return []
-
-    # def btnOpDeleteOnClick(self, event):
-    #     # Jika ada yang di pilih
-    #     index = self.lcOperators.GetFirstSelected()
-    #     if not index == -1:  # Ensure there is at least one selection
-    #         # Retrieve the text of the selected item(s)
-    #         name = self.lcOperators.GetItemText(index)
-    #         self.cfmOpDelete(name)
-    #     else:
-    #         wx.MessageBox(
-    #             f"Please choose an operator name to delete.", "No name selected", wx.OK
-    #         )
-
-    # def cfmOpDelete(self, name):
-    #     dialog = wx.MessageDialog(
-    #         self,
-    #         f"Are you sure you want to delete '{name}'?",
-    #         "Delete confirmation",
-    #         style=wx.YES_NO | wx.NO_DEFAULT,
-    #     )
-    #     if dialog.ShowModal() == wx.ID_YES:
-    #         self.delOpName(name)
-
-    # def delOpName(self, name):
-    #     try:
-    #         c.execute("DELETE FROM operators WHERE LOWER(name) = LOWER(?)", (name,))
-    #         conn.commit()
-
-    #         self.btnOpRefreshOnButtonClick(self)
-    #         self.cbHomeOpUpdate()
-
-    #     except sqlite3.Error as e:
-    #         wx.MessageBox(f"Error deleting item: {e}", "Error", wx.OK | wx.ICON_ERROR)
 
     # Fungsi button reset
     def btn_resetOnButtonClick(self, event):
@@ -808,7 +781,8 @@ class dialogRecipes(dgRecipes):
 
 
 #### DIALOG LOGIN ####
-            
+
+
 
 #### DIALOG REGISTER ####
             
@@ -828,7 +802,7 @@ class dialogRegister(dgRegister):
                 self.tcNik.SetValue(int(data[1]))
                 self.tcOpName.SetValue(str(data[2]))
                 # disable tcNik
-                self.tcNik.Disable()
+                # self.tcNik.Disable()
 
     def getOperators(self, opName):
         try:
@@ -925,7 +899,7 @@ class dialogRegister(dgRegister):
 
 class MainApp(wx.App):
     def OnInit(self):
-        self.frame = frMain(None)
+        self.frame = frameMain(None)
         self.SetTopWindow(self.frame)
         self.frame.Show(True)
         return True

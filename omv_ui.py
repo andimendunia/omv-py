@@ -41,8 +41,8 @@ class frMain ( wx.Frame ):
 
 		bSizer83 = wx.BoxSizer( wx.HORIZONTAL )
 
-		self.m_button23 = wx.Button( self.panHome, wx.ID_ANY, u"Ubah", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer83.Add( self.m_button23, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		self.btnHomeChange = wx.Button( self.panHome, wx.ID_ANY, u"Ubah", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer83.Add( self.btnHomeChange, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 
 		bSizer7612 = wx.BoxSizer( wx.VERTICAL )
 
@@ -559,7 +559,7 @@ class frMain ( wx.Frame ):
 		self.panHome.SetSizer( bSizer162 )
 		self.panHome.Layout()
 		bSizer162.Fit( self.panHome )
-		self.nbMain.AddPage( self.panHome, u"Beranda", True )
+		self.nbMain.AddPage( self.panHome, u"Beranda", False )
 		self.panRecords = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panRecords.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -871,6 +871,9 @@ class frMain ( wx.Frame ):
 		self.btnRecEdit = wx.Button( self.panSetRecipes, wx.ID_ANY, u"Edit", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer651.Add( self.btnRecEdit, 0, wx.ALL, 5 )
 
+		self.btnRecDup = wx.Button( self.panSetRecipes, wx.ID_ANY, u"Duplikat", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer651.Add( self.btnRecDup, 0, wx.ALL, 5 )
+
 		self.btnRecDelete = wx.Button( self.panSetRecipes, wx.ID_ANY, u"Hapus", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer651.Add( self.btnRecDelete, 0, wx.ALL, 5 )
 
@@ -958,7 +961,7 @@ class frMain ( wx.Frame ):
 		self.panTimeTolerance.SetSizer( bSizer991 )
 		self.panTimeTolerance.Layout()
 		bSizer991.Fit( self.panTimeTolerance )
-		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", False )
+		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", True )
 
 		bSizer36.Add( self.nbMain, 1, wx.ALL|wx.EXPAND, 10 )
 
@@ -1005,6 +1008,7 @@ class frMain ( wx.Frame ):
 		self.Centre( wx.BOTH )
 
 		# Connect Events
+		self.btnHomeChange.Bind( wx.EVT_BUTTON, self.btnHomeChangeOnButtonClick )
 		self.btnHomeCol.Bind( wx.EVT_BUTTON, self.btnHomeColOnClick )
 		self.btnStart.Bind( wx.EVT_BUTTON, self.btnStartOnButtonClick )
 		self.btnHomeStatusLoad.Bind( wx.EVT_BUTTON, self.btnHomeStatusLoadOnButtonClick )
@@ -1024,6 +1028,7 @@ class frMain ( wx.Frame ):
 		self.btnGenSave.Bind( wx.EVT_BUTTON, self.btnGenSaveOnButtonClick )
 		self.btnRecCreate.Bind( wx.EVT_BUTTON, self.btnRecCreateOnButtonClick )
 		self.btnRecEdit.Bind( wx.EVT_BUTTON, self.btnRecEditOnButtonClick )
+		self.btnRecDup.Bind( wx.EVT_BUTTON, self.btnRecDupOnButtonClick )
 		self.btnRecDelete.Bind( wx.EVT_BUTTON, self.btnRecDeleteOnButtonClick )
 		self.btnRecRefresh.Bind( wx.EVT_BUTTON, self.btnRecRefreshOnButtonClick )
 		self.btnOpBaru.Bind( wx.EVT_BUTTON, self.btnRecCreateOnButtonClick )
@@ -1036,6 +1041,9 @@ class frMain ( wx.Frame ):
 
 
 	# Virtual event handlers, override them in your derived class
+	def btnHomeChangeOnButtonClick( self, event ):
+		event.Skip()
+
 	def btnHomeColOnClick( self, event ):
 		event.Skip()
 
@@ -1091,6 +1099,9 @@ class frMain ( wx.Frame ):
 		event.Skip()
 
 	def btnRecEditOnButtonClick( self, event ):
+		event.Skip()
+
+	def btnRecDupOnButtonClick( self, event ):
 		event.Skip()
 
 	def btnRecDeleteOnButtonClick( self, event ):
