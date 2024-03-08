@@ -1031,7 +1031,7 @@ class frMain ( wx.Frame ):
 		self.btnRecDup.Bind( wx.EVT_BUTTON, self.btnRecDupOnButtonClick )
 		self.btnRecDelete.Bind( wx.EVT_BUTTON, self.btnRecDeleteOnButtonClick )
 		self.btnRecRefresh.Bind( wx.EVT_BUTTON, self.btnRecRefreshOnButtonClick )
-		self.btnOpBaru.Bind( wx.EVT_BUTTON, self.btnRecCreateOnButtonClick )
+		self.btnOpBaru.Bind( wx.EVT_BUTTON, self.btnOpBaruOnButtonClick )
 		self.btnOpDelete.Bind( wx.EVT_BUTTON, self.btnRecDeleteOnButtonClick )
 		self.btnOpRefresh.Bind( wx.EVT_BUTTON, self.btnOpRefreshOnButtonClick )
 		self.lcOperators.Bind( wx.EVT_LIST_ITEM_SELECTED, self.lcOpOperatorsOnListItemSelected )
@@ -1110,6 +1110,9 @@ class frMain ( wx.Frame ):
 	def btnRecRefreshOnButtonClick( self, event ):
 		event.Skip()
 
+	def btnOpBaruOnButtonClick( self, event ):
+		event.Skip()
+	
 
 
 	def btnOpRefreshOnButtonClick( self, event ):

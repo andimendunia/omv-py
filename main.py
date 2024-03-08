@@ -64,7 +64,7 @@ c.execute(
 c.execute(
     """CREATE TABLE IF NOT EXISTS operators (
     id INTEGER PRIMARY KEY AUTOINCREMENT, 
-    nik INTEGER,
+    nik TEXT,
     name TEXT
 )"""
 )
@@ -157,7 +157,10 @@ class frameMain(frMain):
         self.lcRecords.InsertColumn(1, "Operator 1")
         self.lcRecords.InsertColumn(2, "Operator 2")
         self.lcRecords.InsertColumn(3, "Shift")
-        self.lcRecords.InsertColumn(4, "Line",)
+        self.lcRecords.InsertColumn(
+            4,
+            "Line",
+        )
         self.lcRecords.InsertColumn(5, "Color")
         self.lcRecords.InsertColumn(6, "No. Batch")
         self.lcRecords.InsertColumn(7, "Status batch")
@@ -208,7 +211,7 @@ class frameMain(frMain):
                 self.gHome1.SetValue(elapsed)
                 # elapsed time
                 self.countdown += 1
-                self.stHomeElapsed.SetLabel(formatTime(self.countdown))    
+                self.stHomeElapsed.SetLabel(formatTime(self.countdown))
 
             elif nowTs < self.tBatchTsEnd2:
                 print("Step 2")
@@ -231,15 +234,15 @@ class frameMain(frMain):
                 # elapsed time
                 self.countdown += 1
                 self.stHomeElapsed.SetLabel(formatTime(self.countdown))
-                self.stHomeLatestBatch.SetLabel("LESS")
-            
+                self.stHomeLatestBatch.SetLabel("UNDER")
+
             else:
                 if self.tBatchTsEnd3 == self.remain:
                     self.stHomeLatestBatch.SetLabel("OK")
                 else:
                     self.stHomeLatestBatch.SetLabel("OVER")
                 # Buat minus step 3
-                self.remain -= 1 
+                self.remain -= 1
                 self.stHomeTime3.SetLabel(formatTime(self.remain))
                 # Buat elapsed setelah step 3
                 self.countdown += 1
@@ -247,8 +250,11 @@ class frameMain(frMain):
 
     #### FRAME MAIN: TAB BERANDA ####
 
-     # Kode untuk ganti operator
-    # def btnHomeChangeOnButtonClickk(self, event):
+    # Kode untuk ganti operator
+    def btnHomeChangeOnButtonClick(self, event):
+        dialog = dialogRegister(self, event)
+        if dialog.ShowModal() == wx.ID_OK:
+            dialog.Destroy()
 
     # Kode untuk pilih warna
     def btnHomeColOnClick(self, event):
@@ -280,12 +286,12 @@ class frameMain(frMain):
             self.stHomeStdTime2.SetLabel(formatTime(self.time2))
             self.stHomeStdTime3.SetLabel(formatTime(self.time3))
             self.btnStart.Enable()
-        dialog.Destroy()        
+        dialog.Destroy()
 
     # Start manual proses batch (harusnya pake sensor arduino)
     def btnStartOnButtonClick(self, event):
         self.btnHomeStatusLoad.SetBackgroundColour(wx.GREEN)
-        
+
         self.countdown = 0
         self.stHomeTime1.SetLabel(formatTime(self.time1))
         self.stHomeTime2.SetLabel(formatTime(self.time2))
@@ -312,8 +318,9 @@ class frameMain(frMain):
 
     # Fungsi button selesai (finish)
     def btnHomeFinishOnButtonClick(self, event):
-        self.tBatchTsEnd3 = 0
-        wx.MessageBox(f"Process Finished", "Final Step", wx.OK)
+        wx.MessageBox(
+            f"Process {self.stHomeLatestBatch.GetLabelText()}", "Final Step", wx.OK
+        )
         self.gHome1.SetValue(0)
         self.gHome2.SetValue(0)
         self.gHome3.SetValue(0)
@@ -360,14 +367,13 @@ class frameMain(frMain):
     #### FRAME MAIN: TAB SETTINGS ####
 
     #### FRAME MAIN: TAB SETTINGS: LIST BOOK: GENERAL ####
-    
+
     # Fungsi Button Connect/Disconnect
     def btnHomeConnectOnButtonClick(self, event):
         if self.btnHomeConnect.GetLabel() == "Connect":
             self.btnHomeConnect.SetLabel("Disconnect")
         else:
             self.btnHomeConnect.SetLabel("Connect")
-
 
     #### FRAME MAIN: TAB SETTINGS: LIST BOOK: RECIPES ####
 
@@ -442,7 +448,9 @@ class frameMain(frMain):
 
         else:
             wx.MessageBox(
-                f"Silahkan pilih resep untuk di edit", "Tidak ada resep yang dipilih", wx.OK
+                f"Silahkan pilih resep untuk di edit",
+                "Tidak ada resep yang dipilih",
+                wx.OK,
             )
 
         # Inisiasi dialog resep
@@ -486,7 +494,7 @@ class frameMain(frMain):
                 conn.commit()
                 self.lcRecipes.DeleteItem(index)
 
-    #Fungsi duplicate recipes
+    # Fungsi duplicate recipes
     def btnRecDupOnButtonClick(self, event):
         # Dapatkan baris yang dipilih
         index = self.lcRecipes.GetFirstSelected()
@@ -499,29 +507,28 @@ class frameMain(frMain):
 
         else:
             wx.MessageBox(
-                f"Silahkan pilih resep untuk di duplikat", "Tidak ada resep yang dipilih", wx.OK
+                f"Silahkan pilih resep untuk di duplikat",
+                "Tidak ada resep yang dipilih",
+                wx.OK,
             )
 
         # Inisiasi dialog resep
         dialog = dialogRecipes(self, colorName=colorName)
 
         if dialog.ShowModal() == wx.ID_OK:
-            self.lcRecipesUpdate()    
+            self.lcRecipesUpdate()
             pass
 
         dialog.Destroy()
 
-        #### FRAME MAIN: TAB SETTINGS: LIST BOOK: OPERATORS ####
-    
-    # Inisiasi dialog register
-        dialog = dialogRegister(self, opName="")
-    
+    #### FRAME MAIN: TAB SETTINGS: LIST BOOK: OPERATORS ####
+
     # Ambil semua data operator dari database
     def getRegister(self):
-        c.execute("SELECT nik, nama")
+        c.execute("SELECT * FROM operators")
         data = c.fetchall()
         return data
-    
+
     # Panggil data dari database operators, dan masukkan ke list control operators
     def lcOperatorsUpdate(self):
 
@@ -529,18 +536,15 @@ class frameMain(frMain):
         self.lcOperators.DeleteAllItems()
 
         # ambil semua resep dari database
-        data = self.getOperators()
+        data = self.getRegister()
+        print(data)
 
         # baru update lagi
-        for row_index, row_data in enumerate(data):
-            self.lcOperators.InsertItem(row_index, str(row_data[0]))
-            for col_index, value in enumerate(row_data[0:]):
-                modified_value = (
-                    formatTime(value)
-                    if isinstance(value, int) and col_index in (0, 1, 2)
-                    else value
-                )
-                self.lcOperators.SetItem(row_index, col_index, str(modified_value))
+        for row in data:
+            index = self.lcOperators.GetItemCount()
+            self.lcOperators.InsertItem(index, row)
+            for i in range(1, len(row)):
+                self.lcOperators.SetStringItem(index, i, str(row[i]))
 
     # Buka dialog register (Buat baru, atau edit kalau namanya sudah ada)
     def btnOpBaruOnButtonClick(self, event):
@@ -553,6 +557,9 @@ class frameMain(frMain):
 
         dialog.Destroy()
 
+    def btnOpRefreshOnButtonClick(self, event):
+        self.lcOperatorsUpdate()
+
     # Fungsi button reset
     def btn_resetOnButtonClick(self, event):
         self.choicePort.SetLabel("")
@@ -562,7 +569,9 @@ class frameMain(frMain):
         self.sbMain.SetStatusText("", 1)
         self.sbMain.SetStatusText("", 2)
 
+
 #### DIALOG COLOR ####
+
 
 class dialogColor(dgColor):
     def __init__(self, parent):
@@ -606,7 +615,7 @@ class dialogColor(dgColor):
     def GetColorChoice(self):
         index = self.lcColor.GetFirstSelected()
         return self.lcColor.GetItemText(index)
-        
+
     def GetDataColor(self):
         index = self.lcColor.GetFirstSelected()
         color = self.lcColor.GetItemText(index)
@@ -615,6 +624,7 @@ class dialogColor(dgColor):
 
 
 #### DIALOG RECIPES ####
+
 
 class dialogRecipes(dgRecipes):
     def __init__(self, parent, colorName):
@@ -783,9 +793,9 @@ class dialogRecipes(dgRecipes):
 #### DIALOG LOGIN ####
 
 
-
 #### DIALOG REGISTER ####
-            
+
+
 class dialogRegister(dgRegister):
     def __init__(self, parent, opName):
 
@@ -794,13 +804,16 @@ class dialogRegister(dgRegister):
 
         # Inisiasi variabel name
         self.opName = opName
+        self.tcRegistNik.SetValue("")
+        self.tcRegistName.SetValue("")
+        self.tcRegistName.SetMaxLength(16)
 
         if opName:
             print("Dialog register ada terima nama, ambil dari database...")
             data = self.getOperators(opName)
             if data:
-                self.tcNik.SetValue(int(data[1]))
-                self.tcOpName.SetValue(str(data[2]))
+                self.tcRegistNik.SetValue(int(data[1]))
+                self.tcRegistName.SetValue(str(data[2]))
                 # disable tcNik
                 # self.tcNik.Disable()
 
@@ -818,7 +831,7 @@ class dialogRegister(dgRegister):
     def dgRegistSimpanOnButtonClick(self, event):
         schema = {
             "nik": {
-                "type": "integer",
+                "type": "string",
                 "required": True,
                 "minlength": 1,
                 "maxlength": 20,
@@ -827,21 +840,22 @@ class dialogRegister(dgRegister):
                 "type": "string",
                 "required": True,
                 "min": 1,
-                "max": 3599,
+                "max": 255,
             },
         }
         validator = cerberus.Validator(schema)
-        name = str(self.tcOpName.GetValue()).upper()
+        name = str(self.tcRegistName.GetValue()).upper()
         data = {
-            "op_name": name,
-            "nik": self.tcNik.GetValue(),
-            "name": self.tcOpName.GetValue(),
+            "name": name,
+            "nik": self.tcRegistNik.GetValue(),
         }
         print(data)
         is_valid = validator.validate(data)
         if is_valid:
-            # Check if color exists
-            c.execute("SELECT id FROM operators WHERE name = ?", (name,))
+            # Check if op exists
+            c.execute(
+                "SELECT id FROM operators WHERE nik = ?", (self.tcRegistNik.GetValue(),)
+            )
             existing_id = c.fetchone()
 
             if existing_id:
@@ -895,7 +909,9 @@ class dialogRegister(dgRegister):
             error_message = "\n".join(error_messages)
             wx.MessageBox(error_message, "Data invalid", wx.OK | wx.ICON_EXCLAMATION)
 
+
 #### MENYALAKAN APLIKASI ####
+
 
 class MainApp(wx.App):
     def OnInit(self):
