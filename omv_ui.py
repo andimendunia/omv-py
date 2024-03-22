@@ -1031,7 +1031,7 @@ class frMain ( wx.Frame ):
 		self.btnRecDup.Bind( wx.EVT_BUTTON, self.btnRecDupOnButtonClick )
 		self.btnRecDelete.Bind( wx.EVT_BUTTON, self.btnRecDeleteOnButtonClick )
 		self.btnRecRefresh.Bind( wx.EVT_BUTTON, self.btnRecRefreshOnButtonClick )
-		self.btnOpBaru.Bind( wx.EVT_BUTTON, self.btnOpBaruOnButtonClick )
+		self.btnOpBaru.Bind( wx.EVT_BUTTON, self.btnRecCreateOnButtonClick )
 		self.btnOpDelete.Bind( wx.EVT_BUTTON, self.btnRecDeleteOnButtonClick )
 		self.btnOpRefresh.Bind( wx.EVT_BUTTON, self.btnOpRefreshOnButtonClick )
 		self.lcOperators.Bind( wx.EVT_LIST_ITEM_SELECTED, self.lcOpOperatorsOnListItemSelected )
@@ -1110,9 +1110,6 @@ class frMain ( wx.Frame ):
 	def btnRecRefreshOnButtonClick( self, event ):
 		event.Skip()
 
-	def btnOpBaruOnButtonClick( self, event ):
-		event.Skip()
-	
 
 
 	def btnOpRefreshOnButtonClick( self, event ):
@@ -1228,7 +1225,13 @@ class dgLogin ( wx.Dialog ):
 
 		bSizer72.Add( bSizer74, 3, wx.ALL|wx.EXPAND, 5 )
 
-		bSizer77 = wx.BoxSizer( wx.VERTICAL )
+		bSizer77 = wx.BoxSizer( wx.HORIZONTAL )
+
+		self.btnDgRegister = wx.Button( self, wx.ID_ANY, u"Daftar", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer77.Add( self.btnDgRegister, 0, wx.ALL, 5 )
+
+
+		bSizer77.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
 		self.btnDgLoginMasuk = wx.Button( self, wx.ID_ANY, u"Masuk", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer77.Add( self.btnDgLoginMasuk, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
@@ -1245,6 +1248,7 @@ class dgLogin ( wx.Dialog ):
 		# Connect Events
 		self.chLoginShift.Bind( wx.EVT_CHOICE, self.chHomeShiftOnChoice )
 		self.chLoginLine.Bind( wx.EVT_CHOICE, self.chHomeLineOnChoice )
+		self.btnDgRegister.Bind( wx.EVT_BUTTON, self.btnDgLoginMasukOnButtonClick )
 		self.btnDgLoginMasuk.Bind( wx.EVT_BUTTON, self.btnDgLoginMasukOnButtonClick )
 
 	def __del__( self ):
@@ -1260,6 +1264,7 @@ class dgLogin ( wx.Dialog ):
 
 	def btnDgLoginMasukOnButtonClick( self, event ):
 		event.Skip()
+
 
 
 ###########################################################################

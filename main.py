@@ -122,6 +122,8 @@ class frameMain(frMain):
         self.stHomeShift.SetLabel("-")
         self.stHomeLine.SetLabel("-")
         self.stHomeTime1.SetLabel("-")
+        self.stHomeTime2.SetLabel("-")
+        self.stHomeTime3.SetLabel("-")
 
         self.tBatchTsEnd1 = 0
         self.tBatchTsEnd2 = 0
@@ -359,6 +361,66 @@ class frameMain(frMain):
 
         # Release the VideoCapture object
         cap.release()
+
+
+    def btnHomeCam2OnButtonClick(self, event):
+
+            # Inisiasi webcam, jangan lupa kamera nomor berapa 0 kamera utama, 1 kamera kedua, 2 kamera ketiga etc...
+            cap = cv2.VideoCapture(0)
+
+            # Cek jika sambungn ke webcam berhasil
+            if not cap.isOpened():
+                raise IOError("Tidak bisa membuka webcam")
+
+            # Ambil satu foto / frame
+            ret, frame = cap.read()
+
+            if ret:
+                # Tentukan nama foto berdasarkan tanggal dan waktu
+                namaFoto = datetime.now().strftime("%Y%m%d-%H%M%S")
+
+                # Cek apabila ada folder photos
+                os.makedirs("photos", exist_ok=True)
+
+                # Simpan foto yang ditangkap dalam format JPG
+                cv2.imwrite(f"photos/{namaFoto}.jpg", frame)
+                print("Photo captured and saved successfully.")
+
+            else:
+                wx.MessageBox("Failed to capture photo.", "Error", wx.OK | wx.ICON_ERROR)
+
+            # Release the VideoCapture object
+            cap.release()
+
+    def btnHomeCam3OnButtonClick(self, event):
+
+        # Inisiasi webcam, jangan lupa kamera nomor berapa 0 kamera utama, 1 kamera kedua, 2 kamera ketiga etc...
+        cap = cv2.VideoCapture(0)
+
+        # Cek jika sambungn ke webcam berhasil
+        if not cap.isOpened():
+            raise IOError("Tidak bisa membuka webcam")
+
+        # Ambil satu foto / frame
+        ret, frame = cap.read()
+
+        if ret:
+            # Tentukan nama foto berdasarkan tanggal dan waktu
+            namaFoto = datetime.now().strftime("%Y%m%d-%H%M%S")
+
+            # Cek apabila ada folder photos
+            os.makedirs("photos", exist_ok=True)
+
+            # Simpan foto yang ditangkap dalam format JPG
+            cv2.imwrite(f"photos/{namaFoto}.jpg", frame)
+            print("Photo captured and saved successfully.")
+
+        else:
+            wx.MessageBox("Failed to capture photo.", "Error", wx.OK | wx.ICON_ERROR)
+
+        # Release the VideoCapture object
+        cap.release()
+
 
     #### FRAME MAIN: TAB RECORDS ####
 
