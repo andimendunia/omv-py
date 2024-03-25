@@ -559,7 +559,7 @@ class frMain ( wx.Frame ):
 		self.panHome.SetSizer( bSizer162 )
 		self.panHome.Layout()
 		bSizer162.Fit( self.panHome )
-		self.nbMain.AddPage( self.panHome, u"Beranda", False )
+		self.nbMain.AddPage( self.panHome, u"Beranda", True )
 		self.panRecords = wx.Panel( self.nbMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.panRecords.SetBackgroundColour( wx.Colour( 249, 249, 249 ) )
 
@@ -961,7 +961,7 @@ class frMain ( wx.Frame ):
 		self.panTimeTolerance.SetSizer( bSizer991 )
 		self.panTimeTolerance.Layout()
 		bSizer991.Fit( self.panTimeTolerance )
-		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", True )
+		self.nbMain.AddPage( self.panTimeTolerance, u"Pengaturan", False )
 
 		bSizer36.Add( self.nbMain, 1, wx.ALL|wx.EXPAND, 10 )
 
