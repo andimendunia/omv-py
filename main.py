@@ -371,7 +371,7 @@ class frameMain(frMain):
     def btnHomeCam2OnButtonClick(self, event):
 
             # Inisiasi webcam, jangan lupa kamera nomor berapa 0 kamera utama, 1 kamera kedua, 2 kamera ketiga etc...
-            cap = cv2.VideoCapture(0)
+            cap = cv2.VideoCapture(1)
 
             # Cek jika sambungn ke webcam berhasil
             if not cap.isOpened():
@@ -400,7 +400,7 @@ class frameMain(frMain):
     def btnHomeCam3OnButtonClick(self, event):
 
         # Inisiasi webcam, jangan lupa kamera nomor berapa 0 kamera utama, 1 kamera kedua, 2 kamera ketiga etc...
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(2)
 
         # Cek jika sambungn ke webcam berhasil
         if not cap.isOpened():
@@ -431,9 +431,7 @@ class frameMain(frMain):
 
     #### FRAME MAIN: TAB SUMMARY ####
 
-    #### FRAME MAIN: TAB SETTINGS ####
-
-    #### FRAME MAIN: TAB SETTINGS: LIST BOOK: GENERAL ####
+    #### FRAME MAIN: TAB SETTINGS ####: GENERAL ####
 
     # Fungsi Button Connect/Disconnect
     def btnHomeConnectOnButtonClick(self, event):
